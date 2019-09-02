@@ -1,0 +1,16 @@
+@import '../../styles/colors.scss';
+@import '../../styles/fonts.scss';
+
+.home {
+  div {
+    font-family: $mainFontStyle;
+    font-size: 4em;
+    margin: 50px auto;
+    text-align: center;
+  }
+
+  .happy {
+    font-size: 5em;
+    transform: rotate(90deg);
+  }
+}
