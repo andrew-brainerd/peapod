@@ -9,7 +9,7 @@ import {
   TRAVEL_ROUTE,
   DEVELOPMENT_ROUTE
 } from '../../constants/routes';
-import Home from '../Home/Home';
+import Home from '../Home/container';
 import Entertainment from '../Entertainment/Entertainment';
 import Food from '../Food/Food';
 import Travel from '../Travel/Travel';
@@ -29,7 +29,7 @@ const App = ({ history }) => (
             <Route path={FOOD_ROUTE} component={Food} />
             <Route path={TRAVEL_ROUTE} component={Travel} />
             <Route path={DEVELOPMENT_ROUTE} component={Development} />
-            {/* <Route path='*' component={NotFound} /> */}
+            {/* <Route path='*' component={Home} /> */}
           </Switch>
         </div>
         <Footer />

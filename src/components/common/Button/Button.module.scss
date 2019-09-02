@@ -1,0 +1,25 @@
+@import '../../../styles/colors.scss';
+
+.button {
+  background: $primaryColor;
+  border: 1px solid $accentColor;
+  box-shadow: $simpleShadow;
+  color: $accentColor;
+  cursor: pointer;
+  font-size: 0.9em;
+  min-width: 150px;
+  padding: 5px 10px;
+  text-align: center;
+  transition: 0.5s all;
+  user-select: none;
+
+  &:hover:not(.disabled) {
+    background: $accentColor;
+    color: $primaryColor;
+  }
+}
+
+.disabled {
+  cursor: default;
+  opacity: 0.8;
+}

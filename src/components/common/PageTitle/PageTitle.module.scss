@@ -1,0 +1,23 @@
+@import '../../../constants/colors.scss';
+@import '../../../constants/sizing.scss';
+
+.title {
+  cursor: default;
+  display: inline-block;
+  margin: 25px 15px 25px 20px;
+}
+
+.subtitle {
+  color: $blue1;
+  cursor: default;
+  display: inline-block;
+  font-size: 0.7em;
+  vertical-align: baseline;
+  margin-top: 38px;
+}
+
+@media screen and (max-width: $mobileWidth) {
+  .subtitle {
+    display: none;
+  }
+}
