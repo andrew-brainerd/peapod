@@ -1,0 +1,40 @@
+@import '../../../styles/colors.scss';
+
+.header {
+  background: $secondaryColor;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.headerContent {
+  padding: 0 20px;
+
+  .appVersion {
+    font-size: 10px;
+    position: absolute;
+    right: 5px;
+    top: 1px;
+  }
+}
+
+.headerTitle {
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Chilanka', sans-serif;
+  font-size: 2em;
+  margin-left: 20px;
+  margin-bottom: 5px;
+  animation: fadeIn 2s;
+  -webkit-animation: fadeIn 2s;
+  transition: 0.5s all;
+}
+
+.logo {
+  width: 70px;
+  pointer-events: none;
+  position: relative;
+  left: 5px;
+  top: 10px;
+  animation: fadeIn 2s;
+  -webkit-animation: fadeIn 2s;
+}
