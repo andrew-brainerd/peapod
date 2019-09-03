@@ -4,12 +4,14 @@ import { Route, Switch } from 'react-router-dom';
 import Header from '../common/Header/container';
 import {
   HOME_ROUTE,
+  MENU_ROUTE,
   ENTERTAINMENT_ROUTE,
   FOOD_ROUTE,
   TRAVEL_ROUTE,
   DEVELOPMENT_ROUTE
 } from '../../constants/routes';
 import Home from '../Home/container';
+import Menu from '../Menu/Menu';
 import Entertainment from '../Entertainment/Entertainment';
 import Food from '../Food/Food';
 import Travel from '../Travel/Travel';
@@ -25,6 +27,7 @@ const App = ({ history }) => (
         <div className={styles.content}>
           <Switch>
             <Route path={HOME_ROUTE} exact component={Home} />
+            <Route path={MENU_ROUTE} exact component={Menu} />
             <Route path={ENTERTAINMENT_ROUTE} component={Entertainment} />
             <Route path={FOOD_ROUTE} component={Food} />
             <Route path={TRAVEL_ROUTE} component={Travel} />
