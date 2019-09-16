@@ -3,10 +3,10 @@ import { func } from 'prop-types';
 import Button from '../common/Button/Button';
 import styles from './Administration.module.scss';
 
-const Administration = ({ createUser }) => {
+const Administration = ({ createUser, createUserError, user }) => {
   const [showUserCreation, setUserCreation] = useState(true);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('test');
+  const [password, setPassword] = useState('test');
 
   const createUserStyle = !showUserCreation ? styles.hidden : styles.createUserContainer;
 
@@ -17,7 +17,7 @@ const Administration = ({ createUser }) => {
         <Button
           className={styles.createUserButton}
           onClick={() => setUserCreation(!showUserCreation)}
-          text={'New User'}
+          text={showUserCreation ? 'Cancel' : 'Add New User'}
         />
         <div className={createUserStyle}>
           <input
@@ -37,6 +37,14 @@ const Administration = ({ createUser }) => {
             onClick={() => createUser(email, password)}
             text={'Create'}
           />
+          {(createUserError || user) && (
+            <div className={[
+              styles.responseText,
+              createUserError ? styles.error : styles.success
+            ].join(' ')}>
+              {createUserError || `Created user [${user.email}]`}
+            </div>
+          )}
         </div>
       </div>
     </>

@@ -16,11 +16,25 @@
   input {
     display: block;
     margin: 15px auto;
+    padding: 5px 2px;
   }
 
   .submit {
     margin: 25px auto 5px auto;
     width: 150px;
+  }
+
+  .responseText {
+    margin-top: 20px;
+
+    &.success {
+      color: $successColor;
+      
+    }
+  
+    &.error {
+      color: $errorColor;
+    }
   }
 }
 
