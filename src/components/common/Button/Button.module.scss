@@ -1,7 +1,7 @@
 @import '../../../styles/colors.scss';
 
 .button {
-  background: $primaryColor;
+  background: $buttonBackground;
   border: 1px solid $accentColor;
   box-shadow: $simpleShadow;
   color: $accentColor;
@@ -14,8 +14,7 @@
   user-select: none;
 
   &:hover:not(.disabled) {
-    background: $accentColor;
-    color: $primaryColor;
+    background: $buttonHoverBackground;
   }
 }
 

@@ -1,0 +1,36 @@
+@import '../../styles/colors.scss';
+
+.header {
+  font-size: 2em;
+  margin: 10px auto;
+  text-align: left;
+  width: 90%;
+}
+
+.createUserContainer {
+  border: 1px dashed $secondaryColor;
+  margin: 10px auto;
+  padding: 15px 10px;
+  width: 500px;
+
+  input {
+    display: block;
+    margin: 15px auto;
+  }
+
+  .submit {
+    margin: 25px auto 5px auto;
+    width: 150px;
+  }
+}
+
+.createUserButton {
+  font-size: 1.4em;
+  margin: auto;
+  padding: 15px 0;
+  width: 200px;
+}
+
+.hidden {
+  display: none;
+}
