@@ -1,21 +1,21 @@
 @import '../../../styles/colors.scss';
+@import '../../../styles/mixins.scss';
 
 .button {
+  @include boxShadow();
   background: $primaryColor;
-  border: 1px solid $accentColor;
-  box-shadow: $simpleShadow;
-  color: $accentColor;
+  background: #262626;
+  color: $primaryTextColor;
   cursor: pointer;
   font-size: 0.9em;
-  min-width: 150px;
   padding: 5px 10px;
   text-align: center;
   transition: 0.5s all;
   user-select: none;
+  width: 150px;
 
   &:hover:not(.disabled) {
-    background: $accentColor;
-    color: $primaryColor;
+    background: $primaryColorHover;
   }
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { func } from 'prop-types';
 import logo from '../../img/logo.png';
 import Button from '../common/Button/Button';
-import { MENU_ROUTE } from '../../constants/routes';
+import { POD_SELECTION_ROUTE } from '../../constants/routes';
 import styles from './Home.module.scss';
 
 const Home = ({ navTo }) => (
@@ -15,7 +15,7 @@ const Home = ({ navTo }) => (
       <Button
         className={styles.getStarted}
         text='Get Started'
-        onClick={() => navTo(MENU_ROUTE)}
+        onClick={() => navTo(POD_SELECTION_ROUTE)}
       />
     </div>
   </div>
