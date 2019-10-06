@@ -14,6 +14,7 @@ import Home from '../Home/container';
 import PodSelection from '../Pods/PodSelection/container';
 import { CREATE_POD_ROUTE, JOIN_POD_ROUTE } from '../../constants/routes';
 import CreatePod from '../Pods/PodSelection/CreatePod/container';
+import JoinPod from '../Pods/PodSelection/JoinPod/container';
 import Entertainment from '../Entertainment/Entertainment';
 import Food from '../Food/Food';
 import Travel from '../Travel/Travel';
@@ -31,6 +32,7 @@ const App = ({ history }) => (
             <Route path={HOME_ROUTE} exact component={Home} />
             <Route path={POD_SELECTION_ROUTE} exact component={PodSelection} />
             <Route path={CREATE_POD_ROUTE} exact component={CreatePod} />
+            <Route path={JOIN_POD_ROUTE} exact component={JoinPod} />
             <Route path={ENTERTAINMENT_ROUTE} component={Entertainment} />
             <Route path={FOOD_ROUTE} component={Food} />
             <Route path={TRAVEL_ROUTE} component={Travel} />
@@ -38,7 +40,7 @@ const App = ({ history }) => (
             {/* <Route path='*' component={Home} /> */}
           </Switch>
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </>
     </ConnectedRouter >
   </div>

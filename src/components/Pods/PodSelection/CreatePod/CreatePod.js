@@ -35,7 +35,7 @@ const CreatePod = ({ createPod, createdPodName }) => {
         autoComplete={false}
         onChange={e => setPodName(e.target.value)}
         onKeyPress={({ key }) => {
-          key == 'Enter' && create()
+          key === 'Enter' && create()
         }}
       />
       {inputError && (

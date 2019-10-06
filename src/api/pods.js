@@ -16,3 +16,14 @@ export const createPod = async name => {
 
   return json;
 }
+
+export const getPods = async () => {
+  const response = await fetch(`${PEAPOD_API_URL}/api/pods`, {
+    headers: basicJsonHeader
+  });
+
+  handleResponse(response);
+  const json = await response.json();
+
+  return json;
+}

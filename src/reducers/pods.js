@@ -1,10 +1,14 @@
 import {
   CREATING_POD,
-  POD_CREATED
+  POD_CREATED,
+  LOADING_PODS,
+  PODS_LOADED
 } from '../actions/pods';
 
 const initialState = {
-  isCreatingPod: false
+  isCreatingPod: false,
+  isLoadingPods: false,
+  items: []
 };
 
 export default function pods(state = initialState, action) {
@@ -19,6 +23,17 @@ export default function pods(state = initialState, action) {
         ...state,
         isCreatingPod: false,
         createdPod: action.pod
+      }
+    case LOADING_PODS:
+      return {
+        ...state,
+        isLoadingPods: true
+      }
+    case PODS_LOADED:
+      return {
+        ...state,
+        isLoadingPods: false,
+        ...action.pods
       }
     default:
       return state;
