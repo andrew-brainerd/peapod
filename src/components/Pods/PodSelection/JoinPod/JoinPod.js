@@ -12,7 +12,9 @@ const JoinPod = ({ getPods, pods }) => {
 
   return (
     <div className={styles.joinPod}>
-      {(pods || []).map(({ name }, p) => <Pod key={p} name={name} />)}
+      <div className={styles.podList}>
+        {(pods || []).map(({ name }, p) => <Pod key={p} name={name} />)}
+      </div>
     </div>
   );
 }

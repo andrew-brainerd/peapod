@@ -1,10 +1,14 @@
 import React from 'react';
 import { string } from 'prop-types';
+import Button from '../../common/Button/Button';
 import styles from './Pod.module.scss';
 
 const Pod = ({ name }) => {
   return (
-    <div className={styles.pod}>{name}</div>
+    <Button
+      className={styles.pod}
+      text={name}
+    />
   );
 }
 

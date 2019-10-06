@@ -1,4 +1,9 @@
+@import '../../../styles/mixins.scss';
+
 .pod {
-  margin: 20px auto;
-  width: 175px;
+  border-radius: 7px;
+  font-size: 20px;
+  margin: 20px;
+  padding: 30px 20px;
+  width: 250px;
 }

@@ -3,19 +3,20 @@
 
 .button {
   @include boxShadow();
-  background: $primaryColor;
-  background: #262626;
+  background: $buttonBackground;
   color: $primaryTextColor;
   cursor: pointer;
   font-size: 0.9em;
   padding: 5px 10px;
   text-align: center;
-  transition: 0.5s all;
+  transition: 0.3s all;
   user-select: none;
   width: 150px;
 
   &:hover:not(.disabled) {
-    background: $primaryColorHover;
+    @include boxShadowHover();
+    background: $buttonBackgroundHover;
+    transform: scale(1.1);
   }
 }
 

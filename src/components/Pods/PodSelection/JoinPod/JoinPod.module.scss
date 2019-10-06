@@ -1,3 +1,9 @@
 .joinPod {
-
+  .podList {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin: auto;
+    margin-bottom: 150px;
+  }
 }
