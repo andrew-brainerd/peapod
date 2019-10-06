@@ -3,7 +3,7 @@ import { bool, func, string } from 'prop-types';
 import noop from 'lodash/noop';
 import styles from './Button.module.scss';
 
-const Button = ({ className, disabled, onClick, text }) => (
+const Button = ({ children, className, disabled, onClick, text }) => (
   <div
     className={[
       styles.button,
@@ -12,7 +12,7 @@ const Button = ({ className, disabled, onClick, text }) => (
     ].join(' ')}
     onClick={!disabled ? onClick : noop}
   >
-    {text}
+    {children || text}
   </div>
 );
 
