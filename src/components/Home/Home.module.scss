@@ -32,10 +32,11 @@
     .getStarted {
       background: $secondaryColor;
       border-color: $secondaryColorLight;
-      color: $lightText;
+      color: $primaryTextColor;
       font-size: 2em;
-      padding: 30px 55px;
+      padding: 40px 0px;
       text-align: center;
+      width: 250px;
 
       &:hover {
         background: $secondaryColorLight;
