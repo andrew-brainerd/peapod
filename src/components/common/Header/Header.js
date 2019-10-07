@@ -6,7 +6,7 @@ import { POD_SELECTION_ROUTE } from '../../../constants/routes';
 import logo from '../../../img/logo.png';
 import styles from './Header.module.scss';
 
-const Header = ({ isVisible, navTo, pathname, route }) => isVisible ? (
+const Header = ({ isVisible, navTo }) => isVisible ? (
   <div className={styles.header}>
     <div className={styles.headerContent}>
       <div className={styles.homeLink} onClick={() => navTo(POD_SELECTION_ROUTE)}>

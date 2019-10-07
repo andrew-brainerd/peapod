@@ -19,7 +19,6 @@ import Entertainment from '../Entertainment/Entertainment';
 import Food from '../Food/Food';
 import Travel from '../Travel/Travel';
 import Development from '../Development/Development';
-import Footer from '../common/Footer/container';
 import styles from './App.module.scss';
 
 const App = ({ history }) => (
@@ -40,7 +39,6 @@ const App = ({ history }) => (
             {/* <Route path='*' component={Home} /> */}
           </Switch>
         </div>
-        {/* <Footer /> */}
       </>
     </ConnectedRouter >
   </div>

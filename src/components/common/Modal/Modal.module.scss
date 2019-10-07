@@ -1,0 +1,65 @@
+@import '../../../styles/colors.scss';
+@import '../../../styles/mixins.scss';
+
+.modal {
+  @include boxShadowHover();
+  background: $modalBackground;
+  border: 1px solid $buttonBackground;
+  border-radius: 5px;
+  height: 350px;
+  margin: 50px auto;
+  max-width: 600px;
+  outline: none;
+  position: relative;
+  width: 70%;
+
+  .header {
+    align-items: center;
+    background: $buttonBackground;
+    color: $primaryTextColor;
+    display: flex;
+    height: 30px;
+
+    .headerText {
+      display: inline-block;
+      margin-left: 10px;
+    }
+
+    .closeButton {
+      align-items: center;
+      box-shadow: none;
+      border-top-right-radius: 5px;
+      border-bottom-left-radius: 5px;
+      display: flex;
+      font-size: 16px;
+      height: 30px;
+      opacity: 0.5;
+      position: absolute;
+      right: 0;
+      vertical-align: bottom;
+      width: 30px;
+
+      &:hover {
+        box-shadow: none;
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+
+  .content {
+    height: 90%;
+    margin: 20px;
+  }
+}
+
+.overlay {
+  background-color: none;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
