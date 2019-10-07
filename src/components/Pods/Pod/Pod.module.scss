@@ -1,0 +1,21 @@
+@import '../../../styles/mixins.scss';
+
+.pod {
+  border-radius: 7px;
+  margin: 20px;
+  padding: 30px 20px;
+  text-align: left;
+  width: 350px;
+
+  > div {
+    margin: 10px;
+  }
+
+  .name {
+    font-size: 24px;
+  }
+
+  .numMembers {
+    font-size: 14px;
+  }
+}
