@@ -6,6 +6,7 @@ import PodMembers from '../../PodMembers/PodMembers';
 import Button from '../../../common/Button/Button';
 import styles from './JoinPod.module.scss';
 
+const getId = pod => pod && pod._id;
 const getName = pod => pod && pod.name;
 const getMembers = pod => (pod && pod.members) || [];
 const getNumMembers = pod => !!getMembers(pod) && pod.members.length;
@@ -38,7 +39,6 @@ const JoinPod = ({ getPods, pods, joinPod, leavePod, userName }) => {
         className={styles.joinPodModal}
         headerText={`Pod Details for ${getName(selectedPod)}`}
         isOpen={isModalOpen}
-        onOpen={() => console.log(`Opened Modal`)}
         closeModal={() => setIsModalOpen(false)}
       >
         <PodMembers members={getMembers(selectedPod)} />
@@ -46,12 +46,18 @@ const JoinPod = ({ getPods, pods, joinPod, leavePod, userName }) => {
           (<Button
             className={styles.leaveButton}
             text={'Leave Pod'}
-            onClick={() => leavePod(selectedPod)}
+            onClick={() => {
+              leavePod(getId(selectedPod));
+              setIsModalOpen(false);
+            }}
           />) :
           (<Button
             className={styles.joinButton}
             text={'Join Pod'}
-            onClick={() => joinPod(selectedPod)}
+            onClick={() => {
+              joinPod(getId(selectedPod));
+              setIsModalOpen(false);
+            }}
           />)}
       </Modal>
     </div>

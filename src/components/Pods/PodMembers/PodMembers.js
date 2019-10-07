@@ -4,8 +4,6 @@ import User from '../../Users/User/User';
 import styles from './PodMembers.module.scss';
 
 const PodMembers = ({ members }) => {
-  console.log(`Pod Members: %o`, members);
-
   return (
     <>
       <div className={styles.header}>Members</div>
