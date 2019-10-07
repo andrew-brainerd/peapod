@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { func, array } from 'prop-types';
+import { func, array, object } from 'prop-types';
 import Pod from '../../Pod/Pod';
 import Modal from '../../../common/Modal/Modal';
 import PodMembers from '../../PodMembers/PodMembers';
@@ -9,8 +9,9 @@ import styles from './JoinPod.module.scss';
 const getName = pod => pod && pod.name;
 const getMembers = pod => (pod && pod.members) || [];
 const getNumMembers = pod => !!getMembers(pod) && pod.members.length;
+const userInPod = (userName, pod) => !!getMembers(pod).find(({ name }) => name === userName);
 
-const JoinPod = ({ getPods, pods, joinPod }) => {
+const JoinPod = ({ getPods, pods, joinPod, leavePod, userName }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPod, setSelectedPod] = useState(null);
 
@@ -41,11 +42,17 @@ const JoinPod = ({ getPods, pods, joinPod }) => {
         closeModal={() => setIsModalOpen(false)}
       >
         <PodMembers members={getMembers(selectedPod)} />
-        <Button
-          className={styles.joinButton}
-          text={'Join Pod'}
-          onClick={() => joinPod(selectedPod)}
-        />
+        {userInPod(userName, selectedPod) ?
+          (<Button
+            className={styles.leaveButton}
+            text={'Leave Pod'}
+            onClick={() => leavePod(selectedPod)}
+          />) :
+          (<Button
+            className={styles.joinButton}
+            text={'Join Pod'}
+            onClick={() => joinPod(selectedPod)}
+          />)}
       </Modal>
     </div>
   );
@@ -53,7 +60,10 @@ const JoinPod = ({ getPods, pods, joinPod }) => {
 
 JoinPod.propTypes = {
   getPods: func.isRequired,
-  pods: array
+  pods: array,
+  joinPod: func.isRequired,
+  leavePod: func.isRequired,
+  user: object
 }
 
 export default JoinPod;
