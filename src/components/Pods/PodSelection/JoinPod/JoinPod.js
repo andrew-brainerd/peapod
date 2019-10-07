@@ -2,32 +2,49 @@ import React, { useState, useEffect } from 'react';
 import { func, array } from 'prop-types';
 import Pod from '../../Pod/Pod';
 import Modal from '../../../common/Modal/Modal';
+import Button from '../../../common/Button/Button';
 import styles from './JoinPod.module.scss';
 
-const JoinPod = ({ getPods, pods }) => {
+const getName = pod => pod && pod.name;
+const getMembers = pod => pod && pod.members;
+const getNumMembers = pod => !!getMembers(pod) && pod.members.length;
+
+const JoinPod = ({ getPods, pods, joinPod }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPod, setSelectedPod] = useState(null);
 
   useEffect(() => {
-    console.log(`Get Pods`);
     getPods();
   }, [getPods, pods.length]);
 
   return (
     <div className={styles.joinPod}>
       <div className={styles.podList}>
-        {(pods || []).map(({ name }, p) =>
+        {(pods || []).map((pod, p) =>
           <Pod
             key={p}
-            name={name}
-            action={isOpen => setIsModalOpen(isOpen)}
+            name={getName(pod)}
+            numMembers={getNumMembers(pod)}
+            action={isOpen => {
+              setSelectedPod(pod);
+              setIsModalOpen(isOpen);
+            }}
           />
         )}
       </div>
       <Modal
+        className={styles.joinPodModal}
+        headerText={`Pod Details for ${getName(selectedPod)}`}
         isOpen={isModalOpen}
         onOpen={() => console.log(`Opened Modal`)}
         closeModal={() => setIsModalOpen(false)}
-      />
+      >
+        <Button
+          className={styles.joinButton}
+          text={'Join Pod'}
+          onClick={() => joinPod(selectedPod)}
+        />
+      </Modal>
     </div>
   );
 }

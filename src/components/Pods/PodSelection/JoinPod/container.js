@@ -8,7 +8,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getPods: () => dispatch(getPods())
+  getPods: () => dispatch(getPods()),
+  joinPod: pod => console.log(`Join Pod %o`, pod) //dispatch(joinPod(podId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(JoinPod);
