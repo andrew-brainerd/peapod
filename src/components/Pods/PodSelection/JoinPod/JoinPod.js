@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { func, array } from 'prop-types';
 import Pod from '../../Pod/Pod';
 import Modal from '../../../common/Modal/Modal';
+import PodMembers from '../../PodMembers/PodMembers';
 import Button from '../../../common/Button/Button';
 import styles from './JoinPod.module.scss';
 
 const getName = pod => pod && pod.name;
-const getMembers = pod => pod && pod.members;
+const getMembers = pod => (pod && pod.members) || [];
 const getNumMembers = pod => !!getMembers(pod) && pod.members.length;
 
 const JoinPod = ({ getPods, pods, joinPod }) => {
@@ -39,6 +40,7 @@ const JoinPod = ({ getPods, pods, joinPod }) => {
         onOpen={() => console.log(`Opened Modal`)}
         closeModal={() => setIsModalOpen(false)}
       >
+        <PodMembers members={getMembers(selectedPod)} />
         <Button
           className={styles.joinButton}
           text={'Join Pod'}
