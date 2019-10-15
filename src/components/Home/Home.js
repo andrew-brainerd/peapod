@@ -7,16 +7,17 @@ import styles from './Home.module.scss';
 
 const Home = ({ navTo }) => (
   <div className={styles.home}>
-    <h1>Welcome to Peapod</h1>
+    <h1>Peapod</h1>
     <div className={styles.logo}>
       <img src={logo} alt='Peapod Logo' />
     </div>
     <div className={styles.buttonContainer}>
       <Button
-        className={styles.getStarted}
-        text='Get Started'
+        className={styles.button}
         onClick={() => navTo(POD_SELECTION_ROUTE)}
-      />
+      >
+        Take a <span className={styles.buttonText}>Pea</span>k
+      </Button>
     </div>
   </div>
 );

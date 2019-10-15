@@ -20,7 +20,7 @@ Button.propTypes = {
   className: string,
   disabled: bool,
   onClick: func.isRequired,
-  text: string.isRequired,
+  text: string,
 }
 
 export default Button;

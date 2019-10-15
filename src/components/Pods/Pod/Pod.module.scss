@@ -1,4 +1,5 @@
 @import '../../../styles/mixins.scss';
+@import '../../../styles/sizing.scss';
 
 .pod {
   border-radius: 7px;
@@ -17,5 +18,16 @@
 
   .numMembers {
     font-size: 14px;
+  }
+}
+
+@media screen and (max-width: $mobileWidth) {
+  .pod {
+    margin: 5px 15px;
+
+    &:hover:not(.disabled) {
+      box-shadow: none;
+      transform: none;
+    }
   }
 }
