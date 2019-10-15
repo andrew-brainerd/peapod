@@ -1,9 +1,10 @@
 import React from 'react';
+import WebFont from 'webfontloader';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import configureStore, { history } from './store/configureStore';
 import App from './components/App/App';
-import WebFont from 'webfontloader';
+import ReactModal from 'react-modal';
 import './index.scss';
 
 WebFont.load({
@@ -23,3 +24,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
+
+ReactModal.setAppElement(document.getElementById('root'));

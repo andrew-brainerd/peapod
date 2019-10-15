@@ -5,8 +5,6 @@ import Button from '../Button/Button';
 import styles from './Modal.module.scss';
 import './Modal.css';
 
-ReactModal.setAppElement('#root');
-
 const Modal = ({
   isOpen,
   onOpen,
