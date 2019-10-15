@@ -3,6 +3,7 @@
 
 .button {
   @include boxShadow();
+
   background: $buttonBackground;
   color: $primaryTextColor;
   cursor: pointer;
@@ -15,6 +16,7 @@
 
   &:hover:not(.disabled) {
     @include boxShadowHover();
+
     background: $buttonBackgroundHover;
     transform: scale(1.1);
   }
