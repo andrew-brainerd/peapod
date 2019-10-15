@@ -17,7 +17,7 @@ const Notification = ({ closeNotification, hidden, message }) => (
 Notification.propTypes = {
   closeNotification: func.isRequired,
   hidden: bool,
-  message: string,
-}
+  message: string
+};
 
 export default Notification;

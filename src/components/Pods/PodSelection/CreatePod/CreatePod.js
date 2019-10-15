@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { func } from 'prop-types';
+import { func, string } from 'prop-types';
 import styles from './CreatePod.module.scss';
 import Button from '../../../common/Button/Button';
 
@@ -19,7 +19,7 @@ const CreatePod = ({ createPod, createdPodName }) => {
     }
     setInputError(null);
     return true;
-  }
+  };
 
   const create = () => validate() && createPod(podName);
 
@@ -30,13 +30,11 @@ const CreatePod = ({ createPod, createdPodName }) => {
         type={'text'}
         className={styles.podNameInput}
         placeholder={'Pod Name'}
-        ref={nameInput} 
+        ref={nameInput}
         value={podName}
         autoComplete={'false'}
         onChange={e => setPodName(e.target.value)}
-        onKeyPress={({ key }) => {
-          key === 'Enter' && create()
-        }}
+        onKeyPress={({ key }) => key === 'Enter' && create()}
       />
       {inputError && (
         <div className={styles.inputError}>
@@ -54,11 +52,12 @@ const CreatePod = ({ createPod, createdPodName }) => {
         onClick={create}
       />
     </div>
-  )
-}
+  );
+};
 
 CreatePod.propTypes = {
-  createPod: func.isRequired
-}
+  createPod: func.isRequired,
+  createdPodName: string
+};
 
 export default CreatePod;

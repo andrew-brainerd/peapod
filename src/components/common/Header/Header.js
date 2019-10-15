@@ -26,6 +26,6 @@ const Header = ({ isVisible, navTo }) => isVisible ? (
 Header.propTypes = {
   isVisible: bool,
   navTo: func.isRequired
-}
+};
 
 export default Header;

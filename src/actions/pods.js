@@ -33,14 +33,14 @@ export const createPod = name => async dispatch => {
   pods.createPod(name).then(
     pod => dispatch(podCreated(pod))
   );
-}
+};
 
 export const getPods = () => async dispatch => {
   dispatch(loadingPods);
   pods.getPods().then(
     pods => dispatch(podsLoaded(pods))
   );
-}
+};
 
 export const addMemberToPod = podId => async (dispatch, getState) => {
   const user = getCurrentUser(getState());
@@ -49,7 +49,7 @@ export const addMemberToPod = podId => async (dispatch, getState) => {
     dispatch(addedMemberToPod);
     dispatch(getPods());
   });
-}
+};
 
 export const removeMemberFromPod = podId => async (dispatch, getState) => {
   const user = getCurrentUser(getState());
@@ -58,4 +58,4 @@ export const removeMemberFromPod = podId => async (dispatch, getState) => {
     dispatch(removedMemberFromPod);
     dispatch(getPods());
   });
-}
+};

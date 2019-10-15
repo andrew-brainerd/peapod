@@ -1,10 +1,13 @@
 import React from 'react';
+import { object } from 'prop-types';
 import { ConnectedRouter } from 'connected-react-router';
 import { Route, Switch } from 'react-router-dom';
 import Header from '../common/Header/container';
 import {
   HOME_ROUTE,
   POD_SELECTION_ROUTE,
+  CREATE_POD_ROUTE,
+  JOIN_POD_ROUTE,
   ENTERTAINMENT_ROUTE,
   FOOD_ROUTE,
   TRAVEL_ROUTE,
@@ -12,7 +15,6 @@ import {
 } from '../../constants/routes';
 import Home from '../Home/container';
 import PodSelection from '../Pods/PodSelection/container';
-import { CREATE_POD_ROUTE, JOIN_POD_ROUTE } from '../../constants/routes';
 import CreatePod from '../Pods/PodSelection/CreatePod/container';
 import JoinPod from '../Pods/PodSelection/JoinPod/container';
 import Entertainment from '../Entertainment/Entertainment';
@@ -43,5 +45,9 @@ const App = ({ history }) => (
     </ConnectedRouter >
   </div>
 );
+
+App.propTypes = {
+  history: object.isRequired
+};
 
 export default App;

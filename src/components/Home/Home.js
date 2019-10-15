@@ -24,6 +24,6 @@ const Home = ({ navTo }) => (
 
 Home.propTypes = {
   navTo: func.isRequired
-}
+};
 
 export default Home;

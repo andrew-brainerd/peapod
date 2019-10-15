@@ -12,20 +12,20 @@ const Pod = ({ name, numMembers, action }) => {
     >
       <div className={styles.name}>{name}</div>
       <div className={styles.numMembers}>
-        {`${numMembers} member${ numMembers !== 1 ? 's' : ''}`}
+        {`${numMembers} member${numMembers !== 1 ? 's' : ''}`}
       </div>
     </Button>
   );
-}
+};
 
 Pod.propTypes = {
   name: string.isRequired,
   numMembers: number,
   action: func
-}
+};
 
 Pod.defaultProps = {
   numMembers: 0
-}
+};
 
 export default Pod;

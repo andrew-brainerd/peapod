@@ -38,14 +38,15 @@ const Modal = ({
       </div>
     </ReactModal>
   );
-}
+};
 
 Modal.propTypes = {
   isOpen: bool.isRequired,
   onOpen: func,
   closeModal: func.isRequired,
   headerText: string,
-  children: node
-}
+  children: node,
+  className: string
+};
 
 export default Modal;

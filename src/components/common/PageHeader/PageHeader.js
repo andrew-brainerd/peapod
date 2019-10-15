@@ -15,7 +15,7 @@ const PageHeader = ({ children, subtitle, title }) => (
 PageHeader.propTypes = {
   children: node,
   subtitle: string,
-  title: string.isRequired  
-}
+  title: string.isRequired
+};
 
 export default PageHeader;

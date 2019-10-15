@@ -18,11 +18,11 @@ const PodSelection = ({ navTo }) => {
         onClick={() => navTo(JOIN_POD_ROUTE)}
       />
     </div>
-  )
-}
+  );
+};
 
 PodSelection.propTypes = {
   navTo: func.isRequired
-}
+};
 
 export default PodSelection;

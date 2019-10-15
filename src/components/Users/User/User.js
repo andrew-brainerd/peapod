@@ -7,11 +7,11 @@ const User = ({ name }) => {
     <div className={styles.user}>
       {name}
     </div>
-  )
-}
+  );
+};
 
 User.propTypes = {
   name: string
-}
+};
 
 export default User;
