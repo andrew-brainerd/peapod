@@ -9,11 +9,11 @@ const Loading = ({ altText, isLoading }) => {
       <img src={loader} alt={altText} />
     </div>
   );
-}
+};
 
 Loading.propTypes = {
   altText: string.isRequired,
   isLoading: bool
-}
+};
 
 export default Loading;

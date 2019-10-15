@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { func, array, object } from 'prop-types';
+import { func, array, string } from 'prop-types';
 import Pod from '../../Pod/Pod';
 import Modal from '../../../common/Modal/Modal';
 import PodMembers from '../../PodMembers/PodMembers';
@@ -62,14 +62,14 @@ const JoinPod = ({ getPods, pods, joinPod, leavePod, userName }) => {
       </Modal>
     </div>
   );
-}
+};
 
 JoinPod.propTypes = {
   getPods: func.isRequired,
   pods: array,
   joinPod: func.isRequired,
   leavePod: func.isRequired,
-  user: object
-}
+  userName: string
+};
 
 export default JoinPod;

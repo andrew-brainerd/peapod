@@ -7,7 +7,7 @@ import Header from './Header';
 const mapStateToProps = ({ router }) => ({
   isVisible: getPathname(router) !== HOME_ROUTE,
   pathname: getPathname(router),
-  route: () => { console.log(HOME_ROUTE) }
+  route: () => { console.log(HOME_ROUTE); }
 });
 
 const mapDispatchToProps = dispatch => ({

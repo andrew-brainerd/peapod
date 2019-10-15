@@ -17,50 +17,50 @@ const initialState = {
   items: []
 };
 
-export default function pods(state = initialState, action) {
+export default function pods (state = initialState, action) {
   switch (action.type) {
     case CREATING_POD:
       return {
         ...state,
         isCreatingPod: true
-      }
+      };
     case POD_CREATED:
       return {
         ...state,
         isCreatingPod: false,
         createdPod: action.pod
-      }
+      };
     case LOADING_PODS:
       return {
         ...state,
         isLoadingPods: true
-      }
+      };
     case PODS_LOADED:
       return {
         ...state,
         isLoadingPods: false,
         ...action.pods
-      }
+      };
     case ADDING_MEMBER_TO_POD:
       return {
         ...state,
         isAddingMember: true
-      }
+      };
     case ADDED_MEMBER_TO_POD:
       return {
         ...state,
         isAddingMember: false
-      }
+      };
     case REMOVING_MEMBER_FROM_POD:
       return {
         ...state,
         isRemovingMember: true
-      }
+      };
     case REMOVED_MEMBER_FROM_POD:
       return {
         ...state,
         isRemovingMember: false
-      }
+      };
     default:
       return state;
   }

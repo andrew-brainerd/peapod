@@ -10,8 +10,8 @@ export const displayNotification = (message, time) => async dispatch => {
 
   dispatch(showNotification(message));
   setTimeout(() => dispatch(hideNotification), openTime);
-}
+};
 
 export const closeNotification = () => async dispatch => {
   dispatch(hideNotification);
-}
+};

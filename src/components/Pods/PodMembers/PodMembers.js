@@ -16,15 +16,15 @@ const PodMembers = ({ members }) => {
         )}
       </div>
     </>
-  )
-}
+  );
+};
 
 PodMembers.propTypes = {
   members: array.isRequired
-}
+};
 
 PodMembers.defaultProps = {
   members: []
-}
+};
 
 export default PodMembers;
