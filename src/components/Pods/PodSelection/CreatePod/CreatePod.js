@@ -2,14 +2,17 @@ import React, { useState, useRef, useEffect } from 'react';
 import { func, string } from 'prop-types';
 import styles from './CreatePod.module.scss';
 import Button from '../../../common/Button/Button';
+import { getJWT } from '../../../../api/messaging';
 
 const CreatePod = ({ createPod, createdPodName }) => {
   const [podName, setPodName] = useState('');
   const [inputError, setInputError] = useState(null);
+  const [token, setToken] = useState(null);
   const nameInput = useRef();
 
   useEffect(() => {
     nameInput.current.focus();
+    !token && getJWT().then(jwt => console.log(jwt));
   }, []);
 
   const validate = () => {
