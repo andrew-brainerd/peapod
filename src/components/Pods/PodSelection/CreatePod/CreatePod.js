@@ -6,6 +6,7 @@ import Button from '../../../common/Button/Button';
 const CreatePod = ({ createPod, createdPodName }) => {
   const [podName, setPodName] = useState('');
   const [inputError, setInputError] = useState(null);
+  const [showCreated, setShowCreated] = useState(false);
   const nameInput = useRef();
 
   useEffect(() => {
@@ -21,7 +22,14 @@ const CreatePod = ({ createPod, createdPodName }) => {
     return true;
   };
 
-  const create = () => validate() && createPod(podName);
+  const clear = () => {
+    setPodName('');
+    setInputError(null);
+    setTimeout(() => setShowCreated(false), 3000);
+  };
+
+  const create = () => validate() && createPod(podName)
+    .then(() => { setShowCreated(true); clear(); });
 
   return (
     <div className={styles.createPod}>
@@ -41,7 +49,7 @@ const CreatePod = ({ createPod, createdPodName }) => {
           {inputError}
         </div>
       )}
-      {createdPodName && (
+      {createdPodName && showCreated && (
         <div className={styles.createdPodName}>
           {`Created Pod ${createdPodName}`}
         </div>
