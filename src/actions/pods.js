@@ -35,9 +35,9 @@ export const createPod = name => async dispatch => {
   );
 };
 
-export const getPods = () => async dispatch => {
+export const getPods = options => async dispatch => {
   dispatch(loadingPods);
-  pods.getPods().then(
+  pods.getPods(options).then(
     pods => dispatch(podsLoaded(pods))
   );
 };

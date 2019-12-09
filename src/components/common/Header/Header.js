@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, func } from 'prop-types';
+import { bool, func, string } from 'prop-types';
 import Notification from '../Notification/container';
 import Loading from '../Loading/container';
 import { POD_SELECTION_ROUTE, MY_PODS_ROUTE } from '../../../constants/routes';
@@ -15,11 +15,13 @@ const Header = ({ isVisible, navTo, userId }) => isVisible ? (
         <div className={styles.headerTitle}>Peapod</div>
       </div>
       <div className={styles.nav}>
-        <Button
-          className={styles.myPods}
-          text={'My Pods'}
-          onClick={() => navTo(MY_PODS_ROUTE.replace(':userId', userId))}
-        />
+        {userId &&
+          <Button
+            className={styles.myPods}
+            text={'My Pods'}
+            onClick={() => navTo(MY_PODS_ROUTE.replace(':userId', userId))}
+          />
+        }
       </div>
       <div className={styles.appVersion}>
         v{process.env.REACT_APP_VERSION}
@@ -33,7 +35,8 @@ const Header = ({ isVisible, navTo, userId }) => isVisible ? (
 
 Header.propTypes = {
   isVisible: bool,
-  navTo: func.isRequired
+  navTo: func.isRequired,
+  userId: string
 };
 
 export default Header;
