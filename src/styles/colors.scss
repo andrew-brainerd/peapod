@@ -1,8 +1,32 @@
+$peapod: rgba(139, 196, 72, 1);
+$peapod-5: rgba(139, 196, 72, 0.5);
+$peapod-8: rgba(139, 196, 72, 0.8);
 
-$peapod: #8BC448;
+$peapod-secondary: rgba(72, 139, 196, 1);
+$peapod-secondary-5: rgba(72, 139, 196, 0.5);
+$peapod-tertiary: 	#c4488b;
 
 $primaryColor: #191919;
-$accentColor: $peapod;
+$secondaryColor: rgb(113, 110, 116);
+$secondaryColor: rgba(77, 39, 122, 0.5);
+$tertiaryColor: #6785a3;
+
+$buttonBackground: rgba(15, 15, 15, 1);
+$buttonBackgroundHover: rgba(15, 15, 15, 0.6);
+
+$modalBackground: #454545;
+$modalBorder: #e7e7e7;
+
+$secondaryColorLight: #432269;
+$primaryTextColor: whitesmoke;
+
+$accentColor: rgba(139, 196, 72, 0.7);
+$mutedColor: #c4bf48;
 
 $mainBackground: $primaryColor;
-$mainColor: black;
+$mainColor: #f2ecf9;
+
+$errorText: rgba(196, 110, 72, 1);
+$errorText-5: rgba(196, 110, 72, 0.5);
+
+$successText: $peapod;

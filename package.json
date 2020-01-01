@@ -3,17 +3,49 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "connected-react-router": "^6.5.2",
+    "lodash": "^4.17.15",
     "node-sass": "^4.12.0",
+    "ramda": "^0.26.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-modal": "^3.10.1",
+    "react-redux": "^7.1.1",
+    "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
+    "redux": "^4.0.4",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
     "webfontloader": "^1.6.28"
+  },
+  "devDependencies": {
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "eslint": "^6.5.1",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jest": "^22.4.1",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react-hooks": "^1.6.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "npm-run-all": "^4.1.5",
+    "redux-mock-store": "^1.5.3",
+    "stylelint": "^8.1.1",
+    "stylelint-config-standard": "^17.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test --watchAll=false",
+    "lint:js": "eslint src/",
+    "lint:css": "stylelint --config stylelint.json **/*.scss",
+    "lint": "npm-run-all lint:*",
+    "coverage": "npm test --coverage --coverageDirectory coverage --watchAll=false",
+    "verify": "npm-run-all lint test"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -28,6 +60,23 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css|scss)$": "<rootDir>/__mocks__/cssModuleMock.js"
+    },
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!build/**",
+      "!output/**",
+      "!config/**",
+      "!src/index.js",
+      "!src/reducers/index.js",
+      "!src/store/**",
+      "!build/**",
+      "!test/**"
     ]
   }
 }

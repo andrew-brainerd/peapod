@@ -1,0 +1,28 @@
+@import '../../../styles/colors.scss';
+@import '../../../styles/mixins.scss';
+
+.button {
+  @include boxShadow();
+
+  background: $buttonBackground;
+  color: $primaryTextColor;
+  cursor: pointer;
+  font-size: 0.9em;
+  padding: 5px 10px;
+  text-align: center;
+  transition: 0.3s all;
+  user-select: none;
+  width: 150px;
+
+  &:hover:not(.disabled) {
+    @include boxShadowHover();
+
+    background: $buttonBackgroundHover;
+    transform: scale(1.1);
+  }
+}
+
+.disabled {
+  cursor: default;
+  opacity: 0.8;
+}

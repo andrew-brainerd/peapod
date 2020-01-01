@@ -9,7 +9,8 @@
     "react-hooks"
   ],
   "env": {
-    "jest/globals": true
+    "jest/globals": true,
+    "browser": true
   },
   "rules": {
     "semi": [2, "always"],
@@ -20,7 +21,7 @@
   "settings": {
     "react": {
       "pragma": "React",
-      "version": "16.8.0"
+      "version": "16.9.0"
     }
   }
 }

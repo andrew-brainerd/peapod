@@ -1,7 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import WebFont from 'webfontloader';
-import Home from './components/Home/Home';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import configureStore, { history } from './store/configureStore';
+import App from './components/App/App';
+import ReactModal from 'react-modal';
 import './index.scss';
 
 WebFont.load({
@@ -13,4 +16,13 @@ WebFont.load({
   }
 });
 
-ReactDOM.render(<Home />, document.getElementById('root'));
+const store = configureStore();
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App history={history} />
+  </Provider>,
+  document.getElementById('root')
+);
+
+ReactModal.setAppElement(document.getElementById('root'));

@@ -1,0 +1,39 @@
+@import '../../../../styles/colors.scss';
+@import '../../../../styles/mixins.scss';
+
+.createPod {
+  @include defaultBorder();
+
+  border-radius: 10px;
+  border-width: 3px;
+  background: $secondaryColor;
+  margin: 35px auto;
+  padding: 50px 20px 20px;
+  max-width: 450px;
+
+  .podNameInput {
+    @include defaultInput();
+
+    font-size: 1.5em;
+    text-align: center;
+  }
+
+  .inputError {
+    @include errorText();
+
+    transition: all 0.5s ease;
+  }
+
+  .createdPodName {
+    @include successText();
+
+    transition: all 0.5s ease;
+  }
+
+  .createButton {
+    font-size: 1.3em;
+    margin: 50px auto;
+    padding: 10px 0;
+    width: 110px;
+  }
+}

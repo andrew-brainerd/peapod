@@ -1,22 +1,64 @@
 @import '../../styles/colors.scss';
 @import '../../styles/fonts.scss';
+@import '../../styles/sizing.scss';
 
 .home {
-  .content {
-    div {
-      color: $peapod;
-      font-family: $mainFontStyle;
-      font-size: 6em;
-      margin: 50px auto;
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+
+  h1 {
+    color: $peapod;
+    font-family: $mainFontStyle;
+    font-size: 5em;
+    margin: 50px auto;
+    text-align: center;
+  }
+
+  .logo {
+    margin: 5px;
+
+    img {
       text-align: center;
+      width: 300px;
     }
-  
-    .logo {
-      margin: 5px;
-      
-      img {
-        width: 300px;
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    margin: 50px 0;
+
+    .button {
+      background: $secondaryColor;
+      border-color: $secondaryColorLight;
+      color: $primaryTextColor;
+      font-size: 2em;
+      padding: 40px 0;
+      text-align: center;
+      width: 250px;
+
+      &:hover {
+        background: $secondaryColorLight;
+        border-color: $secondaryColor;
+      }
+
+      .buttonText {
+        font-style: italic;
       }
     }
-  } 
+  }
+}
+
+@media screen and (max-width: $mobileWidth) {
+  .home {
+    h1 {
+      margin: 20px auto;
+    }
+
+    .buttonContainer {
+      margin: 20px auto;
+    }
+  }
 }

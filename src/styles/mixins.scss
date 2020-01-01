@@ -1,0 +1,42 @@
+@import './colors.scss';
+
+@mixin defaultBorder {
+  border: 1px solid $accentColor;
+}
+
+@mixin defaultInput {
+  appearance: none;
+  background: $primaryColor;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: $primaryTextColor;
+  outline: none;
+  padding: 10px 5px;
+  transition: 0.2s border;
+
+  &:active,
+  &:focus {
+    border: 1px solid $accentColor;
+    outline: none;
+  }
+}
+
+@mixin errorText {
+  color: $errorText;
+  font-style: italic;
+  margin: 7px 0;
+}
+
+@mixin successText {
+  color: $successText;
+  font-style: italic;
+  margin: 7px 0;
+}
+
+@mixin boxShadow {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+@mixin boxShadowHover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
