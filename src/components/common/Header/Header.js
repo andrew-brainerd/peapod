@@ -7,36 +7,43 @@ import Button from '../Button/Button';
 import logo from '../../../img/logo.png';
 import styles from './Header.module.scss';
 
-const Header = ({ isVisible, navTo, userId }) => isVisible ? (
-  <div className={styles.header}>
-    <div className={styles.headerContent}>
-      <div className={styles.homeLink} onClick={() => navTo(POD_SELECTION_ROUTE)}>
-        <img src={logo} className={styles.logo} alt="logo" />
-        <div className={styles.headerTitle}>Peapod</div>
+const Header = ({ isVisible, pathname, userId, navTo }) => {
+  const myPodsRoute = MY_PODS_ROUTE.replace(':userId', userId);
+
+  return isVisible ? (
+    <div className={styles.header}>
+      <div className={styles.headerContent}>
+        <div className={styles.homeLink} onClick={() => navTo(POD_SELECTION_ROUTE)}>
+          <img src={logo} className={styles.logo} alt="logo" />
+          <div className={styles.headerTitle}>Peapod</div>
+        </div>
+        <div className={styles.nav}>
+          {userId &&
+            <Button
+              className={[
+                styles.myPods,
+                pathname === myPodsRoute ? styles.selected : ''
+              ].join(' ')}
+              text={'My Pods'}
+              onClick={() => navTo(myPodsRoute)}
+            />
+          }
+        </div>
+        <div className={styles.appVersion}>
+          v{process.env.REACT_APP_VERSION}
+        </div>
       </div>
-      <div className={styles.nav}>
-        {userId &&
-          <Button
-            className={styles.myPods}
-            text={'My Pods'}
-            onClick={() => navTo(MY_PODS_ROUTE.replace(':userId', userId))}
-          />
-        }
-      </div>
-      <div className={styles.appVersion}>
-        v{process.env.REACT_APP_VERSION}
-      </div>
+      <Notification />
+      <Loading altText='loading' />
     </div>
-    <Notification />
-    <Loading altText='loading' />
-    <hr />
-  </div>
-) : null;
+  ) : null;
+};
 
 Header.propTypes = {
   isVisible: bool,
-  navTo: func.isRequired,
-  userId: string
+  pathname: string,
+  userId: string,
+  navTo: func.isRequired
 };
 
 export default Header;

@@ -2,8 +2,6 @@
 @import '../../../styles/mixins.scss';
 
 .modal {
-  @include boxShadowHover();
-
   background: $modalBackground;
   border: 1px solid $buttonBackground;
   border-radius: 5px;
