@@ -1,4 +1,4 @@
-import { handleResponse } from './tools';
+import { handleResponse, parseOptions } from './tools';
 
 const basicJsonHeader = { 'Content-Type': 'application/json' };
 
@@ -17,8 +17,9 @@ export const createPod = async name => {
   return json;
 };
 
-export const getPods = async () => {
-  const response = await fetch(`${PEAPOD_API_URL}/api/pods`, {
+export const getPods = async options => {
+  const query = parseOptions(options);
+  const response = await fetch(`${PEAPOD_API_URL}/api/pods${query}`, {
     headers: basicJsonHeader
   });
 

@@ -6,10 +6,10 @@ import PodMembers from '../../PodMembers/PodMembers';
 import Button from '../../../common/Button/Button';
 import styles from './JoinPod.module.scss';
 
-const getId = pod => pod && pod._id;
-const getName = pod => pod && pod.name;
-const getMembers = pod => (pod && pod.members) || [];
-const getNumMembers = pod => !!getMembers(pod) && pod.members.length;
+const getId = pod => (pod || {})._id;
+const getName = pod => (pod || {}).name;
+const getMembers = pod => (pod || {}).members || [];
+const getNumMembers = pod => getMembers(pod).length;
 const userInPod = (userName, pod) => !!getMembers(pod).find(({ name }) => name === userName);
 
 const JoinPod = ({ getPods, pods, joinPod, leavePod, userName }) => {
@@ -18,7 +18,7 @@ const JoinPod = ({ getPods, pods, joinPod, leavePod, userName }) => {
 
   useEffect(() => {
     getPods();
-  }, [getPods, pods.length]);
+  }, [getPods]);
 
   return (
     <div className={styles.joinPod}>

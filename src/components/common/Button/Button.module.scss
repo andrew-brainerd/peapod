@@ -15,8 +15,6 @@
   width: 150px;
 
   &:hover:not(.disabled) {
-    @include boxShadowHover();
-
     background: $buttonBackgroundHover;
     transform: scale(1.1);
   }

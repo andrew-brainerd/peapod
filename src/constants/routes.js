@@ -1,6 +1,7 @@
 
 export const HOME_ROUTE = '/';
 export const POD_SELECTION_ROUTE = '/pods';
+export const MY_PODS_ROUTE = '/:userId/pods';
 export const CREATE_POD_ROUTE = '/pods/create';
 export const JOIN_POD_ROUTE = '/pods/join';
 export const MENU_ROUTE = '/menu';
