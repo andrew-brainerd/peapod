@@ -33,7 +33,8 @@ export default function pods (state = initialState, action) {
     case LOADING_PODS:
       return {
         ...state,
-        isLoadingPods: true
+        isLoadingPods: true,
+        items: []
       };
     case PODS_LOADED:
       return {
