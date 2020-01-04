@@ -1,8 +1,8 @@
 import React from 'react';
 import { func } from 'prop-types';
-import logo from '../../img/logo.png';
-import Button from '../common/Button/Button';
 import { POD_SELECTION_ROUTE } from '../../constants/routes';
+import Button from '../common/Button/Button';
+import logo from '../../img/logo.png';
 import styles from './Home.module.scss';
 
 const Home = ({ navTo }) => (

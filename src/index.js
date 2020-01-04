@@ -7,6 +7,8 @@ import App from './components/App/App';
 import ReactModal from 'react-modal';
 import './index.scss';
 
+window.appConfig = {};
+
 WebFont.load({
   google: {
     families: [
