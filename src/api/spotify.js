@@ -21,3 +21,14 @@ export const getLogicAlbums = async accessToken => {
 
   return json;
 };
+
+export const getMyTopTracks = async accessToken => {
+  const url = `${PEAPOD_API_URL}/api/spotify/myTopTracks?accessToken=${accessToken}`;
+
+  const response = await fetch(url);
+
+  handleResponse(response);
+  const json = await response.json();
+
+  return json;
+};

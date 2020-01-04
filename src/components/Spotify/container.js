@@ -1,16 +1,17 @@
 import { connect } from 'react-redux';
-import { getAccessToken, getAlbums } from '../../selectors/spotify';
-import { getLogicAlbums } from '../../actions/spotify';
+import { getAccessToken, getIsLoadingTracks, getTracks } from '../../selectors/spotify';
+import { getMyTopTracks } from '../../actions/spotify';
 import { navTo } from '../../actions/routing';
 import Spotify from './Spotify';
 
 const mapStateToProps = state => ({
   hasAuth: !!getAccessToken(),
-  albums: getAlbums(state)
+  isLoading: getIsLoadingTracks(state),
+  tracks: getTracks(state)
 });
 
 const mapDispatchToProps = dispatch => ({
-  getLogicAlbums: () => dispatch(getLogicAlbums()),
+  getMyTopTracks: () => dispatch(getMyTopTracks()),
   navTo: path => dispatch(navTo(path))
 });
 
