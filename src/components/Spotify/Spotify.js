@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { bool, array, func } from 'prop-types';
-import { isEmpty } from 'ramda';
+import { isEmpty, uniqBy } from 'ramda';
 import { getAuth } from '../../api/spotify';
 import styles from './Spotify.module.scss';
 import Album from './Album/Album';
@@ -21,7 +21,7 @@ const Spotify = ({ hasAuth, albums, getLogicAlbums }) => {
       {
         isEmpty(albums) ?
           <h1>No Albums</h1> :
-          albums.map(album => <Album {...album} />)
+          uniqBy(album => album.name , albums).map(album => <Album {...album} />)
       }
     </div>
   );
