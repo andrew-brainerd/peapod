@@ -11,7 +11,7 @@ export const createPod = async name => {
     body: JSON.stringify({ name })
   });
 
-  handleResponse(response);
+  handleResponse(response, 201);
   const json = await response.json();
 
   return json;
@@ -20,6 +20,17 @@ export const createPod = async name => {
 export const getPods = async options => {
   const query = parseOptions(options);
   const response = await fetch(`${PEAPOD_API_URL}/api/pods${query}`, {
+    headers: basicJsonHeader
+  });
+
+  handleResponse(response);
+  const json = await response.json();
+
+  return json;
+};
+
+export const getPod = async podId => {
+  const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}`, {
     headers: basicJsonHeader
   });
 

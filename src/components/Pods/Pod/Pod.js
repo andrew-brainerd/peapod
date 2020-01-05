@@ -1,31 +1,29 @@
-import React from 'react';
-import { string, number, func } from 'prop-types';
-import Button from '../../common/Button/Button';
+import React, { useEffect } from 'react';
+import { func, string, shape } from 'prop-types';
 import styles from './Pod.module.scss';
 
-const Pod = ({ name, numMembers, action }) => {
+const getPodId = pathname => pathname.split('/')[2];
+
+const Pod = ({ getPod, pathname, pod }) => {
+  useEffect(() => {
+    getPod(getPodId(pathname));
+  }, [getPod, pathname]);
+
+  const { name } = pod || {};
+
   return (
-    <Button
-      className={styles.pod}
-      text={name}
-      onClick={() => action(true)}
-    >
-      <div className={styles.name}>{name}</div>
-      <div className={styles.numMembers}>
-        {`${numMembers} member${numMembers !== 1 ? 's' : ''}`}
-      </div>
-    </Button>
+    <div className={styles.pod}>
+      <h1 className={styles.name}>{name}</h1>
+    </div>
   );
 };
 
 Pod.propTypes = {
-  name: string.isRequired,
-  numMembers: number,
-  action: func
-};
-
-Pod.defaultProps = {
-  numMembers: 0
+  getPod: func.isRequired,
+  pathname: string,
+  pod: shape({
+    name: string
+  })
 };
 
 export default Pod;

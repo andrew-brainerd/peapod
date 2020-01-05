@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react';
 import { func, array, string } from 'prop-types';
-import Pod from './Pod/Pod';
+import PodItem from './PodItem/PodItem';
 import styles from './Pods.module.scss';
+import { navTo } from '../../actions/routing';
+import { POD_ROUTE } from '../../constants/routes';
 
+const getId = pod => (pod || {})._id;
 const getName = pod => pod && pod.name;
 const getMembers = pod => (pod || {}).members || [];
 const getNumMembers = pod => getMembers(pod).length;
 
-const Pods = ({ getMyPods, pods, userId }) => {
+const Pods = ({ getMyPods, pods, userId, navTo }) => {
   useEffect(() => {
     userId && getMyPods(userId);
   }, [userId, getMyPods]);
@@ -16,13 +19,11 @@ const Pods = ({ getMyPods, pods, userId }) => {
     <div className={styles.pods}>
       <div className={styles.podList}>
         {(pods || []).map((pod, p) =>
-          <Pod
+          <PodItem
             key={p}
             name={getName(pod)}
             numMembers={getNumMembers(pod)}
-            action={isOpen => {
-              console.log('Pod:', pod);
-            }}
+            action={() => navTo(POD_ROUTE.replace(':podId', getId(pod)))}
           />
         )}
       </div>
@@ -33,7 +34,8 @@ const Pods = ({ getMyPods, pods, userId }) => {
 Pods.propTypes = {
   getMyPods: func.isRequired,
   pods: array,
-  userId: string
+  userId: string,
+  navTo: func.isRequired
 };
 
 export default Pods;

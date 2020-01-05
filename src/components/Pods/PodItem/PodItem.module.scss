@@ -1,0 +1,33 @@
+@import '../../../styles/mixins.scss';
+@import '../../../styles/sizing.scss';
+
+.podItem {
+  border-radius: 7px;
+  margin: 20px;
+  padding: 30px 20px;
+  text-align: left;
+  width: 350px;
+
+  > div {
+    margin: 10px;
+  }
+
+  .name {
+    font-size: 24px;
+  }
+
+  .numMembers {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: $mobileWidth) {
+  .podItem {
+    margin: 5px 15px;
+
+    &:hover:not(.disabled) {
+      box-shadow: none;
+      transform: none;
+    }
+  }
+}

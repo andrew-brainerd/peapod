@@ -3,6 +3,8 @@ import {
   POD_CREATED,
   LOADING_PODS,
   PODS_LOADED,
+  LOADING_POD,
+  POD_LOADED,
   ADDING_MEMBER_TO_POD,
   ADDED_MEMBER_TO_POD,
   REMOVING_MEMBER_FROM_POD,
@@ -14,10 +16,11 @@ const initialState = {
   isLoadingPods: false,
   isAddingMember: false,
   isRemovingMember: false,
-  items: []
+  items: [],
+  currentPod: null
 };
 
-export default function pods (state = initialState, action) {
+export default function pods(state = initialState, action) {
   switch (action.type) {
     case CREATING_POD:
       return {
@@ -41,6 +44,18 @@ export default function pods (state = initialState, action) {
         ...state,
         isLoadingPods: false,
         ...action.pods
+      };
+    case LOADING_POD:
+      return {
+        ...state,
+        isLoadingPod: true,
+        currentPod: null
+      };
+    case POD_LOADED:
+      return {
+        ...state,
+        isLoadingPod: false,
+        currentPod: action.pod
       };
     case ADDING_MEMBER_TO_POD:
       return {
