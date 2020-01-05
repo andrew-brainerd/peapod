@@ -16,4 +16,9 @@ Loading.propTypes = {
   isLoading: bool
 };
 
+Loading.defaultProps = {
+  altText: 'Loading...',
+  isLoading: true
+};
+
 export default Loading;

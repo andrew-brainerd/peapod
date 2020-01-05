@@ -1,4 +1,5 @@
 @import '../../../styles/colors.scss';
+@import '../../../styles/sizing.scss';
 
 .header {
   background: $secondaryColor;
@@ -74,5 +75,17 @@
     top: 10px;
     animation: fadeIn 2s;
     -webkit-animation: fadeIn 2s;
+  }
+}
+
+@media screen and (max-width: $mobileWidth) {
+  .header {
+    .headerTitle {
+      display: none;
+    }
+
+    .logo {
+      top: 2px;
+    }
   }
 }
