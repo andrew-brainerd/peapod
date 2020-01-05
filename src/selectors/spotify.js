@@ -1,4 +1,4 @@
-import { path, pathOr, pathEq } from 'ramda';
+import { path, pathOr } from 'ramda';
 
 export const getAccessToken = () => path(['appConfig', 'spotify', 'accessToken'], window);
 

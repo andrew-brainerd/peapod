@@ -14,7 +14,7 @@ const initialState = {
   tracks: []
 };
 
-export default function spotify(state = initialState, action) {
+export default function spotify (state = initialState, action) {
   switch (action.type) {
     case LOADING_ALBUMS:
       return {

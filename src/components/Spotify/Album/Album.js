@@ -2,10 +2,7 @@ import React from 'react';
 import { string } from 'prop-types';
 import styles from './Album.module.scss';
 
-const Album = props => {
-  console.log(`Album: %o`, props);
-  const { name } = props;
-
+const Album = ({ name }) => {
   return (
     <div className={styles.album}>
       {name}

@@ -5,12 +5,10 @@ import Loading from '../../common/Loading/Loading';
 import styles from './SpotifyAuth.module.scss';
 
 const SpotifyAuth = ({ query, navTo }) => {
-  const { access_token, refresh_token } = query || {};
-
   useEffect(() => {
     window.appConfig.spotify = {
-      accessToken: access_token,
-      refreshToken: refresh_token
+      accessToken: query.access_token,
+      refreshToken: query.refresh_token
     };
     navTo(SPOTIFY_ROUTE);
   });

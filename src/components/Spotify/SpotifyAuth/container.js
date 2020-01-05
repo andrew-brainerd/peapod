@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  navTo: pathname => dispatch(navTo(pathname))
+  navTo: path => dispatch(navTo(path))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SpotifyAuth);

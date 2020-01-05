@@ -25,7 +25,7 @@ export const getLogicAlbums = () => async (dispatch, getState) => {
 export const getMyTopTracks = () => async (dispatch, getState) => {
   dispatch(loadingTracks);
   const token = getAccessToken(getState());
-    spotify.getMyTopTracks(token)
-      .then(tracks => dispatch(tracksLoaded(tracks)))
-      .catch(err => console.error('Failed to fetch user tracks', err));
+  spotify.getMyTopTracks(token)
+    .then(tracks => dispatch(tracksLoaded(tracks)))
+    .catch(err => console.error('Failed to fetch user tracks', err));
 };
