@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { func, string, shape } from 'prop-types';
+import { MY_PODS_ROUTE } from '../../../constants/routes';
 import styles from './Pod.module.scss';
 
 const getPodId = pathname => pathname.split('/')[2];
 
-const Pod = ({ getPod, pathname, pod }) => {
+const Pod = ({ getPod, pathname, pod, userId, navTo }) => {
   useEffect(() => {
     getPod(getPodId(pathname));
   }, [getPod, pathname]);
@@ -13,7 +14,15 @@ const Pod = ({ getPod, pathname, pod }) => {
 
   return (
     <div className={styles.pod}>
-      <h1 className={styles.name}>{name}</h1>
+      <div className={styles.header}>
+        <h1 className={styles.name}>{name}</h1>
+        <div
+          className={styles.closeButton}
+          title={'Close Pod'}
+          onClick={() => navTo(MY_PODS_ROUTE.replace(':userId', userId))}
+        />
+      </div>
+      
     </div>
   );
 };
@@ -23,7 +32,8 @@ Pod.propTypes = {
   pathname: string,
   pod: shape({
     name: string
-  })
+  }),
+  navTo: func.isRequired
 };
 
 export default Pod;

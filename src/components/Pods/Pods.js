@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { func, array, string } from 'prop-types';
 import PodItem from './PodItem/PodItem';
 import styles from './Pods.module.scss';
-import { navTo } from '../../actions/routing';
 import { POD_ROUTE } from '../../constants/routes';
 
 const getId = pod => (pod || {})._id;

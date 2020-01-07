@@ -6,8 +6,22 @@
   margin: 20px auto;
   width: 90%;
 
-  .name {
-    margin: 20px;
-    text-align: left;
+  .header {
+    display: flex;
+
+    .name {
+      flex: 1;
+      margin: 20px;
+      text-align: left;
+    }
+
+    .closeButton {
+      cursor: pointer;
+      font-size: 2em;
+
+      &::after {
+        content: 'x'
+      }
+    }
   }
 }
