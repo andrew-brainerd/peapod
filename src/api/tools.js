@@ -1,4 +1,4 @@
-import isEmpty from 'lodash/isEmpty';
+import { isEmpty } from 'ramda';
 
 export const printResponse = response => console.log('Response: %o', response);
 
