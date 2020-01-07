@@ -4,7 +4,7 @@ import withSizes from 'react-sizes';
 import { getPathname } from '../../../selectors/routing';
 import { getCurrentPod } from '../../../selectors/pods';
 import { getCurrentUserId } from '../../../selectors/users';
-import { getPod } from '../../../actions/pods';
+import { getPod, invitePeople } from '../../../actions/pods';
 import { navTo } from '../../../actions/routing';
 import Pod from './Pod';
 
@@ -18,7 +18,8 @@ const mapSizesToProps = ({ height }) => ({ height });
 
 const mapDispatchToProps = dispatch => ({
   getPod: podId => dispatch(getPod(podId)),
-  navTo: path => dispatch(navTo(path))
+  navTo: path => dispatch(navTo(path)),
+  invitePeople: () => dispatch(invitePeople())
 });
 
 export default compose(

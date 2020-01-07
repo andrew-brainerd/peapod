@@ -52,3 +52,20 @@
     overflow-y: auto;
   }
 }
+
+.inviteModal {
+  .inviteTitle {
+    color: $peapod;
+    font-size: 1.6em;
+  }
+
+  .inviteModalText {
+    font-size: 1.5em;
+    margin-bottom: 50px;
+    user-select: none;
+  }
+
+  .inviteLink {
+
+  }
+}

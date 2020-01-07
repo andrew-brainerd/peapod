@@ -5,6 +5,8 @@ import {
   PODS_LOADED,
   LOADING_POD,
   POD_LOADED,
+  OPEN_INVITE_MODAL,
+  CLOSE_INVITE_MODAL,
   ADDING_MEMBER_TO_POD,
   ADDED_MEMBER_TO_POD,
   REMOVING_MEMBER_FROM_POD,
@@ -16,11 +18,12 @@ const initialState = {
   isLoadingPods: false,
   isAddingMember: false,
   isRemovingMember: false,
+  isInviteModalOpen: false,
   items: [],
   currentPod: null
 };
 
-export default function pods (state = initialState, action) {
+export default function pods(state = initialState, action) {
   switch (action.type) {
     case CREATING_POD:
       return {
@@ -76,6 +79,16 @@ export default function pods (state = initialState, action) {
       return {
         ...state,
         isRemovingMember: false
+      };
+    case OPEN_INVITE_MODAL:
+      return {
+        ...state,
+        isInviteModalOpen: true
+      };
+    case CLOSE_INVITE_MODAL:
+      return {
+        ...state,
+        isInviteModalOpen: false
       };
     default:
       return state;

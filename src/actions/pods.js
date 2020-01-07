@@ -13,26 +13,32 @@ export const ADDING_MEMBER_TO_POD = `${PREFIX}/ADDING_MEMBER_TO_POD`;
 export const ADDED_MEMBER_TO_POD = `${PREFIX}/ADDED_MEMBER_TO_POD`;
 export const REMOVING_MEMBER_FROM_POD = `${PREFIX}/REMOVING_MEMBER_FROM_POD`;
 export const REMOVED_MEMBER_FROM_POD = `${PREFIX}/REMOVED_MEMBER_FROM_POD`;
+export const OPEN_INVITE_MODAL = `${PREFIX}/OPEN_INVITE_MODAL`;
+export const CLOSE_INVITE_MODAL = `${PREFIX}/CLOSE_INVITE_MODAL`;
 
-export const creatingPod = ({ type: CREATING_POD });
+export const creatingPod = { type: CREATING_POD };
 
 export const podCreated = pod => ({ type: POD_CREATED, pod });
 
-export const loadingPods = ({ type: LOADING_PODS });
+export const loadingPods = { type: LOADING_PODS };
 
 export const podsLoaded = pods => ({ type: PODS_LOADED, pods });
 
-export const loadingPod = ({ type: LOADING_POD });
+export const loadingPod = { type: LOADING_POD };
 
 export const podLoaded = pod => ({ type: POD_LOADED, pod });
 
-export const addingMemberToPod = ({ type: ADDING_MEMBER_TO_POD });
+export const openInviteModal = { type: OPEN_INVITE_MODAL };
 
-export const addedMemberToPod = ({ type: ADDED_MEMBER_TO_POD });
+export const closeInviteModal = { type: CLOSE_INVITE_MODAL };
 
-export const removingMemberFromPod = ({ type: REMOVING_MEMBER_FROM_POD });
+export const addingMemberToPod = { type: ADDING_MEMBER_TO_POD };
 
-export const removedMemberFromPod = ({ type: REMOVED_MEMBER_FROM_POD });
+export const addedMemberToPod = { type: ADDED_MEMBER_TO_POD };
+
+export const removingMemberFromPod = { type: REMOVING_MEMBER_FROM_POD };
+
+export const removedMemberFromPod = { type: REMOVED_MEMBER_FROM_POD };
 
 export const createPod = name => async dispatch => {
   dispatch(creatingPod);
@@ -56,6 +62,10 @@ export const getPod = podId => async dispatch => {
   pods.getPod(podId).then(
     pod => dispatch(podLoaded(pod))
   );
+};
+
+export const invitePeople = () => async dispatch => {
+  dispatch(openInviteModal);
 };
 
 export const addMemberToPod = podId => async (dispatch, getState) => {
