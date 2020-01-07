@@ -1,0 +1,23 @@
+@import '../../../../styles/colors.scss';
+
+.podViewSelector {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  flex: 1 1;
+  justify-content: center;
+  user-select: none;
+
+  .view {
+    border: 2px solid transparent;
+    margin: 0 15px;
+    padding: 7px 0;
+    text-align: center;
+    transition: 0.3s border;
+    width: 120px;
+
+    &.selected {
+      border-bottom-color: $modalBorder;
+    }
+  }
+}

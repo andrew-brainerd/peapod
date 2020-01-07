@@ -1,12 +1,16 @@
-import React, { useEffect } from 'react';
-import { func, string, shape } from 'prop-types';
+import React, { useState, useEffect } from 'react';
+import { func, string, shape, number } from 'prop-types';
 import { MY_PODS_ROUTE } from '../../../constants/routes';
+import { SEARCH } from '../../../constants/pods';
 import Spotify from '../../Spotify/container';
+import PodViewSelector from './PodViewSelector/PodViewSelector';
 import styles from './Pod.module.scss';
 
 const getPodId = pathname => pathname.split('/')[2];
 
-const Pod = ({ getPod, pathname, pod, userId, navTo, height }) => {
+const Pod = ({ getPod, pathname, pod, userId, height, navTo }) => {
+  const [view, setView] = useState(SEARCH);
+
   useEffect(() => {
     getPod(getPodId(pathname));
   }, [getPod, pathname]);
@@ -17,6 +21,7 @@ const Pod = ({ getPod, pathname, pod, userId, navTo, height }) => {
     <div className={styles.pod} style={{ height: height - (height * 0.07) }}>
       <div className={styles.header}>
         <h1 className={styles.name}>{name}</h1>
+        <PodViewSelector selectedView={view} setView={setView} />
         <div
           className={styles.closeButton}
           title={'Close Pod'}
@@ -24,7 +29,7 @@ const Pod = ({ getPod, pathname, pod, userId, navTo, height }) => {
         />
       </div>
       <div className={styles.content}>
-        <Spotify />
+        <Spotify selectedView={view} />
       </div>
     </div>
   );
@@ -37,6 +42,7 @@ Pod.propTypes = {
     name: string
   }),
   userId: string,
+  height: number,
   navTo: func.isRequired
 };
 

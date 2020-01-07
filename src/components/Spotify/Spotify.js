@@ -1,30 +1,18 @@
 import React, { useEffect } from 'react';
-import { bool, array, string, func } from 'prop-types';
-import { isEmpty, uniqBy } from 'ramda';
+import { bool, array, string, oneOf, func } from 'prop-types';
 import { getAuth } from '../../api/spotify';
-import Track from './Track/Track';
-import styles from './Spotify.module.scss';
+import { podViews, SEARCH } from '../../constants/pods';
+import TrackList from './TrackList/container';
+import Player from './Player/container';
 
-const Spotify = ({ hasAuth, isLoading, tracks, pathname, getMyTopTracks }) => {
+const Spotify = ({ hasAuth, pathname, selectedView }) => {
   useEffect(() => {
-    hasAuth ? getMyTopTracks() : getAuth(pathname);
-  }, [hasAuth, getMyTopTracks, pathname]);
+    !hasAuth && getAuth(pathname);
+  }, [hasAuth, pathname]);
 
-  return isLoading ?
-    <div className={styles.loading}>Loading Your Top Tracks...</div> :
-    <div className={styles.spotify}>
-      {!isEmpty(tracks) &&
-        <>
-          <div className={styles.trackHeader}>Your Top {tracks.length} Tracks</div>
-          <div className={styles.trackList}>
-            <div className={styles.topTracks}>
-              {uniqBy(track => track.name, tracks)
-                .map((track, t) => <Track key={t} {...track} />)}
-            </div>
-          </div>
-        </>
-      }
-    </div>;
+  return selectedView === SEARCH ?
+    <TrackList /> :
+    <Player />;
 };
 
 Spotify.propTypes = {
@@ -32,6 +20,7 @@ Spotify.propTypes = {
   isLoading: bool,
   tracks: array,
   pathname: string,
+  selectedView: oneOf(podViews),
   getMyTopTracks: func.isRequired
 };
 
