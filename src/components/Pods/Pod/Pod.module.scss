@@ -4,6 +4,7 @@
 .pod {
   border-radius: 7px;
   margin: 20px auto;
+  max-width: 850px;
   width: 90%;
 
   .header {
@@ -23,5 +24,10 @@
         content: 'x';
       }
     }
+  }
+
+  .content {
+    height: calc(90% - #{$headerHeight});
+    overflow-y: auto;
   }
 }

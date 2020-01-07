@@ -1,4 +1,6 @@
 import { connect } from 'react-redux';
+import { compose } from 'ramda';
+import withSizes from 'react-sizes';
 import { getPathname } from '../../../selectors/routing';
 import { getCurrentPod } from '../../../selectors/pods';
 import { getCurrentUserId } from '../../../selectors/users';
@@ -12,9 +14,14 @@ const mapStateToProps = state => ({
   userId: getCurrentUserId(state)
 });
 
+const mapSizesToProps = ({ height }) => ({ height });
+
 const mapDispatchToProps = dispatch => ({
   getPod: podId => dispatch(getPod(podId)),
   navTo: path => dispatch(navTo(path))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Pod);
+export default compose(
+  withSizes(mapSizesToProps),
+  connect(mapStateToProps, mapDispatchToProps)
+)(Pod);

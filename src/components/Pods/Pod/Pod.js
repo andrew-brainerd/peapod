@@ -6,7 +6,7 @@ import styles from './Pod.module.scss';
 
 const getPodId = pathname => pathname.split('/')[2];
 
-const Pod = ({ getPod, pathname, pod, userId, navTo }) => {
+const Pod = ({ getPod, pathname, pod, userId, navTo, height }) => {
   useEffect(() => {
     getPod(getPodId(pathname));
   }, [getPod, pathname]);
@@ -14,7 +14,7 @@ const Pod = ({ getPod, pathname, pod, userId, navTo }) => {
   const { name } = pod || {};
 
   return (
-    <div className={styles.pod}>
+    <div className={styles.pod} style={{ height: height - (height * 0.07) }}>
       <div className={styles.header}>
         <h1 className={styles.name}>{name}</h1>
         <div

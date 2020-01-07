@@ -15,10 +15,12 @@ const Spotify = ({ hasAuth, isLoading, tracks, pathname, getMyTopTracks }) => {
     <div className={styles.spotify}>
       {!isEmpty(tracks) &&
         <>
-          <h1>Your Top {tracks.length} Tracks</h1>
-          <div className={styles.topTracks}>
-            {uniqBy(track => track.name, tracks)
-              .map((track, t) => <Track key={t} {...track} />)}
+          <div className={styles.trackHeader}>Your Top {tracks.length} Tracks</div>
+          <div className={styles.trackList}>
+            <div className={styles.topTracks}>
+              {uniqBy(track => track.name, tracks)
+                .map((track, t) => <Track key={t} {...track} />)}
+            </div>
           </div>
         </>
       }
