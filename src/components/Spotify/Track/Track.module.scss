@@ -1,4 +1,15 @@
+@import '../../../styles/colors.scss';
+
 .track {
-  margin: 10px;
+  font-size: 1.1em;
+  margin: 15px;
   text-align: left;
+  transition: 0.3s all ease-in;
+
+  &:hover {
+    border: 1px solid $primaryTextColor;
+    cursor: default;
+    font-size: 1.3em;
+    padding: 15px;
+  }
 }

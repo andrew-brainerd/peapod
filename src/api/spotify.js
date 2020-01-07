@@ -2,12 +2,13 @@ import { handleResponse } from './tools';
 
 const PEAPOD_API_URL = process.env.REACT_APP_PEAPOD_API_URL || 'http://localhost:5000';
 
-export const getAuth = async () => {
+export const getAuth = async returnUri => {
   const response = await fetch(`${PEAPOD_API_URL}/api/spotify/auth`);
 
   handleResponse(response);
   const { authUrl } = await response.json();
 
+  localStorage.setItem('spotifyReturnUri', returnUri);
   window.location = authUrl;
 };
 

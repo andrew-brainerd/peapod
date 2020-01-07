@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-import { bool, array, func } from 'prop-types';
+import { bool, array, string, func } from 'prop-types';
 import { isEmpty, uniqBy } from 'ramda';
 import { getAuth } from '../../api/spotify';
 import Track from './Track/Track';
 import styles from './Spotify.module.scss';
 
-const Spotify = ({ hasAuth, isLoading, tracks, getMyTopTracks }) => {
+const Spotify = ({ hasAuth, isLoading, tracks, pathname, getMyTopTracks }) => {
   useEffect(() => {
-    hasAuth ? getMyTopTracks() : getAuth();
-  }, [hasAuth, getMyTopTracks]);
+    hasAuth ? getMyTopTracks() : getAuth(pathname);
+  }, [hasAuth, getMyTopTracks, pathname]);
 
   return isLoading ?
     <div className={styles.loading}>Loading Your Top Tracks...</div> :
@@ -29,6 +29,7 @@ Spotify.propTypes = {
   hasAuth: bool,
   isLoading: bool,
   tracks: array,
+  pathname: string,
   getMyTopTracks: func.isRequired
 };
 

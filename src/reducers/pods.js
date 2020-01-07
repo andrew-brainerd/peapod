@@ -20,7 +20,7 @@ const initialState = {
   currentPod: null
 };
 
-export default function pods(state = initialState, action) {
+export default function pods (state = initialState, action) {
   switch (action.type) {
     case CREATING_POD:
       return {

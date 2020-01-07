@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { func, string, shape } from 'prop-types';
 import { MY_PODS_ROUTE } from '../../../constants/routes';
+import Spotify from '../../Spotify/container';
 import styles from './Pod.module.scss';
 
 const getPodId = pathname => pathname.split('/')[2];
@@ -22,7 +23,9 @@ const Pod = ({ getPod, pathname, pod, userId, navTo }) => {
           onClick={() => navTo(MY_PODS_ROUTE.replace(':userId', userId))}
         />
       </div>
-      
+      <div className={styles.content}>
+        <Spotify />
+      </div>
     </div>
   );
 };
@@ -33,6 +36,7 @@ Pod.propTypes = {
   pod: shape({
     name: string
   }),
+  userId: string,
   navTo: func.isRequired
 };
 

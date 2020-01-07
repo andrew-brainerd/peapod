@@ -6,11 +6,14 @@ import styles from './SpotifyAuth.module.scss';
 
 const SpotifyAuth = ({ query, navTo }) => {
   useEffect(() => {
-    window.appConfig.spotify = {
-      accessToken: query.access_token,
-      refreshToken: query.refresh_token
+    const returnUri = localStorage.getItem('spotifyReturnUri');
+    window.appConfig = {
+      spotifyAuth: {
+        accessToken: query.access_token,
+        refreshToken: query.refresh_token
+      }
     };
-    navTo(SPOTIFY_ROUTE);
+    navTo(returnUri || SPOTIFY_ROUTE);
   });
 
   return (
