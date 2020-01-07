@@ -9,11 +9,32 @@
 
   .header {
     display: flex;
+    position: relative;
 
     .name {
-      flex: 1;
-      margin: 20px;
+      font-size: 2em;
+      margin: 20px 5px 20px 20px;
       text-align: left;
+    }
+
+    .inviteIconContainer {
+      align-self: center;
+      display: flex;
+      flex: 1 1;
+      position: relative;
+      top: 2px;
+
+      .inviteIcon {
+        cursor: pointer;
+        fill: $peapod;
+        height: 20px;
+        transition: 0.3s fill;
+        width: 45px;
+
+        &:hover {
+          fill: $primaryTextColor;
+        }
+      }
     }
 
     .closeButton {

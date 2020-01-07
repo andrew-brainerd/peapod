@@ -4,6 +4,7 @@ import { MY_PODS_ROUTE } from '../../../constants/routes';
 import { SEARCH } from '../../../constants/pods';
 import Spotify from '../../Spotify/container';
 import PodViewSelector from './PodViewSelector/PodViewSelector';
+import { ReactComponent as InviteIcon } from '../../../img/invite.svg';
 import styles from './Pod.module.scss';
 
 const getPodId = pathname => pathname.split('/')[2];
@@ -20,7 +21,10 @@ const Pod = ({ getPod, pathname, pod, userId, height, navTo }) => {
   return (
     <div className={styles.pod} style={{ height: height - (height * 0.07) }}>
       <div className={styles.header}>
-        <h1 className={styles.name}>{name}</h1>
+        <div className={styles.name}>{name}</div>
+        <div className={styles.inviteIconContainer}>
+          <InviteIcon className={styles.inviteIcon} />
+        </div>
         <PodViewSelector selectedView={view} setView={setView} />
         <div
           className={styles.closeButton}
