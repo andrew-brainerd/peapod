@@ -15,6 +15,8 @@ export const REMOVING_MEMBER_FROM_POD = `${PREFIX}/REMOVING_MEMBER_FROM_POD`;
 export const REMOVED_MEMBER_FROM_POD = `${PREFIX}/REMOVED_MEMBER_FROM_POD`;
 export const OPEN_INVITE_MODAL = `${PREFIX}/OPEN_INVITE_MODAL`;
 export const CLOSE_INVITE_MODAL = `${PREFIX}/CLOSE_INVITE_MODAL`;
+export const SENDING_INVITATION = `${PREFIX}/SENDING_INVITATION`;
+export const INVITATION_SENT = `${PREFIX}/INVITATION_SENT`;
 
 export const creatingPod = { type: CREATING_POD };
 
@@ -31,6 +33,10 @@ export const podLoaded = pod => ({ type: POD_LOADED, pod });
 export const openInviteModal = { type: OPEN_INVITE_MODAL };
 
 export const closeInviteModal = { type: CLOSE_INVITE_MODAL };
+
+export const sendingInvitation = { type: SENDING_INVITATION };
+
+export const invitationSent = { type: INVITATION_SENT };
 
 export const addingMemberToPod = { type: ADDING_MEMBER_TO_POD };
 
@@ -66,6 +72,13 @@ export const getPod = podId => async dispatch => {
 
 export const invitePeople = () => async dispatch => {
   dispatch(openInviteModal);
+};
+
+export const sendInvitation = (podId, messageType, to) => async dispatch => {
+  dispatch(sendingInvitation);
+  pods.sendInvitation(podId, messageType, to).then(() => {
+    dispatch(invitationSent);
+  });
 };
 
 export const addMemberToPod = podId => async (dispatch, getState) => {

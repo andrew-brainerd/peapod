@@ -37,7 +37,7 @@ const CreatePod = ({ createPod, createdPod, navTo }) => {
         navTo(POD_ROUTE.replace(':podId', (newPod || {})._id));
       }, 3000);
     })
-    .catch(err => console.err('Failed to create pod', err));
+    .catch(err => console.error('Failed to create pod', err));
 
   return (
     <div className={styles.createPod}>

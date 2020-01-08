@@ -65,7 +65,15 @@
     user-select: none;
   }
 
-  .inviteLink {
+  .inviteLink {}
 
+  .inputFields {
+    .phoneInput {
+      @include defaultInput();
+
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      text-align: center;
+    }
   }
 }

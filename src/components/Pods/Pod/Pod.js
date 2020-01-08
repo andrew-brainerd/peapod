@@ -1,24 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { func, string, shape, number } from 'prop-types';
 import { MY_PODS_ROUTE } from '../../../constants/routes';
 import { SEARCH } from '../../../constants/pods';
 import Spotify from '../../Spotify/container';
 import PodViewSelector from './PodViewSelector/PodViewSelector';
 import Modal from '../../common/Modal/Modal';
+import Button from '../../common/Button/Button';
 import { ReactComponent as InviteIcon } from '../../../img/invite.svg';
 import styles from './Pod.module.scss';
 
 const getPodId = pathname => pathname.split('/')[2];
 
-const Pod = ({ getPod, pathname, pod, userId, height, navTo, invitePeople }) => {
+const Pod = ({ getPod, pathname, pod, userId, height, navTo, sendInvitation }) => {
   const [view, setView] = useState(SEARCH);
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const phoneNumberInput = useRef();
 
   useEffect(() => {
     getPod(getPodId(pathname));
   }, [getPod, pathname]);
 
-  const { name, inviteLink } = pod || {};
+  const { _id, name } = pod || {};
 
   return (
     <div className={styles.pod} style={{ height: height - (height * 0.07) }}>
@@ -45,7 +48,32 @@ const Pod = ({ getPod, pathname, pod, userId, height, navTo, invitePeople }) => 
         <div className={styles.inviteModalText}>
           Invite People to the <span className={styles.inviteTitle}>{name}</span> Pod
         </div>
-        <div className={styles.inviteLink}>{inviteLink}</div>
+        <div className={styles.inputFields}>
+          <input
+            id={'phoneNumber'}
+            type={'text'}
+            className={styles.phoneInput}
+            placeholder={'Phone Number'}
+            ref={phoneNumberInput}
+            value={phoneNumber}
+            autoComplete={'false'}
+            onChange={e => setPhoneNumber(e.target.value)}
+            onKeyPress={({ key }) => {
+              if (key === 'Enter') {
+                sendInvitation(_id, 'sms', phoneNumber);
+                setIsModalOpen(false);
+              }
+            }}
+          />
+          <Button
+            className={styles.inviteButton}
+            text={'Invite'}
+            onClick={() => {
+              sendInvitation(_id, 'sms', phoneNumber);
+              setIsModalOpen(false);
+            }}
+          />
+        </div>
       </Modal>
     </div>
   );
@@ -59,7 +87,8 @@ Pod.propTypes = {
   }),
   userId: string,
   height: number,
-  navTo: func.isRequired
+  navTo: func.isRequired,
+  sendInvitation: func.isRequired
 };
 
 export default Pod;

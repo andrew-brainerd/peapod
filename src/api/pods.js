@@ -65,3 +65,16 @@ export const removeMemberFromPod = async (podId, user) => {
 
   return json;
 };
+
+export const sendInvitation = async (podId, messageType, to) => {
+  const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/invite`, {
+    method: 'POST',
+    headers: basicJsonHeader,
+    body: JSON.stringify({ messageType: messageType || 'sms', to })
+  });
+
+  handleResponse(response);
+  const json = await response.json();
+
+  return json;
+};
