@@ -6,6 +6,8 @@ const SPOTIFY_REFRESH_TOKEN = 'spotifyRefreshToken';
 const SPOITFY_EXPIRE_TIME = 'spotifyExpireTime';
 const REFRESH_THRESHOLD_MIN = 1;
 
+export const setReturnUri = returnUri => localStorage.setItem(SPOTIFY_RETURN_URI, returnUri);
+
 export const getReturnUri = () => localStorage.getItem(SPOTIFY_RETURN_URI);
 
 const calculateExpireTime = expiresIn => moment().add(expiresIn, 'seconds').toString();
@@ -35,4 +37,9 @@ export const getAccessToken = () => {
   const localAccessToken = localStorage.getItem(SPOTIFY_ACCESS_TOKEN);
 
   return isTokenValid ? localAccessToken : null;
+};
+
+export const getRefreshToken = () => {
+  const refreshToken = localStorage.getItem(SPOTIFY_REFRESH_TOKEN);
+  return refreshToken;
 };

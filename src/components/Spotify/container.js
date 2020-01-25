@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { getAccessToken } from '../../utils/spotify';
+import { getAccessToken, getRefreshToken } from '../../utils/spotify';
 import { getIsLoadingTracks, getTracks } from '../../selectors/spotify';
 import { getPathname } from '../../selectors/routing';
 import { getMyTopTracks } from '../../actions/spotify';
@@ -8,6 +8,7 @@ import Spotify from './Spotify';
 
 const mapStateToProps = state => ({
   hasAuth: !!getAccessToken(),
+  hasRefreshToken: !!getRefreshToken(),
   isLoading: getIsLoadingTracks(state),
   tracks: getTracks(state),
   pathname: getPathname(state)
