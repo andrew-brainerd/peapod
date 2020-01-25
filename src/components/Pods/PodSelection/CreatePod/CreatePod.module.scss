@@ -4,7 +4,6 @@
 .createPod {
   @include defaultBorder();
 
-  border-radius: 10px;
   border-width: 3px;
   background: $secondaryColor;
   margin: 35px auto;

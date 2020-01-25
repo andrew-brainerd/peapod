@@ -1,5 +1,6 @@
 @import '../../styles/colors.scss';
 @import '../../styles/fonts.scss';
+@import '../../styles/mixins.scss';
 @import '../../styles/sizing.scss';
 
 .home {
@@ -31,6 +32,8 @@
     margin: 50px 0;
 
     .button {
+      @include boxShadow();
+
       background: $secondaryColor;
       border-color: $secondaryColorLight;
       color: $primaryTextColor;
