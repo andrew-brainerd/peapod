@@ -44,6 +44,7 @@ const Pod = ({ getPod, pathname, pod, userId, height, navTo, sendInvitation }) =
         className={styles.inviteModal}
         isOpen={isModalOpen}
         closeModal={() => setIsModalOpen(false)}
+        contentClassName={styles.inviteModalContent}
       >
         <div className={styles.inviteModalText}>
           Invite People to the <span className={styles.inviteTitle}>{name}</span> Pod
@@ -56,7 +57,8 @@ const Pod = ({ getPod, pathname, pod, userId, height, navTo, sendInvitation }) =
             placeholder={'Phone Number'}
             ref={phoneNumberInput}
             value={phoneNumber}
-            autoComplete={'false'}
+            autoComplete={'off'}
+            autoCorrect={'off'}
             onChange={e => setPhoneNumber(e.target.value)}
             onKeyPress={({ key }) => {
               if (key === 'Enter') {

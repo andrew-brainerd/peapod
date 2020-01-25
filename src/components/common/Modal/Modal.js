@@ -11,9 +11,9 @@ const Modal = ({
   closeModal,
   headerText,
   children,
-  className
-}) => {
-  return (
+  className,
+  contentClassName
+}) => (
     <ReactModal
       className={[styles.modal, className].join(' ')}
       overlayClassName={styles.overlay}
@@ -31,12 +31,11 @@ const Modal = ({
           onClick={closeModal}
         />
       </div>
-      <div className={styles.content}>
+      <div className={[styles.content, contentClassName].join(' ')}>
         {children}
       </div>
     </ReactModal>
   );
-};
 
 Modal.propTypes = {
   isOpen: bool.isRequired,
@@ -44,7 +43,8 @@ Modal.propTypes = {
   closeModal: func.isRequired,
   headerText: string,
   children: node,
-  className: string
+  className: string,
+  contentClassName: string
 };
 
 export default Modal;

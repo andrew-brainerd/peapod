@@ -53,26 +53,34 @@
 }
 
 .inviteModal {
-  .inviteTitle {
-    color: $peapod;
-    font-size: 1.6em;
-  }
+  .inviteModalContent {
+    align-items: center;
+    display: flex;
+    flex-flow: column nowrap;
 
-  .inviteModalText {
-    font-size: 1.5em;
-    margin-bottom: 50px;
-    user-select: none;
-  }
+    .inviteTitle {
+      color: $peapod;
+      font-size: 1.6em;
+    }
 
-  .inviteLink {}
-
-  .inputFields {
-    .phoneInput {
-      @include defaultInput();
-
+    .inviteModalText {
       font-size: 1.5em;
-      margin-bottom: 10px;
-      text-align: center;
+      margin-bottom: 50px;
+      user-select: none;
+    }
+
+    .inputFields {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+      .phoneInput {
+        @include defaultInput();
+
+        font-size: 1.5em;
+        margin-bottom: 10px;
+        text-align: center;
+      }
     }
   }
 }
