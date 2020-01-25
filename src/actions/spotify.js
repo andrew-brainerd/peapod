@@ -1,5 +1,5 @@
 import * as spotify from '../api/spotify';
-import { getAccessToken } from '../selectors/spotify';
+import { getAccessToken } from '../utils/spotify';
 
 const PREFIX = 'SPOTIFY';
 
@@ -16,16 +16,14 @@ const tracksLoaded = tracks => ({ type: TRACKS_LOADED, tracks });
 
 export const getLogicAlbums = () => async (dispatch, getState) => {
   dispatch(loadingAlbums);
-  const token = getAccessToken(getState());
-  spotify.getLogicAlbums(token)
+  spotify.getLogicAlbums(getAccessToken())
     .then(albums => dispatch(albumsLoaded(albums)))
     .catch(err => console.error('Failed to fetch Logic albums', err));
 };
 
 export const getMyTopTracks = () => async (dispatch, getState) => {
   dispatch(loadingTracks);
-  const token = getAccessToken(getState());
-  spotify.getMyTopTracks(token)
+  spotify.getMyTopTracks(getAccessToken())
     .then(tracks => dispatch(tracksLoaded(tracks)))
     .catch(err => console.error('Failed to fetch user tracks', err));
 };

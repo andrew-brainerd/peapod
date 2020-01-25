@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import { getAccessToken, getIsLoadingTracks, getTracks } from '../../selectors/spotify';
+import { getAccessToken } from '../../utils/spotify';
+import { getIsLoadingTracks, getTracks } from '../../selectors/spotify';
 import { getPathname } from '../../selectors/routing';
 import { getMyTopTracks } from '../../actions/spotify';
 import { navTo } from '../../actions/routing';
