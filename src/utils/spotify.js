@@ -29,11 +29,7 @@ const getIsAuthExpired = currentMoment => {
   return expireDiff < REFRESH_THRESHOLD_MIN;
 };
 
-const getLocalAccessToken = () => {
-  const isTokenValid = !getIsAuthExpired(moment());
-  const localAccessToken = localStorage.getItem(SPOTIFY_ACCESS_TOKEN);
-  return isTokenValid ? localAccessToken : null;
-};
+export const getLocalAccessToken = () => localStorage.getItem(SPOTIFY_ACCESS_TOKEN);
 
 const getLocalRefreshToken = () => localStorage.getItem(SPOTIFY_REFRESH_TOKEN);
 

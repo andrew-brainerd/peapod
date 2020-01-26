@@ -1,5 +1,11 @@
 import * as spotify from '../api/spotify';
-import { hasValidLocalAuth, getLocalAuth } from '../utils/spotify';
+import {
+  getLocalAccessToken,
+  getLocalAuth,
+  setLocalAuth,
+  hasValidLocalAuth,
+  calculateExpireTime
+} from '../utils/spotify';
 import { getAccessToken } from '../selectors/spotify';
 
 const PREFIX = 'SPOTIFY';
@@ -19,8 +25,26 @@ const tracksLoaded = tracks => ({ type: TRACKS_LOADED, tracks });
 export const setAuth = ({ accessToken, refreshToken, expireTime }) =>
   ({ type: SET_AUTH, accessToken, refreshToken, expireTime });
 
-export const loadLocalAuth = () => async dispatch =>
-  hasValidLocalAuth() && dispatch(setAuth(getLocalAuth()));
+export const refreshAuth = ({ accessToken, refreshToken }) => async dispatch => {
+  spotify.refreshAuth(accessToken, refreshToken).then(refreshData => {
+    const auth = {
+      accessToken: refreshData.access_token,
+      expireTime: calculateExpireTime(refreshData.expires_in)
+    };
+
+    setLocalAuth(auth);
+    dispatch(setAuth(auth));
+  }
+  );
+};
+
+export const loadLocalAuth = () => async dispatch => {
+  if (getLocalAccessToken()) {
+    hasValidLocalAuth() ?
+      dispatch(setAuth(getLocalAuth())) :
+      dispatch(refreshAuth(getLocalAuth()));
+  }
+};
 
 export const getLogicAlbums = () => async (dispatch, getState) => {
   dispatch(loadingAlbums);

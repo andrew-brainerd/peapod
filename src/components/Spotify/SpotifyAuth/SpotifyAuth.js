@@ -10,7 +10,7 @@ const SpotifyAuth = ({ query, setAuth, navTo }) => {
     const auth = {
       accessToken: query.access_token,
       refreshToken: query.refresh_token,
-      expireTime : calculateExpireTime(query.expires_in)
+      expireTime: calculateExpireTime(query.expires_in)
     };
 
     setLocalAuth(auth);
