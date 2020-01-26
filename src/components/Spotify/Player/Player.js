@@ -1,34 +1,49 @@
 import React, { useState } from 'react';
 import { bool, object, func } from 'prop-types';
-import usePollingEffect from '../../../hooks/usePollingEffect';
+import moment from 'moment';
 import usePrevious from '../../../hooks/usePrevious';
-import { getIsPlaying, getNowPlayingItem } from '../../../selectors/player';
+import usePollingEffect from '../../../hooks/usePollingEffect';
+import {
+  getIsPlaying,
+  getNowPlayingItem,
+  getTrackProgress,
+  getTrackLength
+} from '../../../selectors/player';
 import { TRACK } from '../../../constants/spotify';
+import TrackProgress from './TrackProgress/TrackProgress';
 import styles from './Player.module.scss';
+import { getTimeFromMilliseconds } from '../../../utils/spotify';
 
 const Player = ({ hasAuth, isLoading, nowPlaying, getMyNowPlaying }) => {
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const isPlaying = getIsPlaying(nowPlaying);
   const { type, name } = getNowPlayingItem(nowPlaying);
+  const trackProgress = moment.duration(getTrackProgress(nowPlaying));
+  const trackDuration = moment.duration(getTrackLength(nowPlaying));
   const prevName = usePrevious(name);
+
   prevName !== name && console.log({ isPlaying, type, name, nowPlaying });
+
+  const playTime = getTimeFromMilliseconds(trackProgress);
+  const trackLength = getTimeFromMilliseconds(trackDuration);
 
   usePollingEffect(() => {
     if (hasAuth) {
       setIsInitialLoad(false);
       getMyNowPlaying();
     }
-  }, [hasAuth, getMyNowPlaying], 30000);
+  }, [hasAuth, getMyNowPlaying], 10000);
 
   return (isInitialLoad && isLoading) || !hasAuth ?
     <div className={styles.loading}>Loading Player...</div> :
     <div className={styles.player}>
       {isPlaying ?
         <div className={styles.nowPlaying}>
-          {type === TRACK && 
+          {type === TRACK &&
             <div className={styles.trackName}>
               {name}
             </div>}
+          <TrackProgress playTime={playTime} trackLength={trackLength} />
         </div> :
         <div className={styles.emptyPlayer}>Nothing Playing</div>}
     </div>;
