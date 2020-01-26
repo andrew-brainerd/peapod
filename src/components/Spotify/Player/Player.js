@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { bool, string } from 'prop-types';
+import { bool } from 'prop-types';
 import styles from './Player.module.scss';
 
-const Player = ({ hasAuth, isLoading, pathname }) => {
+const Player = ({ hasAuth, isLoading }) => {
   useEffect(() => {
     hasAuth && console.log('Ready to Play :D');
   }, [hasAuth]);
@@ -16,8 +16,7 @@ const Player = ({ hasAuth, isLoading, pathname }) => {
 
 Player.propTypes = {
   hasAuth: bool,
-  isLoading: bool,
-  pathname: string
+  isLoading: bool
 };
 
 Player.defaultProps = {

@@ -1,15 +1,11 @@
 import { connect } from 'react-redux';
-import { getAccessToken } from '../../../utils/spotify';
-import { getIsLoadingTracks, getTracks } from '../../../selectors/spotify';
-import { getPathname } from '../../../selectors/routing';
+import { getAccessToken, getIsLoadingTracks } from '../../../selectors/spotify';
 import { navTo } from '../../../actions/routing';
 import Player from './Player';
 
 const mapStateToProps = state => ({
   hasAuth: !!getAccessToken(),
-  isLoading: getIsLoadingTracks(state),
-  tracks: getTracks(state),
-  pathname: getPathname(state)
+  isLoading: getIsLoadingTracks(state)
 });
 
 const mapDispatchToProps = dispatch => ({

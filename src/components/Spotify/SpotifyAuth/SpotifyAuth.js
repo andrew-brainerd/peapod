@@ -1,19 +1,22 @@
 import React, { useEffect } from 'react';
 import { shape, string, func } from 'prop-types';
-import { setSpotifyAuth, getReturnUri } from '../../../utils/spotify';
+import { setLocalAuth, calculateExpireTime, getLocalReturnUri } from '../../../utils/spotify';
 import { SPOTIFY_ROUTE } from '../../../constants/routes';
 import Loading from '../../common/Loading/Loading';
 import styles from './SpotifyAuth.module.scss';
 
-const SpotifyAuth = ({ query, navTo }) => {
+const SpotifyAuth = ({ query, setAuth, navTo }) => {
   useEffect(() => {
-    setSpotifyAuth({
+    const auth = {
       accessToken: query.access_token,
       refreshToken: query.refresh_token,
-      expiresIn: query.expires_in
-    });
+      expireTime : calculateExpireTime(query.expires_in)
+    };
 
-    navTo(getReturnUri() || SPOTIFY_ROUTE);
+    setLocalAuth(auth);
+    setAuth(auth);
+
+    navTo(getLocalReturnUri() || SPOTIFY_ROUTE);
   });
 
   return (
@@ -30,6 +33,7 @@ SpotifyAuth.propTypes = {
     refresh_token: string,
     expires_in: string
   }),
+  setAuth: func.isRequired,
   navTo: func.isRequired
 };
 

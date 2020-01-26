@@ -1,6 +1,4 @@
-import { handleResponse, parseOptions } from './tools';
-
-const basicJsonHeader = { 'Content-Type': 'application/json' };
+import { basicJsonHeader, handleResponse, parseOptions } from './tools';
 
 const PEAPOD_API_URL = process.env.REACT_APP_PEAPOD_API_URL || 'http://localhost:5000';
 

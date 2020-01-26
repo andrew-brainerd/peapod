@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { getQuery } from '../../../selectors/routing';
 import { navTo } from '../../../actions/routing';
+import { setAuth } from '../../../actions/spotify';
 import SpotifyAuth from './SpotifyAuth';
 
 const mapStateToProps = state => ({
@@ -8,6 +9,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  setAuth: auth => dispatch(setAuth(auth)),
   navTo: path => dispatch(navTo(path))
 });
 
