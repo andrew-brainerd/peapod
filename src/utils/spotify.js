@@ -20,7 +20,7 @@ export const getLocalReturnUri = () => localStorage.getItem(SPOTIFY_RETURN_URI);
 
 const getLocalExpireTime = currentMoment => {
   const expireTime = localStorage.getItem(SPOITFY_EXPIRE_TIME);
-  return expireTime ? moment(expireTime) : currentMoment;
+  return expireTime ? moment(new Date(expireTime)) : currentMoment;
 };
 
 const getIsAuthExpired = currentMoment => {

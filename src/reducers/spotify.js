@@ -3,7 +3,9 @@ import {
   LOADING_ALBUMS,
   ALBUMS_LOADED,
   LOADING_TRACKS,
-  TRACKS_LOADED
+  TRACKS_LOADED,
+  LOADING_NOW_PLAYING,
+  NOW_PLAYING_LOADED
 } from '../actions/spotify';
 
 const initialState = {
@@ -12,8 +14,10 @@ const initialState = {
   expireTime: null,
   isLoadingAlbums: false,
   isLoadingTracks: false,
+  isLoadingNowPlaying: false,
   albums: [],
-  tracks: []
+  tracks: [],
+  nowPlaying: {}
 };
 
 export default function spotify (state = initialState, action) {
@@ -46,6 +50,17 @@ export default function spotify (state = initialState, action) {
         ...state,
         isLoadingTracks: false,
         tracks: action.tracks
+      };
+    case LOADING_NOW_PLAYING:
+      return {
+        ...state,
+        isLoadingNowPlaying: true
+      };
+    case NOW_PLAYING_LOADED:
+      return {
+        ...state,
+        isLoadingNowPlaying: false,
+        nowPlaying: action.nowPlaying
       };
     default:
       return state;

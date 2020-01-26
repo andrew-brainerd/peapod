@@ -5,7 +5,7 @@ import { navTo } from '../../../actions/routing';
 import TrackList from './TrackList';
 
 const mapStateToProps = state => ({
-  hasAuth: !!getAccessToken(),
+  hasAuth: !!getAccessToken(state),
   isLoading: getIsLoadingTracks(state),
   tracks: getTracks(state)
 });

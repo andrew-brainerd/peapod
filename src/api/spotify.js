@@ -48,3 +48,14 @@ export const getMyTopTracks = async accessToken => {
 
   return json;
 };
+
+export const getMyNowPlaying = async accessToken => {
+  const url = `${PEAPOD_API_URL}/api/spotify/myNowPlaying?accessToken=${accessToken}`;
+
+  const response = await fetch(url);
+
+  handleResponse(response);
+  const json = await response.json();
+
+  return json;
+};
