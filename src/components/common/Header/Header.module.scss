@@ -23,9 +23,6 @@
         border-color: $buttonBackground;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
-        box-shadow: none;
-        height: 35px;
-        line-height: 25px;
         margin-right: 20px;
         position: relative;
         top: -10px;
@@ -41,7 +38,6 @@
           background: $primaryColor;
           border-bottom: none;
           border-color: transparent;
-          box-shadow: none;
           transform: scale(1);
         }
       }

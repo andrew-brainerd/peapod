@@ -1,4 +1,5 @@
 import {
+  SET_AUTH,
   LOADING_ALBUMS,
   ALBUMS_LOADED,
   LOADING_TRACKS,
@@ -8,6 +9,7 @@ import {
 const initialState = {
   accessToken: null,
   refreshToken: null,
+  expireTime: null,
   isLoadingAlbums: false,
   isLoadingTracks: false,
   albums: [],
@@ -16,6 +18,13 @@ const initialState = {
 
 export default function spotify (state = initialState, action) {
   switch (action.type) {
+    case SET_AUTH:
+      return {
+        ...state,
+        accessToken: action.accessToken,
+        refreshToken: action.refreshToken,
+        expireTime: action.expireTime
+      };
     case LOADING_ALBUMS:
       return {
         ...state,

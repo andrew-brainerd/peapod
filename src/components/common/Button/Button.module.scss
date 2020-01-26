@@ -2,13 +2,12 @@
 @import '../../../styles/mixins.scss';
 
 .button {
-  @include boxShadow();
-
   background: $buttonBackground;
+  border-radius: 7px;
   color: $primaryTextColor;
   cursor: pointer;
   font-size: 0.9em;
-  padding: 5px 10px;
+  padding: 10px;
   text-align: center;
   transition: 0.3s all;
   user-select: none;

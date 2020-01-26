@@ -1,6 +1,8 @@
-import isEmpty from 'lodash/isEmpty';
+import { isEmpty, keys } from 'ramda';
 
 export const printResponse = response => console.log('Response: %o', response);
+
+export const basicJsonHeader = { 'Content-Type': 'application/json' };
 
 export const handleResponse = async (response, expected) => {
   if (response.status !== 200 && response.status !== expected) {
@@ -9,8 +11,8 @@ export const handleResponse = async (response, expected) => {
 };
 
 export const parseOptions = options => {
-  return (!isEmpty(options) &&
-    `?${Object.keys(options).map(o =>
-      `${o}=${options[o]}`
+  return (options && !isEmpty(options) &&
+    `?${keys(options).map(option =>
+      `${option}=${options[option]}`
     ).join('&')}`) || '';
 };

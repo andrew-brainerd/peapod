@@ -1,6 +1,6 @@
 import React from 'react';
 import { node, bool, func, string } from 'prop-types';
-import noop from 'lodash/noop';
+import noop from '../../../utils/noop';
 import styles from './Button.module.scss';
 
 const Button = ({ children, className, disabled, onClick, text }) => (

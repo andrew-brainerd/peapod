@@ -1,0 +1,25 @@
+.trackList {
+  height: 97%;
+  margin: 15px auto;
+  max-width: 700px;
+  width: 95%;
+
+  h1 {
+    margin: 15px;
+    text-align: left;
+  }
+
+  .list {
+    .tracks {
+      height: 85%;
+      margin: 10px;
+      overflow-y: auto;
+    }
+  }
+}
+
+.loading {
+  font-size: 1.5em;
+  margin-top: 30px;
+  text-align: center;
+}

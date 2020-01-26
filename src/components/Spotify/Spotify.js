@@ -1,39 +1,36 @@
 import React, { useEffect } from 'react';
-import { bool, array, func } from 'prop-types';
-import { isEmpty, uniqBy } from 'ramda';
+import { bool, string, oneOf, func } from 'prop-types';
 import { getAuth } from '../../api/spotify';
-import Track from './Track/Track';
+import { podViews, SEARCH } from '../../constants/pods';
+import Button from '../common/Button/Button';
+import TrackList from './TrackList/container';
+import Player from './Player/container';
+import { ReactComponent as SpotifyIcon } from '../../img/spotify.svg';
 import styles from './Spotify.module.scss';
 
-const Spotify = ({ hasAuth, isLoading, tracks, getMyTopTracks }) => {
+const Spotify = ({ hasAuth, pathname, selectedView, loadLocalAuth }) => {
   useEffect(() => {
-    hasAuth ? getMyTopTracks() : getAuth();
-  }, [hasAuth, getMyTopTracks]);
+    !hasAuth && loadLocalAuth();
+  }, [hasAuth, loadLocalAuth]);
 
-  return isLoading ?
-    <div className={styles.loading}>Loading Your Top Tracks...</div> :
-    <div className={styles.spotify}>
-      {!isEmpty(tracks) &&
-        <>
-          <h1>Your Top {tracks.length} Tracks</h1>
-          <div className={styles.topTracks}>
-            {uniqBy(track => track.name, tracks)
-              .map((track, t) => <Track key={t} {...track} />)}
-          </div>
-        </>
-      }
-    </div>;
+  return !hasAuth ?
+    <Button
+      className={styles.authButton}
+      onClick={() => getAuth(pathname)}
+    >
+      <SpotifyIcon />
+      <div className={styles.authButtonText}>Spotify Login</div>
+    </Button> :
+    selectedView === SEARCH ?
+      <TrackList /> :
+      <Player />;
 };
 
 Spotify.propTypes = {
   hasAuth: bool,
-  isLoading: bool,
-  tracks: array,
-  getMyTopTracks: func.isRequired
-};
-
-Spotify.defaultProps = {
-  isLoading: true
+  pathname: string,
+  selectedView: oneOf(podViews),
+  loadLocalAuth: func.isRequired
 };
 
 export default Spotify;

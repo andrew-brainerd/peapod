@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { func, array, string } from 'prop-types';
-import Pod from '../../Pod/Pod';
+import PodItem from '../../PodItem/PodItem';
 import Modal from '../../../common/Modal/Modal';
 import PodMembers from '../../PodMembers/PodMembers';
 import Button from '../../../common/Button/Button';
@@ -24,7 +24,7 @@ const JoinPod = ({ getPods, pods, joinPod, leavePod, userName }) => {
     <div className={styles.joinPod}>
       <div className={styles.podList}>
         {(pods || []).map((pod, p) =>
-          <Pod
+          <PodItem
             key={p}
             name={getName(pod)}
             numMembers={getNumMembers(pod)}

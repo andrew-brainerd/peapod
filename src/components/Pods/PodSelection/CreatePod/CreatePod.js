@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { func, string } from 'prop-types';
+import { func, shape, string } from 'prop-types';
 import styles from './CreatePod.module.scss';
 import Button from '../../../common/Button/Button';
+import { POD_ROUTE } from '../../../../constants/routes';
 
-const CreatePod = ({ createPod, createdPodName }) => {
+const CreatePod = ({ createPod, createdPod, navTo }) => {
   const [podName, setPodName] = useState('');
   const [inputError, setInputError] = useState(null);
   const [showCreated, setShowCreated] = useState(false);
@@ -23,13 +24,20 @@ const CreatePod = ({ createPod, createdPodName }) => {
   };
 
   const clear = () => {
+    setShowCreated(true);
     setPodName('');
     setInputError(null);
-    setTimeout(() => setShowCreated(false), 3000);
   };
 
   const create = () => validate() && createPod(podName)
-    .then(() => { setShowCreated(true); clear(); });
+    .then(newPod => {
+      clear();
+      setTimeout(() => {
+        setShowCreated(false);
+        navTo(POD_ROUTE.replace(':podId', (newPod || {})._id));
+      }, 3000);
+    })
+    .catch(err => console.error('Failed to create pod', err));
 
   return (
     <div className={styles.createPod}>
@@ -49,9 +57,9 @@ const CreatePod = ({ createPod, createdPodName }) => {
           {inputError}
         </div>
       )}
-      {createdPodName && showCreated && (
+      {createdPod && createdPod.name && showCreated && (
         <div className={styles.createdPodName}>
-          {`Created Pod ${createdPodName}`}
+          {`Created Pod ${createdPod.name}`}
         </div>
       )}
       <Button
@@ -65,7 +73,10 @@ const CreatePod = ({ createPod, createdPodName }) => {
 
 CreatePod.propTypes = {
   createPod: func.isRequired,
-  createdPodName: string
+  createdPod: shape({
+    name: string
+  }),
+  navTo: func.isRequired
 };
 
 export default CreatePod;

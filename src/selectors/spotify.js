@@ -1,6 +1,6 @@
 import { path, pathOr } from 'ramda';
 
-export const getAccessToken = () => path(['appConfig', 'spotify', 'accessToken'], window);
+export const getAccessToken = path(['spotify', 'accessToken']);
 
 export const getAlbums = pathOr([], ['spotify', 'albums', 'items']);
 

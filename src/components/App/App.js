@@ -9,15 +9,15 @@ import {
   CREATE_POD_ROUTE,
   JOIN_POD_ROUTE,
   MY_PODS_ROUTE,
-  SPOTIFY_ROUTE,
-  SPOTIFY_AUTH_ROUTE
+  SPOTIFY_AUTH_ROUTE,
+  POD_ROUTE
 } from '../../constants/routes';
 import Home from '../Home/container';
 import PodSelection from '../Pods/PodSelection/container';
 import Pods from '../Pods/container';
 import CreatePod from '../Pods/PodSelection/CreatePod/container';
 import JoinPod from '../Pods/PodSelection/JoinPod/container';
-import Spotify from '../Spotify/container';
+import Pod from '../Pods/Pod/container';
 import SpotifyAuth from '../Spotify/SpotifyAuth/container';
 import styles from './App.module.scss';
 
@@ -33,7 +33,7 @@ const App = ({ history }) => (
             <Route path={MY_PODS_ROUTE} exact component={Pods} />
             <Route path={CREATE_POD_ROUTE} exact component={CreatePod} />
             <Route path={JOIN_POD_ROUTE} exact component={JoinPod} />
-            <Route path={SPOTIFY_ROUTE} exact component={Spotify} />
+            <Route path={POD_ROUTE} exact component={Pod} />
             <Route path={SPOTIFY_AUTH_ROUTE} exact component={SpotifyAuth} />
           </Switch>
         </div>

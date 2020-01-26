@@ -1,0 +1,48 @@
+import moment from 'moment';
+
+const SPOTIFY_RETURN_URI = 'spotifyReturnUri';
+const SPOTIFY_ACCESS_TOKEN = 'spotifyAccessToken';
+const SPOTIFY_REFRESH_TOKEN = 'spotifyRefreshToken';
+const SPOITFY_EXPIRE_TIME = 'spotifyExpireTime';
+const REFRESH_THRESHOLD_MIN = 1;
+
+export const calculateExpireTime = expiresIn => moment().add(expiresIn, 'seconds').toString();
+
+export const setLocalReturnUri = returnUri => localStorage.setItem(SPOTIFY_RETURN_URI, returnUri);
+
+export const setLocalAuth = ({ accessToken, refreshToken, expireTime }) => {
+  localStorage.setItem(SPOTIFY_ACCESS_TOKEN, accessToken);
+  refreshToken && localStorage.setItem(SPOTIFY_REFRESH_TOKEN, refreshToken);
+  localStorage.setItem(SPOITFY_EXPIRE_TIME, expireTime);
+};
+
+export const getLocalReturnUri = () => localStorage.getItem(SPOTIFY_RETURN_URI);
+
+const getLocalExpireTime = currentMoment => {
+  const expireTime = localStorage.getItem(SPOITFY_EXPIRE_TIME);
+  return expireTime ? moment(expireTime) : currentMoment;
+};
+
+const getIsAuthExpired = currentMoment => {
+  const expireTime = getLocalExpireTime(currentMoment);
+  const expireDiff = moment.duration(expireTime.diff(currentMoment)).asMinutes();
+  return expireDiff < REFRESH_THRESHOLD_MIN;
+};
+
+const getLocalAccessToken = () => {
+  const isTokenValid = !getIsAuthExpired(moment());
+  const localAccessToken = localStorage.getItem(SPOTIFY_ACCESS_TOKEN);
+  return isTokenValid ? localAccessToken : null;
+};
+
+const getLocalRefreshToken = () => localStorage.getItem(SPOTIFY_REFRESH_TOKEN);
+
+export const getLocalAuth = () => {
+  return {
+    accessToken: getLocalAccessToken(),
+    refreshToken: getLocalRefreshToken(),
+    expireTime: (getLocalExpireTime() || '').toString()
+  };
+};
+
+export const hasValidLocalAuth = () => !getIsAuthExpired(moment());

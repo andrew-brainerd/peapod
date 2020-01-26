@@ -1,0 +1,14 @@
+@import '../../../../styles/colors.scss';
+
+.track {
+  font-size: 1.1em;
+  padding: 10px 0;
+  text-align: left;
+  transition: 0.3s all;
+  user-select: none;
+
+  &:hover {
+    cursor: default;
+    padding-left: 15px;
+  }
+}
