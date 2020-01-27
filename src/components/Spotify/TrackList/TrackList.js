@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { bool, array, func } from 'prop-types';
 import { isEmpty, uniqBy } from 'ramda';
-import Track from './Track/Track';
+import Track from '../Track/Track';
 import styles from './TrackList.module.scss';
 
 const TrackList = ({ hasAuth, isLoading, tracks, getMyTopTracks }) => {

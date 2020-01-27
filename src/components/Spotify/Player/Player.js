@@ -3,6 +3,7 @@ import { bool, object, func } from 'prop-types';
 import moment from 'moment';
 import usePrevious from '../../../hooks/usePrevious';
 import usePollingEffect from '../../../hooks/usePollingEffect';
+import { getTimeFromMilliseconds } from '../../../utils/spotify';
 import {
   getIsPlaying,
   getNowPlayingItem,
@@ -12,8 +13,8 @@ import {
 } from '../../../selectors/player';
 import { TRACK } from '../../../constants/spotify';
 import TrackProgress from './TrackProgress/TrackProgress';
+import PlayList from './PlayList/container';
 import styles from './Player.module.scss';
-import { getTimeFromMilliseconds } from '../../../utils/spotify';
 
 const Player = ({ hasAuth, isLoading, nowPlaying, getMyNowPlaying }) => {
   const [isInitialLoad, setIsInitialLoad] = useState(true);
@@ -54,6 +55,7 @@ const Player = ({ hasAuth, isLoading, nowPlaying, getMyNowPlaying }) => {
           </div>
         </div> :
         <div className={styles.emptyPlayer}>Nothing Playing</div>}
+        <PlayList />
     </div>;
 };
 
