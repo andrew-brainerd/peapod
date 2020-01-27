@@ -43,6 +43,7 @@
 
     .closeButton {
       cursor: pointer;
+      display: none;
       font-size: 2em;
 
       &::after {
