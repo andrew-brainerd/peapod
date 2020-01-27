@@ -1,23 +1,35 @@
 @import '../../../../styles/colors.scss';
+@import '../../../../styles/sizing.scss';
 
 .podViewSelector {
   align-items: center;
   cursor: pointer;
   display: flex;
-  flex: 1 1;
   justify-content: center;
   user-select: none;
 
   .view {
     border: 2px solid transparent;
     margin: 0 15px;
+    min-width: 120px;
     padding: 7px 0;
     text-align: center;
     transition: 0.3s border;
-    width: 120px;
+    width: 50%;
 
     &.selected {
       border-bottom-color: $modalBorder;
+    }
+  }
+}
+
+@media screen and (max-width: $mobileWidth) {
+  .podViewSelector {
+    width: 100%;
+
+    .view {
+      margin: 0;
+      width: 75px;
     }
   }
 }

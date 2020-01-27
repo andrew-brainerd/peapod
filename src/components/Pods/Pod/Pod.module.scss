@@ -3,6 +3,7 @@
 
 .pod {
   margin: 20px auto;
+  min-width: 375px;
   max-width: 850px;
   width: 90%;
 
@@ -10,28 +11,32 @@
     display: flex;
     position: relative;
 
-    .name {
-      font-size: 2em;
-      margin: 20px 5px 20px 20px;
-      text-align: left;
-    }
-
-    .inviteIconContainer {
-      align-self: center;
+    .title {
       display: flex;
-      flex: 1 1;
-      position: relative;
-      top: 2px;
 
-      .inviteIcon {
-        cursor: pointer;
-        fill: $peapod;
-        height: 20px;
-        transition: 0.3s fill;
-        width: 45px;
-
-        &:hover {
-          fill: $primaryTextColor;
+      .name {
+        font-size: 2em;
+        margin: 20px 5px 20px 20px;
+        text-align: left;
+      }
+  
+      .inviteIconContainer {
+        align-self: center;
+        display: flex;
+        flex: 1 1;
+        position: relative;
+        top: 2px;
+  
+        .inviteIcon {
+          cursor: pointer;
+          fill: $peapod;
+          height: 20px;
+          transition: 0.3s fill;
+          width: 45px;
+  
+          &:hover {
+            fill: $primaryTextColor;
+          }
         }
       }
     }
@@ -48,7 +53,6 @@
 
   .content {
     height: calc(90% - #{$headerHeight});
-    overflow-y: auto;
   }
 }
 
@@ -80,6 +84,20 @@
         font-size: 1.5em;
         margin-bottom: 10px;
         text-align: center;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $mobileWidth) {
+  .pod {
+    .header {
+      flex-direction: column;
+
+      .closeButton {
+        position: absolute;
+        right: 10px;
+        top: -20px;
       }
     }
   }

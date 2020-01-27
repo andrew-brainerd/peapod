@@ -26,11 +26,17 @@ const Pod = ({ getPod, pathname, pod, userId, height, navTo, sendInvitation }) =
   return (
     <div className={styles.pod} style={{ height: height - (height * 0.07) }}>
       <div className={styles.header}>
-        <div className={styles.name}>{name}</div>
-        <div className={styles.inviteIconContainer} onClick={() => setIsModalOpen(true)}>
-          <InviteIcon className={styles.inviteIcon} title={'Invite People'} />
+        <div className={styles.title}>
+          <div className={styles.name}>{name}</div>
+          <div className={styles.inviteIconContainer} onClick={() => setIsModalOpen(true)}>
+            <InviteIcon className={styles.inviteIcon} title={'Invite People'} />
+          </div>
         </div>
-        <PodViewSelector selectedView={view} setView={setView} />
+        <PodViewSelector
+          className={styles.viewSelector}
+          selectedView={view}
+          setView={setView}
+        />
         <div
           className={styles.closeButton}
           title={'Close Pod'}
