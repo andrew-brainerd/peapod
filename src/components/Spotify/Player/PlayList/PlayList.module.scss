@@ -1,3 +1,30 @@
+@import '../../../../styles/colors.scss';
+
+$trackBorder: 5px solid $gray-85;
+
 .playList {
+  height: 70%;
+  margin: auto;
   padding: 20px;
+  width: 98%;
+
+  .title {
+    color: $peapod;
+    font-family: 'Chilanka';
+    font-size: 1.1em;
+    text-decoration: underline;
+    margin-bottom: 10px;
+  }
+
+  .trackList {
+    height: 95%;
+    overflow-y: auto;
+
+    .track {
+      background: $gray-85;
+      border-radius: 5px;
+      margin: 10px auto;
+      padding: 15px;
+    }
+  }
 }

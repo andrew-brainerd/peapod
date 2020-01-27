@@ -8,4 +8,6 @@ export const getPodList = path(['pods', 'items']);
 
 export const getCurrentPod = path(['pods', 'currentPod']);
 
+export const getCurrentPodId = compose(prop('_id'), getCurrentPod);
+
 export const getPlayList = compose(propOr([], 'tracks'), getCurrentPod);

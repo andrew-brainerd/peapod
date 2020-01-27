@@ -16,16 +16,27 @@ import TrackProgress from './TrackProgress/TrackProgress';
 import PlayList from './PlayList/container';
 import styles from './Player.module.scss';
 
-const Player = ({ hasAuth, isLoading, nowPlaying, getMyNowPlaying }) => {
+const Player = ({
+  hasAuth,
+  isLoading,
+  nowPlaying,
+  podId,
+  getMyNowPlaying,
+  addToPlayHistory,
+  getPod
+}) => {
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const isPlaying = getIsPlaying(nowPlaying);
-  const { type, name } = getNowPlayingItem(nowPlaying);
+  const nowPlayingItem = getNowPlayingItem(nowPlaying);
+  const { type, name } = nowPlayingItem;
   const trackProgress = moment.duration(getTrackProgress(nowPlaying));
   const trackDuration = moment.duration(getTrackLength(nowPlaying));
   const trackImages = getTrackImages(nowPlaying);
   const prevName = usePrevious(name);
 
-  prevName !== name && console.log({ isPlaying, type, name, nowPlaying });
+  if (prevName !== name) {
+    name && addToPlayHistory(nowPlayingItem);
+  }
 
   const playTime = getTimeFromMilliseconds(trackProgress);
   const trackLength = getTimeFromMilliseconds(trackDuration);
@@ -35,8 +46,9 @@ const Player = ({ hasAuth, isLoading, nowPlaying, getMyNowPlaying }) => {
     if (hasAuth) {
       setIsInitialLoad(false);
       getMyNowPlaying();
+      getPod(podId);
     }
-  }, [hasAuth, getMyNowPlaying], 10000);
+  }, [hasAuth, getMyNowPlaying], 5000);
 
   return (isInitialLoad && isLoading) || !hasAuth ?
     <div className={styles.loading}>Loading Player...</div> :
@@ -55,7 +67,7 @@ const Player = ({ hasAuth, isLoading, nowPlaying, getMyNowPlaying }) => {
           </div>
         </div> :
         <div className={styles.emptyPlayer}>Nothing Playing</div>}
-        <PlayList />
+        <PlayList currentTrack={nowPlayingItem} />
     </div>;
 };
 
@@ -63,7 +75,8 @@ Player.propTypes = {
   hasAuth: bool,
   isLoading: bool,
   nowPlaying: object,
-  getMyNowPlaying: func.isRequired
+  getMyNowPlaying: func.isRequired,
+  addToPlayHistory: func.isRequired
 };
 
 Player.defaultProps = {

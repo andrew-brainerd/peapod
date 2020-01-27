@@ -1,16 +1,19 @@
 @import '../../../styles/colors.scss';
 
+$separationBorder: 15px solid $primaryColor;
+
 .player {
   background: $gray-80;
   border-radius: 10px;
   font-size: 16px;
-  height: 95%;
+  height: 90%;
   margin: 15px auto;
   max-width: 750px;
+  overflow: hidden;
   width: 95%;
 
   .nowPlaying {
-    border-bottom: 15px solid $primaryColor;
+    border-bottom: $separationBorder;
     display: flex;
     flex-direction: row;
     font-size: 1.5em;
@@ -35,6 +38,7 @@
 
   .emptyPlayer {
     align-items: center;
+    border-bottom: $separationBorder;
     display: flex;
     font-size: 3em;
     height: 60%;

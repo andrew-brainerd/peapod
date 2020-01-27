@@ -1,5 +1,6 @@
 import * as pods from '../api/pods';
 import { getCurrentUser } from '../selectors/users';
+import { getCurrentPodId } from '../selectors/pods';
 
 const PREFIX = 'PODS';
 
@@ -17,6 +18,8 @@ export const OPEN_INVITE_MODAL = `${PREFIX}/OPEN_INVITE_MODAL`;
 export const CLOSE_INVITE_MODAL = `${PREFIX}/CLOSE_INVITE_MODAL`;
 export const SENDING_INVITATION = `${PREFIX}/SENDING_INVITATION`;
 export const INVITATION_SENT = `${PREFIX}/INVITATION_SENT`;
+export const ADDING_TRACK_TO_PLAY_HISTORY = `${PREFIX}/ADDING_TRACK_TO_PLAY_HISTORY`;
+export const TRACK_ADDED_TO_PLAY_HISTORY = `${PREFIX}/TRACK_ADDED_TO_PLAY_HISTORY`;
 
 export const creatingPod = { type: CREATING_POD };
 
@@ -46,6 +49,10 @@ export const removingMemberFromPod = { type: REMOVING_MEMBER_FROM_POD };
 
 export const removedMemberFromPod = { type: REMOVED_MEMBER_FROM_POD };
 
+export const addingTrackToPlayHistory = { type: ADDING_TRACK_TO_PLAY_HISTORY };
+
+export const trackAddedToPlayHistory = track => ({ type: TRACK_ADDED_TO_PLAY_HISTORY, track });
+
 export const createPod = name => async dispatch => {
   dispatch(creatingPod);
   return pods.createPod(name).then(
@@ -63,8 +70,8 @@ export const getPods = options => async dispatch => {
   );
 };
 
-export const getPod = podId => async dispatch => {
-  dispatch(loadingPod);
+export const getPod = (podId, showLoading = true) => async dispatch => {
+  showLoading && dispatch(loadingPod);
   pods.getPod(podId).then(
     pod => dispatch(podLoaded(pod))
   );
@@ -97,4 +104,12 @@ export const removeMemberFromPod = podId => async (dispatch, getState) => {
     dispatch(removedMemberFromPod);
     dispatch(getPods());
   });
+};
+
+export const addTrackToPlayHistory = track => async (dispatch, getState) => {
+  const podId = getCurrentPodId(getState());
+  dispatch(addingTrackToPlayHistory);
+  pods.addToPlayHistory(podId, track).then(data =>
+    dispatch(trackAddedToPlayHistory(track))
+  );
 };
