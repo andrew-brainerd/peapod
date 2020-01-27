@@ -11,12 +11,33 @@
 
   .nowPlaying {
     border-bottom: 15px solid $primaryColor;
+    display: flex;
+    flex-direction: row;
     font-size: 1.5em;
     padding: 25px;
+    position: relative;
 
-    .trackName {
-      font-size: 1.5em;
+    .trackInfo {
+      flex: 1;
+
+      .trackName {
+        font-size: 1.5em;
+      }
     }
+
+    .albumArt {
+      img {
+        width: 100px;
+      }
+    }
+  }
+
+  .emptyPlayer {
+    align-items: center;
+    display: flex;
+    font-size: 3em;
+    height: 60%;
+    justify-content: center;
   }
 }
 

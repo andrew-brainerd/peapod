@@ -68,6 +68,6 @@ export const getMyTopTracks = () => async (dispatch, getState) => {
 export const getMyNowPlaying = () => async (dispatch, getState) => {
   dispatch(loadingNowPlaying);
   spotify.getMyNowPlaying(getAccessToken(getState()))
-  .then(nowPlaying => dispatch(nowPlayingLoaded(nowPlaying)))
-  .catch(err => console.error('Failed to fetch user now playing', err));;
+    .then(nowPlaying => dispatch(nowPlayingLoaded(nowPlaying)))
+    .catch(err => console.error('Failed to fetch user now playing', err));
 };

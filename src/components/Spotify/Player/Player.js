@@ -7,7 +7,8 @@ import {
   getIsPlaying,
   getNowPlayingItem,
   getTrackProgress,
-  getTrackLength
+  getTrackLength,
+  getTrackImages
 } from '../../../selectors/player';
 import { TRACK } from '../../../constants/spotify';
 import TrackProgress from './TrackProgress/TrackProgress';
@@ -20,12 +21,14 @@ const Player = ({ hasAuth, isLoading, nowPlaying, getMyNowPlaying }) => {
   const { type, name } = getNowPlayingItem(nowPlaying);
   const trackProgress = moment.duration(getTrackProgress(nowPlaying));
   const trackDuration = moment.duration(getTrackLength(nowPlaying));
+  const trackImages = getTrackImages(nowPlaying);
   const prevName = usePrevious(name);
 
   prevName !== name && console.log({ isPlaying, type, name, nowPlaying });
 
   const playTime = getTimeFromMilliseconds(trackProgress);
   const trackLength = getTimeFromMilliseconds(trackDuration);
+  const albumArt = (trackImages[1] || {}).url;
 
   usePollingEffect(() => {
     if (hasAuth) {
@@ -39,11 +42,16 @@ const Player = ({ hasAuth, isLoading, nowPlaying, getMyNowPlaying }) => {
     <div className={styles.player}>
       {isPlaying ?
         <div className={styles.nowPlaying}>
-          {type === TRACK &&
-            <div className={styles.trackName}>
-              {name}
-            </div>}
-          <TrackProgress playTime={playTime} trackLength={trackLength} />
+          <div className={styles.trackInfo}>
+            {type === TRACK &&
+              <div className={styles.trackName}>
+                {name}
+              </div>}
+            <TrackProgress playTime={playTime} trackLength={trackLength} />
+          </div>
+          <div className={styles.albumArt}>
+            <img src={albumArt} alt={'Album Art'} />
+          </div>
         </div> :
         <div className={styles.emptyPlayer}>Nothing Playing</div>}
     </div>;
