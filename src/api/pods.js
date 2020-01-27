@@ -84,7 +84,7 @@ export const addToPlayHistory = async (podId, track) => {
     body: JSON.stringify({ track })
   });
 
-  handleResponse(response, 429);
+  handleResponse(response, 409);
   const json = await response.json();
 
   return json;

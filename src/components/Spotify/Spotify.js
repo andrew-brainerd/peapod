@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { bool, string, oneOf, func } from 'prop-types';
+import { bool, string, oneOf, number, func } from 'prop-types';
 import { getAuth } from '../../api/spotify';
 import { podViews, SEARCH } from '../../constants/pods';
 import Button from '../common/Button/Button';
@@ -8,7 +8,7 @@ import Player from './Player/container';
 import { ReactComponent as SpotifyIcon } from '../../img/spotify.svg';
 import styles from './Spotify.module.scss';
 
-const Spotify = ({ hasAuth, pathname, selectedView, loadLocalAuth }) => {
+const Spotify = ({ hasAuth, pathname, selectedView, height, loadLocalAuth }) => {
   useEffect(() => {
     !hasAuth && loadLocalAuth();
   }, [hasAuth, loadLocalAuth]);
@@ -23,13 +23,14 @@ const Spotify = ({ hasAuth, pathname, selectedView, loadLocalAuth }) => {
     </Button> :
     selectedView === SEARCH ?
       <TrackList /> :
-      <Player />;
+      <Player height={height} />;
 };
 
 Spotify.propTypes = {
   hasAuth: bool,
   pathname: string,
   selectedView: oneOf(podViews),
+  height: number,
   loadLocalAuth: func.isRequired
 };
 

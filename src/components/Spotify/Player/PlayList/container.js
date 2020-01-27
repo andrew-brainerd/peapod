@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getPod: podId => dispatch(getPod(podId)),
+  getPod: podId => dispatch(getPod(podId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayList);

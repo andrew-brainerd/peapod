@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { bool, object, func } from 'prop-types';
+import { bool, object, string, number, func } from 'prop-types';
 import moment from 'moment';
 import usePrevious from '../../../hooks/usePrevious';
 import usePollingEffect from '../../../hooks/usePollingEffect';
@@ -21,6 +21,7 @@ const Player = ({
   isLoading,
   nowPlaying,
   podId,
+  height,
   getMyNowPlaying,
   addToPlayHistory,
   getPod
@@ -50,9 +51,12 @@ const Player = ({
     }
   }, [hasAuth, getMyNowPlaying], 5000);
 
+  const PLAYER_PADDING = 200;
+  const playerHeight = height - PLAYER_PADDING;
+
   return (isInitialLoad && isLoading) || !hasAuth ?
     <div className={styles.loading}>Loading Player...</div> :
-    <div className={styles.player}>
+    <div className={styles.player} style={{ height: playerHeight }}>
       {isPlaying ?
         <div className={styles.nowPlaying}>
           <div className={styles.trackInfo}>
@@ -67,7 +71,7 @@ const Player = ({
           </div>
         </div> :
         <div className={styles.emptyPlayer}>Nothing Playing</div>}
-        <PlayList currentTrack={nowPlayingItem} />
+      <PlayList currentTrack={nowPlayingItem} height={playerHeight} />
     </div>;
 };
 
@@ -75,8 +79,11 @@ Player.propTypes = {
   hasAuth: bool,
   isLoading: bool,
   nowPlaying: object,
+  podId: string,
+  height: number,
   getMyNowPlaying: func.isRequired,
-  addToPlayHistory: func.isRequired
+  addToPlayHistory: func.isRequired,
+  getPod: func.isRequired
 };
 
 Player.defaultProps = {

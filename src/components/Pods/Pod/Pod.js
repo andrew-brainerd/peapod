@@ -21,10 +21,11 @@ const Pod = ({ getPod, pathname, pod, userId, height, navTo, sendInvitation }) =
     getPod(getPodId(pathname));
   }, [getPod, pathname]);
 
+  const podHeight = height - (height * 0.07);
   const { _id, name } = pod || {};
 
   return (
-    <div className={styles.pod} style={{ height: height - (height * 0.07) }}>
+    <div className={styles.pod} style={{ height: podHeight }}>
       <div className={styles.header}>
         <div className={styles.title}>
           <div className={styles.name}>{name}</div>
@@ -44,7 +45,7 @@ const Pod = ({ getPod, pathname, pod, userId, height, navTo, sendInvitation }) =
         />
       </div>
       <div className={styles.content}>
-        <Spotify selectedView={view} />
+        <Spotify selectedView={view} height={podHeight} />
       </div>
       <Modal
         className={styles.inviteModal}
