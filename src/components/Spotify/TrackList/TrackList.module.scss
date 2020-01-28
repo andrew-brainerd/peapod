@@ -31,19 +31,24 @@
   display: flex;
   justify-content: center;
 
-  .queueTrack {
+  .viewTrack {
     font-size: 2em;
+  }
+
+  .queueTrack {
+
   }
 
   .songName {
     color: $peapod;
     font-size: 1.6em;
+    margin-bottom: 50px;
     text-align: center;
   }
 
   .queueButton {
     align-self: flex-end;
-    margin: 50px auto;
+    margin: 20px auto;
     width: 200px;
   }
 }

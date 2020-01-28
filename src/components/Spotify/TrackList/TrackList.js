@@ -9,6 +9,7 @@ import styles from './TrackList.module.scss';
 const TrackList = ({ hasAuth, isLoading, tracks }) => {
   const [selectedTrack, setSelectedTrack] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPlayingPreview, setIsPlayingPreview] = useState(false);
 
   return isLoading || !hasAuth ?
     <div className={styles.loading}>Loading Tracks...</div> :
@@ -36,16 +37,37 @@ const TrackList = ({ hasAuth, isLoading, tracks }) => {
       </div>
       <Modal
         isOpen={isModalOpen}
-        closeModal={() => setIsModalOpen(false)}
+        closeModal={() => {
+          setIsPlayingPreview(false);
+          setIsModalOpen(false);
+        }}
         contentClassName={styles.trackModal}
       >
-        <div className={styles.queueTrack}>
+        <div className={styles.viewTrack}>
           <div className={styles.songName}>
             {(selectedTrack || {}).name}
           </div>
+          {isPlayingPreview &&
+            <div className={styles.preview}>
+              <audio autoPlay src={(selectedTrack || {}).preview_url} />
+            </div>
+          }
           <Button
             className={styles.queueButton}
-            text={'Queue Song'}
+            text={isPlayingPreview ? 'Stop Preview': 'Play Preview'}
+            onClick={() => {
+              if (isPlayingPreview) {
+                console.log('Stopping Preview');
+                setIsPlayingPreview(false);
+              } else {
+                console.log('Previewing Song...');
+                setIsPlayingPreview(true);
+              }
+            }}
+          />
+          <Button
+            className={styles.queueButton}
+            text={'Add to Queue'}
             onClick={() => {
               console.log('Queueing Song...');
             }}
