@@ -3,6 +3,7 @@ import { object } from 'prop-types';
 import { ConnectedRouter } from 'connected-react-router';
 import { Route, Switch } from 'react-router-dom';
 import Header from '../common/Header/container';
+import Spotify from '../Spotify/container';
 import {
   HOME_ROUTE,
   POD_SELECTION_ROUTE,
@@ -26,7 +27,7 @@ const App = ({ history }) => (
     <ConnectedRouter history={history}>
       <>
         <Header />
-        <div className={styles.content}>
+        <Spotify>
           <Switch>
             <Route path={HOME_ROUTE} exact component={Home} />
             <Route path={POD_SELECTION_ROUTE} exact component={PodSelection} />
@@ -34,9 +35,9 @@ const App = ({ history }) => (
             <Route path={CREATE_POD_ROUTE} exact component={CreatePod} />
             <Route path={JOIN_POD_ROUTE} exact component={JoinPod} />
             <Route path={POD_ROUTE} exact component={Pod} />
-            <Route path={SPOTIFY_AUTH_ROUTE} exact component={SpotifyAuth} />
           </Switch>
-        </div>
+        </Spotify>
+        <Route path={SPOTIFY_AUTH_ROUTE} exact component={SpotifyAuth} />
       </>
     </ConnectedRouter >
   </div>

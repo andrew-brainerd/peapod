@@ -1,14 +1,11 @@
 import React, { useEffect } from 'react';
-import { bool, string, oneOf, number, func } from 'prop-types';
+import { bool, string, node, func } from 'prop-types';
 import { getAuth } from '../../api/spotify';
-import { podViews, SEARCH } from '../../constants/pods';
 import Button from '../common/Button/Button';
-import SongSelection from './SongSelection/SongSelection';
-import Player from './Player/container';
 import { ReactComponent as SpotifyIcon } from '../../img/spotify.svg';
 import styles from './Spotify.module.scss';
 
-const Spotify = ({ hasAuth, pathname, selectedView, height, loadLocalAuth, getProfile }) => {
+const Spotify = ({ hasAuth, pathname, children, loadLocalAuth, getProfile }) => {
   useEffect(() => {
     !hasAuth ? loadLocalAuth() : getProfile();
   }, [hasAuth, loadLocalAuth, getProfile]);
@@ -21,16 +18,13 @@ const Spotify = ({ hasAuth, pathname, selectedView, height, loadLocalAuth, getPr
       <SpotifyIcon />
       <div className={styles.authButtonText}>Spotify Login</div>
     </Button> :
-    selectedView === SEARCH ?
-      <SongSelection /> :
-      <Player height={height} />;
+    children;
 };
 
 Spotify.propTypes = {
   hasAuth: bool,
   pathname: string,
-  selectedView: oneOf(podViews),
-  height: number,
+  children: node.isRequired,
   loadLocalAuth: func.isRequired,
   getProfile: func.isRequired
 };

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { func, string, shape, number } from 'prop-types';
+import { func, string, shape, oneOf, number } from 'prop-types';
 import { MY_PODS_ROUTE } from '../../../constants/routes';
-import { SEARCH } from '../../../constants/pods';
-import Spotify from '../../Spotify/container';
+import { podViews, SEARCH } from '../../../constants/pods';
 import PodViewSelector from './PodViewSelector/PodViewSelector';
+import SongSelection from '../../Spotify/SongSelection/container';
+import Player from '../../Spotify/Player/container';
 import Modal from '../../common/Modal/Modal';
 import Button from '../../common/Button/Button';
 import TextInput from '../../common/TextInput/TextInput';
@@ -45,7 +46,10 @@ const Pod = ({ getPod, pathname, pod, userId, height, navTo, sendInvitation }) =
         />
       </div>
       <div className={styles.content}>
-        <Spotify selectedView={view} height={podHeight} />
+        {view === SEARCH ?
+          <SongSelection /> :
+          <Player height={podHeight} />
+        }
       </div>
       <Modal
         className={styles.inviteModal}
@@ -88,6 +92,7 @@ Pod.propTypes = {
   pod: shape({
     name: string
   }),
+  selectedView: oneOf(podViews),
   userId: string,
   height: number,
   navTo: func.isRequired,
