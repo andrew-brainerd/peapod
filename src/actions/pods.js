@@ -1,6 +1,7 @@
 import * as pods from '../api/pods';
 import { getCurrentUser } from '../selectors/users';
 import { getCurrentPodId } from '../selectors/pods';
+import { getProfile } from '../selectors/spotify';
 
 const PREFIX = 'PODS';
 
@@ -53,9 +54,16 @@ export const addingTrackToPlayHistory = { type: ADDING_TRACK_TO_PLAY_HISTORY };
 
 export const trackAddedToPlayHistory = track => ({ type: TRACK_ADDED_TO_PLAY_HISTORY, track });
 
-export const createPod = name => async dispatch => {
-  dispatch(creatingPod);
-  return pods.createPod(name).then(
+export const createPod = name => async (dispatch, getState) => {
+  const profile = getProfile(getState());
+  const createdBy = {
+    id: profile.id,
+    name: profile.display_name,
+    email: profile.email
+  };
+
+  name && profile && dispatch(creatingPod);
+  return name && profile && pods.createPod(name, createdBy).then(
     pod => {
       dispatch(podCreated(pod));
       return pod;

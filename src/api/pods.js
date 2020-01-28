@@ -2,11 +2,11 @@ import { basicJsonHeader, handleResponse, parseOptions } from './tools';
 
 const PEAPOD_API_URL = process.env.REACT_APP_PEAPOD_API_URL || 'http://localhost:5000';
 
-export const createPod = async name => {
+export const createPod = async (name, createdBy) => {
   const response = await fetch(`${PEAPOD_API_URL}/api/pods`, {
     method: 'POST',
     headers: basicJsonHeader,
-    body: JSON.stringify({ name })
+    body: JSON.stringify({ name, createdBy })
   });
 
   handleResponse(response, 201);

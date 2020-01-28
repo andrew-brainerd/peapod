@@ -1,5 +1,7 @@
 import { compose, path, prop, propOr } from 'ramda';
 
+export const getIsCreatingPod = path(['pods', 'isCreatingPod']);
+
 export const getCreatedPod = path(['pods', 'createdPod']);
 
 export const getCreatedPodName = compose(prop('name'), getCreatedPod);

@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
-import { getCreatedPod } from '../../../../selectors/pods';
+import { getIsCreatingPod, getCreatedPod } from '../../../../selectors/pods';
 import { createPod } from '../../../../actions/pods';
 import { navTo } from '../../../../actions/routing';
 import CreatePod from './CreatePod';
 
 const mapStateToProps = state => ({
+  isCreatingPod: getIsCreatingPod(state),
   createdPod: getCreatedPod(state)
 });
 

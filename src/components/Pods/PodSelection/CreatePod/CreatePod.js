@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { func, shape, string } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 import styles from './CreatePod.module.scss';
 import TextInput from '../../../common/TextInput/TextInput';
 import Button from '../../../common/Button/Button';
 import { POD_ROUTE } from '../../../../constants/routes';
 
-const CreatePod = ({ createPod, createdPod, navTo }) => {
+const CreatePod = ({ isCreatingPod, createPod, createdPod, navTo }) => {
   const [podName, setPodName] = useState('');
   const [inputError, setInputError] = useState(null);
   const [showCreated, setShowCreated] = useState(false);
@@ -27,11 +27,13 @@ const CreatePod = ({ createPod, createdPod, navTo }) => {
 
   const create = () => validate() && createPod(podName)
     .then(newPod => {
-      clear();
-      setTimeout(() => {
-        setShowCreated(false);
-        navTo(POD_ROUTE.replace(':podId', (newPod || {})._id));
-      }, 3000);
+      if (!!newPod) {
+        clear();
+        setTimeout(() => {
+          setShowCreated(false);
+          navTo(POD_ROUTE.replace(':podId', (newPod || {})._id));
+        }, 3000);
+      }
     })
     .catch(err => console.error('Failed to create pod', err));
 
@@ -59,12 +61,14 @@ const CreatePod = ({ createPod, createdPod, navTo }) => {
         text={'Create'}
         className={styles.createButton}
         onClick={create}
+        disabled={isCreatingPod}
       />
     </div>
   );
 };
 
 CreatePod.propTypes = {
+  isCreatingPod: bool,
   createPod: func.isRequired,
   createdPod: shape({
     name: string
