@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { func, shape, string } from 'prop-types';
 import styles from './CreatePod.module.scss';
+import TextInput from '../../../common/TextInput/TextInput';
 import Button from '../../../common/Button/Button';
 import { POD_ROUTE } from '../../../../constants/routes';
 
@@ -8,11 +9,6 @@ const CreatePod = ({ createPod, createdPod, navTo }) => {
   const [podName, setPodName] = useState('');
   const [inputError, setInputError] = useState(null);
   const [showCreated, setShowCreated] = useState(false);
-  const nameInput = useRef();
-
-  useEffect(() => {
-    nameInput.current.focus();
-  }, []);
 
   const validate = () => {
     if (!podName) {
@@ -41,16 +37,13 @@ const CreatePod = ({ createPod, createdPod, navTo }) => {
 
   return (
     <div className={styles.createPod}>
-      <input
-        id={'podName'}
-        type={'text'}
-        className={styles.podNameInput}
+      <TextInput
         placeholder={'Pod Name'}
-        ref={nameInput}
+        inputClassName={styles.podNameInput}
+        autofocus
         value={podName}
-        autoComplete={'false'}
-        onChange={e => setPodName(e.target.value)}
-        onKeyPress={({ key }) => key === 'Enter' && create()}
+        onChange={setPodName}
+        onPressEnter={create}
       />
       {inputError && (
         <div className={styles.inputError}>

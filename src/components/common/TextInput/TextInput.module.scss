@@ -1,0 +1,22 @@
+@import '../../../styles/mixins.scss';
+
+.textInputContainer {
+  position: relative;
+  text-align: center;
+
+  .textInput {
+    @include defaultInput();
+
+    font-size: 1.5em;
+    text-align: center;
+  }
+
+  .inputError {
+    @include errorText();
+
+    bottom: -25px;
+    position: absolute;
+    left: 5px;
+    transition: all 0.5s ease;
+  }
+}

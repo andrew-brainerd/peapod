@@ -1,5 +1,6 @@
 @import '../../../styles/colors.scss';
 @import '../../../styles/mixins.scss';
+@import '../../../styles/sizing.scss';
 
 .modal {
   background: $modalBackground;
@@ -59,4 +60,12 @@
   bottom: 0;
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
+}
+
+@media screen and (max-width: $mobileWidth) {
+  .modal {
+    background: $modalBackground;
+    margin: 30px auto;
+    width: 98%;
+  }
 }

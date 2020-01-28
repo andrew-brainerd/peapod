@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { func, string, shape, number } from 'prop-types';
 import { MY_PODS_ROUTE } from '../../../constants/routes';
 import { NOW_PLAYING } from '../../../constants/pods';
@@ -6,6 +6,7 @@ import Spotify from '../../Spotify/container';
 import PodViewSelector from './PodViewSelector/PodViewSelector';
 import Modal from '../../common/Modal/Modal';
 import Button from '../../common/Button/Button';
+import TextInput from '../../common/TextInput/TextInput';
 import { ReactComponent as InviteIcon } from '../../../img/invite.svg';
 import styles from './Pod.module.scss';
 
@@ -15,7 +16,6 @@ const Pod = ({ getPod, pathname, pod, userId, height, navTo, sendInvitation }) =
   const [view, setView] = useState(NOW_PLAYING);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
-  const phoneNumberInput = useRef();
 
   useEffect(() => {
     getPod(getPodId(pathname));
@@ -57,21 +57,15 @@ const Pod = ({ getPod, pathname, pod, userId, height, navTo, sendInvitation }) =
           Invite People to the <span className={styles.inviteTitle}>{name}</span> Pod
         </div>
         <div className={styles.inputFields}>
-          <input
-            id={'phoneNumber'}
-            type={'text'}
-            className={styles.phoneInput}
+          <TextInput
             placeholder={'Phone Number'}
-            ref={phoneNumberInput}
+            inputClassName={styles.phoneInput}
+            autofocus
             value={phoneNumber}
-            autoComplete={'off'}
-            autoCorrect={'off'}
-            onChange={e => setPhoneNumber(e.target.value)}
-            onKeyPress={({ key }) => {
-              if (key === 'Enter') {
-                sendInvitation(_id, 'sms', phoneNumber);
-                setIsModalOpen(false);
-              }
+            onChange={setPhoneNumber}
+            onPressEnter={() => {
+              sendInvitation(_id, 'sms', phoneNumber);
+              setIsModalOpen(false);
             }}
           />
           <Button
