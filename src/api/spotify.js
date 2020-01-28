@@ -59,3 +59,18 @@ export const getMyNowPlaying = async accessToken => {
 
   return json;
 };
+
+export const search = async (accessToken, searchText, types, options) => {
+  const url = `${PEAPOD_API_URL}/api/spotify/search?accessToken=${accessToken}`;
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: basicJsonHeader,
+    body: JSON.stringify({ searchText, types, options })
+  });
+
+  handleResponse(response);
+  const json = await response.json();
+
+  return json;
+};

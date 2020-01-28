@@ -4,11 +4,7 @@ import { isEmpty, uniqBy } from 'ramda';
 import Track from '../Track/Track';
 import styles from './TrackList.module.scss';
 
-const TrackList = ({ hasAuth, isLoading, tracks, getMyTopTracks }) => {
-  useEffect(() => {
-    hasAuth && getMyTopTracks();
-  }, [hasAuth, getMyTopTracks]);
-
+const TrackList = ({ hasAuth, isLoading, tracks }) => {
   return isLoading || !hasAuth ?
     <div className={styles.loading}>Loading Tracks...</div> :
     <div className={styles.trackList}>
@@ -28,8 +24,7 @@ const TrackList = ({ hasAuth, isLoading, tracks, getMyTopTracks }) => {
 TrackList.propTypes = {
   hasAuth: bool,
   isLoading: bool,
-  tracks: array,
-  getMyTopTracks: func.isRequired
+  tracks: array
 };
 
 TrackList.defaultProps = {

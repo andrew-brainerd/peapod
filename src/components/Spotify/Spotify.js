@@ -3,7 +3,7 @@ import { bool, string, oneOf, number, func } from 'prop-types';
 import { getAuth } from '../../api/spotify';
 import { podViews, SEARCH } from '../../constants/pods';
 import Button from '../common/Button/Button';
-import TrackList from './TrackList/container';
+import SongSelection from './SongSelection/SongSelection';
 import Player from './Player/container';
 import { ReactComponent as SpotifyIcon } from '../../img/spotify.svg';
 import styles from './Spotify.module.scss';
@@ -22,7 +22,7 @@ const Spotify = ({ hasAuth, pathname, selectedView, height, loadLocalAuth }) => 
       <div className={styles.authButtonText}>Spotify Login</div>
     </Button> :
     selectedView === SEARCH ?
-      <TrackList /> :
+      <SongSelection /> :
       <Player height={height} />;
 };
 

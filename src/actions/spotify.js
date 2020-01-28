@@ -17,12 +17,17 @@ export const LOADING_TRACKS = `${PREFIX}/LOADING_TRACKS`;
 export const TRACKS_LOADED = `${PREFIX}/TRACKS_LOADED`;
 export const LOADING_NOW_PLAYING = `${PREFIX}/LOADING_NOW_PLAYING`;
 export const NOW_PLAYING_LOADED = `${PREFIX}/NOW_PLAYING_LOADED`;
+export const LOADING_SEARCH_RESULTS = `${PREFIX}/LOADING_SEARCH_RESULTS`;
+export const SEARCH_RESULTS_LOADED = `${PREFIX}/SEARCH_RESULTS_LOADED`;
 
 const loadingAlbums = { type: LOADING_ALBUMS };
 const albumsLoaded = albums => ({ type: ALBUMS_LOADED, albums });
 
 const loadingTracks = { type: LOADING_TRACKS };
 const tracksLoaded = tracks => ({ type: TRACKS_LOADED, tracks });
+
+const loadingSearchResults = { type: LOADING_SEARCH_RESULTS };
+const searchResultsLoaded = { type: SEARCH_RESULTS_LOADED };
 
 const loadingNowPlaying = { type: LOADING_NOW_PLAYING };
 const nowPlayingLoaded = nowPlaying => ({ type: NOW_PLAYING_LOADED, nowPlaying });
@@ -63,6 +68,19 @@ export const getMyTopTracks = () => async (dispatch, getState) => {
   spotify.getMyTopTracks(getAccessToken(getState()))
     .then(tracks => dispatch(tracksLoaded(tracks)))
     .catch(err => console.error('Failed to fetch user tracks', err));
+};
+
+export const search = searchText => async (dispatch, getState) => {
+  const types = ['track'];
+  dispatch(loadingSearchResults);
+  if (searchText === '') {
+    dispatch(getMyTopTracks());
+  } else {
+    spotify.search(getAccessToken(getState()), searchText, types).then(results => {
+      dispatch(searchResultsLoaded);
+      dispatch(tracksLoaded(results.tracks));
+    });
+  }
 };
 
 export const getMyNowPlaying = () => async (dispatch, getState) => {
