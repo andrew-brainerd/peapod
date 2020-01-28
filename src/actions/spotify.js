@@ -7,10 +7,17 @@ import {
   calculateExpireTime
 } from '../utils/spotify';
 import { getAccessToken } from '../selectors/spotify';
+import { POD_SELECTION_ROUTE } from '../constants/routes';
+import { navTo } from './routing';
 
 const PREFIX = 'SPOTIFY';
 
 export const SET_AUTH = `${PREFIX}/SET_AUTH`;
+export const SIGN_OUT = `${PREFIX}/SIGN_OUT`;
+export const LOADING_PROFILE = `${PREFIX}/LOADING_PROFILE`;
+export const PROFILE_LOADED = `${PREFIX}/PROFILE_LOADED`;
+export const LOADING_ARTISTS = `${PREFIX}/LOADING_ARTISTS`;
+export const ARTISTS_LOADED = `${PREFIX}/ALBUMS_LOADED`;
 export const LOADING_ALBUMS = `${PREFIX}/LOADING_ALBUMS`;
 export const ALBUMS_LOADED = `${PREFIX}/ALBUMS_LOADED`;
 export const LOADING_TRACKS = `${PREFIX}/LOADING_TRACKS`;
@@ -20,7 +27,13 @@ export const NOW_PLAYING_LOADED = `${PREFIX}/NOW_PLAYING_LOADED`;
 export const LOADING_SEARCH_RESULTS = `${PREFIX}/LOADING_SEARCH_RESULTS`;
 export const SEARCH_RESULTS_LOADED = `${PREFIX}/SEARCH_RESULTS_LOADED`;
 
-const loadingAlbums = { type: LOADING_ALBUMS };
+const loadingProfile = { type: LOADING_PROFILE };
+const profileLoaded = profile => ({ type: PROFILE_LOADED, profile });
+
+// const loadingArtists = { type: LOADING_ALBUMS };
+const artistsLoaded = artists => ({ type: ARTISTS_LOADED, artists });
+
+// const loadingAlbums = { type: LOADING_ALBUMS };
 const albumsLoaded = albums => ({ type: ALBUMS_LOADED, albums });
 
 const loadingTracks = { type: LOADING_TRACKS };
@@ -32,8 +45,27 @@ const searchResultsLoaded = { type: SEARCH_RESULTS_LOADED };
 const loadingNowPlaying = { type: LOADING_NOW_PLAYING };
 const nowPlayingLoaded = nowPlaying => ({ type: NOW_PLAYING_LOADED, nowPlaying });
 
+
+export const clearData = () => async dispatch => {
+  window.localStorage.clear();
+  dispatch(setAuth({
+    accessToken: null,
+    refreshToken: null,
+    expireTime: null
+  }));
+  dispatch(profileLoaded(null));
+  dispatch(artistsLoaded(null));
+  dispatch(albumsLoaded(null));
+  dispatch(tracksLoaded(null));
+};
+
 export const setAuth = ({ accessToken, refreshToken, expireTime }) =>
   ({ type: SET_AUTH, accessToken, refreshToken, expireTime });
+
+export const signOut = () => async dispatch => {
+  dispatch(clearData());
+  dispatch(navTo(POD_SELECTION_ROUTE));
+};
 
 export const refreshAuth = ({ accessToken, refreshToken }) => async dispatch => {
   spotify.refreshAuth(accessToken, refreshToken).then(refreshData => {
@@ -56,6 +88,13 @@ export const loadLocalAuth = () => async dispatch => {
   }
 };
 
+export const getProfile = () => async (dispatch, getState) => {
+  dispatch(loadingProfile);
+  spotify.getProfile(getAccessToken(getState()))
+    .then(profile => dispatch(profileLoaded(profile)))
+    .catch(err => console.error('Failed to fetch user profile', err));
+};
+
 export const getMyTopTracks = () => async (dispatch, getState) => {
   dispatch(loadingTracks);
   spotify.getMyTopTracks(getAccessToken(getState()))
@@ -69,10 +108,13 @@ export const search = searchText => async (dispatch, getState) => {
   if (searchText === '') {
     dispatch(getMyTopTracks());
   } else {
-    spotify.search(getAccessToken(getState()), searchText, types).then(results => {
-      dispatch(searchResultsLoaded);
-      dispatch(tracksLoaded(results.tracks));
-    });
+    spotify.search(getAccessToken(getState()), searchText, types).then(
+      ({ artists, albums, tracks }) => {
+        dispatch(searchResultsLoaded);
+        artists && dispatch(artistsLoaded(artists));
+        albums && dispatch(albumsLoaded(albums));
+        tracks && dispatch(tracksLoaded(tracks));
+      });
   }
 };
 

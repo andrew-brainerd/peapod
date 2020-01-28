@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
 import { getAccessToken } from '../../selectors/spotify';
 import { getPathname } from '../../selectors/routing';
-import { loadLocalAuth } from '../../actions/spotify';
-import { navTo } from '../../actions/routing';
+import { loadLocalAuth, getProfile } from '../../actions/spotify';
 import Spotify from './Spotify';
 
 const mapStateToProps = state => ({
@@ -12,7 +11,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   loadLocalAuth: () => dispatch(loadLocalAuth()),
-  navTo: path => dispatch(navTo(path))
+  getProfile: () => dispatch(getProfile())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Spotify);

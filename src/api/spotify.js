@@ -27,6 +27,17 @@ export const refreshAuth = async (accessToken, refreshToken) => {
   return { ...body };
 };
 
+export const getProfile = async accessToken => {
+  const url = `${PEAPOD_API_URL}/api/spotify/profile?accessToken=${accessToken}`;
+
+  const response = await fetch(url);
+
+  handleResponse(response);
+  const json = await response.json();
+
+  return json;
+};
+
 export const getMyTopTracks = async accessToken => {
   const url = `${PEAPOD_API_URL}/api/spotify/myTopTracks?accessToken=${accessToken}`;
 

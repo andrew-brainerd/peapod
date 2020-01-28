@@ -8,10 +8,10 @@ import Player from './Player/container';
 import { ReactComponent as SpotifyIcon } from '../../img/spotify.svg';
 import styles from './Spotify.module.scss';
 
-const Spotify = ({ hasAuth, pathname, selectedView, height, loadLocalAuth }) => {
+const Spotify = ({ hasAuth, pathname, selectedView, height, loadLocalAuth, getProfile }) => {
   useEffect(() => {
-    !hasAuth && loadLocalAuth();
-  }, [hasAuth, loadLocalAuth]);
+    !hasAuth ? loadLocalAuth() : getProfile();
+  }, [hasAuth, loadLocalAuth, getProfile]);
 
   return !hasAuth ?
     <Button
@@ -31,7 +31,8 @@ Spotify.propTypes = {
   pathname: string,
   selectedView: oneOf(podViews),
   height: number,
-  loadLocalAuth: func.isRequired
+  loadLocalAuth: func.isRequired,
+  getProfile: func.isRequired
 };
 
 export default Spotify;

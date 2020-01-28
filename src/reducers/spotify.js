@@ -1,5 +1,7 @@
 import {
   SET_AUTH,
+  LOADING_ARTISTS,
+  ARTISTS_LOADED,
   LOADING_ALBUMS,
   ALBUMS_LOADED,
   LOADING_TRACKS,
@@ -7,7 +9,9 @@ import {
   LOADING_NOW_PLAYING,
   NOW_PLAYING_LOADED,
   LOADING_SEARCH_RESULTS,
-  SEARCH_RESULTS_LOADED
+  SEARCH_RESULTS_LOADED,
+  LOADING_PROFILE,
+  PROFILE_LOADED
 } from '../actions/spotify';
 
 const initialState = {
@@ -17,6 +21,8 @@ const initialState = {
   isLoadingAlbums: false,
   isLoadingTracks: false,
   isLoadingNowPlaying: false,
+  profile: null,
+  artists: [],
   albums: [],
   tracks: [],
   nowPlaying: {}
@@ -30,6 +36,28 @@ export default function spotify (state = initialState, action) {
         accessToken: action.accessToken,
         refreshToken: action.refreshToken,
         expireTime: action.expireTime
+      };
+    case LOADING_PROFILE:
+      return {
+        ...state,
+        isLoadingProfile: true
+      };
+    case PROFILE_LOADED:
+      return {
+        ...state,
+        isLoadingProfile: false,
+        profile: action.profile
+      };
+    case LOADING_ARTISTS:
+      return {
+        ...state,
+        isLoadingAlbums: true
+      };
+    case ARTISTS_LOADED:
+      return {
+        ...state,
+        isLoadingAlbums: false,
+        albums: action.albums
       };
     case LOADING_ALBUMS:
       return {
