@@ -56,13 +56,6 @@ export const loadLocalAuth = () => async dispatch => {
   }
 };
 
-export const getLogicAlbums = () => async (dispatch, getState) => {
-  dispatch(loadingAlbums);
-  spotify.getLogicAlbums(getAccessToken(getState()))
-    .then(albums => dispatch(albumsLoaded(albums)))
-    .catch(err => console.error('Failed to fetch Logic albums', err));
-};
-
 export const getMyTopTracks = () => async (dispatch, getState) => {
   dispatch(loadingTracks);
   spotify.getMyTopTracks(getAccessToken(getState()))
