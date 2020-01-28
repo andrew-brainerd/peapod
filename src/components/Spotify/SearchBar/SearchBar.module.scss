@@ -1,3 +1,7 @@
+@import '../../../styles/colors.scss';
+
 .searchBar {
-  // height: 100%;
+  .searchInput {
+    border: 1px solid $gray-75;
+  }
 }

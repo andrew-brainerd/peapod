@@ -18,6 +18,7 @@ const SearchBar = ({ search }) => {
         placeholder={'Search for a song'}
         onChange={setSearchText}
         value={searchText}
+        inputClassName={styles.searchInput}
       />
     </div>
   );
