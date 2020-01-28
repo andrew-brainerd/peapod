@@ -1,3 +1,5 @@
+@import '../../../styles/colors.scss';
+
 .trackList {
   height: 97%;
   margin: 15px auto;
@@ -23,4 +25,24 @@
   font-size: 1.5em;
   margin-top: 30px;
   text-align: center;
+}
+
+.trackModal {
+  display: flex;
+  justify-content: center;
+
+  .queueTrack {
+    font-size: 2em;
+  }
+
+  .songName {
+    color: $peapod;
+    font-size: 1.6em;
+  }
+
+  .queueButton {
+    align-self: flex-end;
+    margin: 50px auto;
+    width: 200px;
+  }
 }
