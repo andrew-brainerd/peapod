@@ -40,21 +40,8 @@
       }
 
       .myPods {
-        border-color: $buttonBackground;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        transition: 0.5s position;
-
         &.selected {
-          background: $primaryColor;
-          top: 6px;
-        }
-
-        &:hover {
-          background: $primaryColor;
-          border-bottom: none;
-          border-color: transparent;
-          transform: scale(1);
+          color: $peapod;
         }
       }
     }
