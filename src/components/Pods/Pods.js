@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { func, array, string } from 'prop-types';
+import { number, array, string, func } from 'prop-types';
 import PodItem from './PodItem/PodItem';
 import styles from './Pods.module.scss';
 import { POD_ROUTE } from '../../constants/routes';
@@ -10,14 +10,16 @@ const getName = pod => pod && pod.name;
 const getMembers = pod => (pod || {}).members || [];
 const getNumMembers = pod => getMembers(pod).length;
 
-const Pods = ({ getMyPods, pods, userId, navTo }) => {
+const Pods = ({ height, pods, userId, getMyPods, navTo }) => {
   useEffect(() => {
     userId && getMyPods(userId);
   }, [userId, getMyPods]);
 
+  const podHeight = height - 100;
+
   return (
-    <div className={styles.pods}>
-      <div className={styles.podList}>
+    <div className={styles.pods} style={{ height: podHeight }}>
+      <div className={styles.podList} style={{ height: podHeight - 50 }}>
         {isEmpty(pods) ?
           <div className={styles.loading}>Loading Pods...</div> :
           (pods || []).map((pod, p) =>
@@ -34,9 +36,10 @@ const Pods = ({ getMyPods, pods, userId, navTo }) => {
 };
 
 Pods.propTypes = {
-  getMyPods: func.isRequired,
+  height: number,
   pods: array,
   userId: string,
+  getMyPods: func.isRequired,
   navTo: func.isRequired
 };
 

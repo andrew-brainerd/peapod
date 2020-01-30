@@ -17,13 +17,12 @@ const Pod = ({ getPod, pathname, pod, userId, height, navTo, sendInvitation }) =
   const [view, setView] = useState(SEARCH);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
+  const podHeight = height - 50;
+  const { _id, name } = pod || {};
 
   useEffect(() => {
     getPod(getPodId(pathname));
   }, [getPod, pathname]);
-
-  const podHeight = height - (height * 0.07);
-  const { _id, name } = pod || {};
 
   return (
     <div className={styles.pod} style={{ height: podHeight }}>

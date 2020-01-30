@@ -3,11 +3,14 @@
 
 .pods {
   .podList {
+    align-content: flex-start;
     display: flex;
     flex-flow: row wrap;
-    justify-content: center;
+    // justify-content: center;
     margin: auto;
-    margin-bottom: 150px;
+    // padding-bottom: 20px;
+    overflow-y: auto;
+    width: 98%;
   }
 }
 
