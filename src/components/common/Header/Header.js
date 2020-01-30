@@ -20,7 +20,7 @@ const Header = ({ isVisible, pathname, userId, isSignedIn, signOut, navTo }) => 
           <div className={styles.headerTitle}>Peapod</div>
         </div>
         <div className={styles.nav}>
-          {userId &&
+          {isSignedIn && userId &&
             <Button
               className={[
                 styles.button,

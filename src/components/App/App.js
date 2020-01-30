@@ -27,9 +27,10 @@ const App = ({ history }) => (
     <ConnectedRouter history={history}>
       <>
         <Header />
+        <Route path={HOME_ROUTE} exact component={Home} />
+        <Route path={SPOTIFY_AUTH_ROUTE} exact component={SpotifyAuth} />
         <Spotify>
           <Switch>
-            <Route path={HOME_ROUTE} exact component={Home} />
             <Route path={POD_SELECTION_ROUTE} exact component={PodSelection} />
             <Route path={MY_PODS_ROUTE} exact component={Pods} />
             <Route path={CREATE_POD_ROUTE} exact component={CreatePod} />
@@ -37,7 +38,6 @@ const App = ({ history }) => (
             <Route path={POD_ROUTE} exact component={Pod} />
           </Switch>
         </Spotify>
-        <Route path={SPOTIFY_AUTH_ROUTE} exact component={SpotifyAuth} />
       </>
     </ConnectedRouter >
   </div>

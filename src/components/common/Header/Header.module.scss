@@ -16,6 +16,18 @@
       margin-right: 20px;
     }
 
+    .headerTitle {
+      cursor: pointer;
+      display: inline-block;
+      font-family: 'Chilanka', sans-serif;
+      font-size: 2em;
+      margin-left: 20px;
+      margin-bottom: 5px;
+      animation: fadeIn 2s;
+      -webkit-animation: fadeIn 2s;
+      transition: 0.5s all;
+    }
+
     .nav {
       align-self: flex-end;
       display: flex;
@@ -55,18 +67,6 @@
     }
   }
 
-  .headerTitle {
-    cursor: pointer;
-    display: inline-block;
-    font-family: 'Chilanka', sans-serif;
-    font-size: 2em;
-    margin-left: 20px;
-    margin-bottom: 5px;
-    animation: fadeIn 2s;
-    -webkit-animation: fadeIn 2s;
-    transition: 0.5s all;
-  }
-
   .logo {
     width: 70px;
     pointer-events: none;
@@ -80,12 +80,20 @@
 
 @media screen and (max-width: $mobileWidth) {
   .header {
-    .headerTitle {
-      display: none;
-    }
+    .headerContent {
+      .logo {
+        top: 2px;
+      }
 
-    .logo {
-      top: 2px;
+      .headerTitle {
+        display: none;
+      }
+
+      .nav {
+        .button {
+          width: 75px;
+        }
+      }
     }
   }
 }
