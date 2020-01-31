@@ -29,21 +29,9 @@
     }
 
     .nav {
-      align-self: flex-end;
+      align-self: center;
       display: flex;
-
-      .button {
-        margin-right: 20px;
-        position: relative;
-        top: -10px;
-        vertical-align: middle;
-      }
-
-      .myPods {
-        &.selected {
-          color: $peapod;
-        }
-      }
+      position: relative;
     }
 
     .appVersion {

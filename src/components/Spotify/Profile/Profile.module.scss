@@ -1,0 +1,34 @@
+@import '../../../styles/colors.scss';
+
+.profile {
+  .profileButton {
+    &:hover {
+      transform: none;
+
+      &.menuOpen {
+        background: $buttonBackground;
+        border-radius: 0;
+      }
+    }
+  }
+
+  .menu {
+    background: $buttonBackground;
+    border-radius: 5px;
+    border-top-right-radius: 0;
+    padding: 0 10px;
+    position: absolute;
+    right: 0;
+    top: 30px;
+
+    .menuItem {
+      margin: 10px auto;
+      opacity: 0.8;
+
+      &:hover {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+}
