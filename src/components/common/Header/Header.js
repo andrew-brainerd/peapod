@@ -1,5 +1,5 @@
 import React from 'react';
-import { bool, string, func } from 'prop-types';
+import { bool, func } from 'prop-types';
 import Notification from '../Notification/container';
 import Loading from '../Loading/container';
 import { POD_SELECTION_ROUTE } from '../../../constants/routes';

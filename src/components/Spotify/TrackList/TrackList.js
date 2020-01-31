@@ -54,7 +54,7 @@ const TrackList = ({ hasAuth, isLoading, tracks }) => {
           }
           <Button
             className={styles.queueButton}
-            text={isPlayingPreview ? 'Stop Preview': 'Play Preview'}
+            text={isPlayingPreview ? 'Stop Preview' : 'Play Preview'}
             onClick={() => {
               if (isPlayingPreview) {
                 console.log('Stopping Preview');

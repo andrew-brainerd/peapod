@@ -16,7 +16,8 @@
     "semi": [2, "always"],
     "operator-linebreak": [2, "after"],
     "no-multiple-empty-lines": [2, { "max": 2 }],
-    "react-hooks/rules-of-hooks": "error"
+    "react-hooks/rules-of-hooks": "error",
+    "no-extra-boolean-cast": "off"
   },
   "settings": {
     "react": {

@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { string, object, func } from 'prop-types';
+import useOnClickOutside from '../../../hooks/useOnClickOutside';
 import { MY_PODS_ROUTE } from '../../../constants/routes';
 import Button from '../../common/Button/Button';
 import styles from './Profile.module.scss';
 
 const Profile = ({ pathname, profile, isSignedIn, navTo, signOut }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef();
   const { id, display_name: name } = profile || {};
-  console.log(profile);
   const myPodsRoute = MY_PODS_ROUTE.replace(':userId', id);
+
+  useOnClickOutside(menuRef, () => setIsMenuOpen(false));
+
+  console.log(profile);
 
   return isSignedIn && (
     <div className={styles.profile}>
@@ -21,7 +26,7 @@ const Profile = ({ pathname, profile, isSignedIn, navTo, signOut }) => {
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       />
       {isMenuOpen &&
-        <div className={styles.menu}>
+        <div ref={menuRef} className={styles.menu}>
           <Button
             className={styles.menuItem}
             text={'My Pods'}
