@@ -1,14 +1,28 @@
 @import '../../../styles/colors.scss';
+@import '../../../styles/sizing.scss';
 
 .profile {
   .profileButton {
-    &:hover {
-      transform: none;
+    background: transparent;
+    position: relative;
+    top: 5px;
+    width: 100px;
 
-      &.menuOpen {
-        background: $buttonBackground;
+    &:hover {
+      background: transparent;
+      transform: none;
+    }
+
+    &.menuOpen {
+      img {
         border-radius: 0;
       }
+    }
+
+    img {
+      border-radius: 50%;
+      transition: 0.3s all;
+      width: 75px;
     }
   }
 
@@ -18,8 +32,8 @@
     border-top-right-radius: 0;
     padding: 0 10px;
     position: absolute;
-    right: 0;
-    top: 30px;
+    right: 12px;
+    top: 85px;
 
     .menuItem {
       margin: 10px auto;
@@ -29,6 +43,21 @@
         opacity: 1;
         transform: none;
       }
+    }
+  }
+}
+
+@media screen and (max-width: $mobileWidth) {
+  .profile {
+    .profileButton {
+      img {
+        width: 50px;
+      }
+    }
+
+    .menu {
+      right: 25px;
+      top: 65px;
     }
   }
 }
