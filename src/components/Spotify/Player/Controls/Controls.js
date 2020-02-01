@@ -22,7 +22,7 @@ const Controls = ({ isPlaying, play, pause }) => {
 };
 
 Controls.propTypes = {
-  isPlaying: bool.isRequired,
+  isPlaying: bool,
   play: func.isRequired,
   pause: func.isRequired
 };

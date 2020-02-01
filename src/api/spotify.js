@@ -86,14 +86,14 @@ export const transferPlayback = async (accessToken, devices, shouldPlay = false)
   return json;
 };
 
-export const play = async (accessToken, uris) => {
-  console.log(`Play: %o`, { uris });
+export const play = async (accessToken, options) => {
   const url = `${PEAPOD_API_URL}/api/spotify/play?accessToken=${accessToken}`;
-
+  const body = JSON.stringify(options);
+  console.log(`Play Body: %o`, body);
   const response = await fetch(url, {
     method: 'PUT',
     headers: basicJsonHeader,
-    body: JSON.stringify({ uris: uris || [] })
+    body
   });
 
   handleResponse(response, 204);

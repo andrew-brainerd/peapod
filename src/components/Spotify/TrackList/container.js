@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  play: uids => dispatch(play(uids)),
+  play: options => dispatch(play(options)),
   pause: () => dispatch(pause())
 });
 

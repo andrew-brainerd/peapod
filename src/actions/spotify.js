@@ -137,10 +137,10 @@ export const transferPlayback = () => async (dispatch, getState) => {
     .catch(err => console.error('Failed to transfer playback', err));
 };
 
-export const play = uris => async (dispatch, getState) => {
-  console.log(`Playing: %o`, uris);
+export const play = options => async (dispatch, getState) => {
+  console.log(`[Action] Playing: %o`, options);
   dispatch(playing);
-  spotify.play(getAccessToken(getState()), uris)
+  spotify.play(getAccessToken(getState()), options)
     .then(() => setTimeout(() => dispatch(getMyNowPlaying()), 1000))
     .catch(err => console.error('Failed to play', err));
 };

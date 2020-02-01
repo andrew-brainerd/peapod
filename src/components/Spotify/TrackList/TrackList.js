@@ -78,7 +78,7 @@ const TrackList = ({ hasAuth, isLoading, tracks, play, pause }) => {
                 setIsPlaying(false);
               } else {
                 console.log('Playing Song...');
-                play([(selectedTrack || {}).uri]);
+                play({ uris: [(selectedTrack || {}).uri] });
                 setIsPlaying(true);
               }
             }}
