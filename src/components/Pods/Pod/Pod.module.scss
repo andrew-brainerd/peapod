@@ -96,6 +96,18 @@
     .header {
       flex-direction: column;
 
+      .title {
+        .name {
+          font-size: 1.5em;
+          margin-top: 0;
+          margin-bottom: 10px;
+        }
+
+        .inviteIconContainer {
+          top: -5px;
+        }
+      }
+
       .closeButton {
         position: absolute;
         right: 10px;

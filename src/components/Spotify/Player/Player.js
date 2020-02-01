@@ -74,7 +74,6 @@ const Player = ({
           </div>
         </div> :
         <div className={styles.emptyPlayer}>
-          Nothing Playing
           <Controls isPlaying={isPlaying} />
         </div>}
       <Devices />
