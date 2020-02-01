@@ -93,7 +93,7 @@ export const play = async (accessToken, uris) => {
   const response = await fetch(url, {
     method: 'PUT',
     headers: basicJsonHeader,
-    body: JSON.stringify({ uris: uris })
+    body: JSON.stringify({ uris: uris || [] })
   });
 
   handleResponse(response, 204);

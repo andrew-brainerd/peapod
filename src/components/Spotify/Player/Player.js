@@ -13,6 +13,7 @@ import {
 } from '../../../selectors/player';
 import { TRACK } from '../../../constants/spotify';
 import TrackProgress from './TrackProgress/TrackProgress';
+import Controls from './Controls/container';
 import Devices from '../Devices/container';
 import PlayList from './PlayList/container';
 import styles from './Player.module.scss';
@@ -67,11 +68,15 @@ const Player = ({
               </div>}
             <TrackProgress playTime={playTime} trackLength={trackLength} />
           </div>
+          <Controls />
           <div className={styles.albumArt}>
             <img src={albumArt} alt={'Album Art'} />
           </div>
         </div> :
-        <div className={styles.emptyPlayer}>Nothing Playing</div>}
+        <div className={styles.emptyPlayer}>
+          Nothing Playing
+          <Controls />
+        </div>}
       <Devices />
       <PlayList currentTrack={nowPlayingItem} height={playerHeight} />
     </div>;

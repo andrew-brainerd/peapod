@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { func, string, shape, oneOf, number } from 'prop-types';
 import { MY_PODS_ROUTE } from '../../../constants/routes';
-import { podViews, SEARCH } from '../../../constants/pods';
+import { podViews, SEARCH, NOW_PLAYING } from '../../../constants/pods';
 import PodViewSelector from './PodViewSelector/PodViewSelector';
 import SongSelection from '../../Spotify/SongSelection/container';
 import Player from '../../Spotify/Player/container';
@@ -14,7 +14,7 @@ import styles from './Pod.module.scss';
 const getPodId = pathname => pathname.split('/')[2];
 
 const Pod = ({ getPod, pathname, pod, userId, height, navTo, sendInvitation }) => {
-  const [view, setView] = useState(SEARCH);
+  const [view, setView] = useState(NOW_PLAYING);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
   const podHeight = height - 50;
