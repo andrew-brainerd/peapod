@@ -13,6 +13,7 @@ import {
 } from '../../../selectors/player';
 import { TRACK } from '../../../constants/spotify';
 import TrackProgress from './TrackProgress/TrackProgress';
+import Devices from '../Devices/container';
 import PlayList from './PlayList/container';
 import styles from './Player.module.scss';
 
@@ -71,6 +72,7 @@ const Player = ({
           </div>
         </div> :
         <div className={styles.emptyPlayer}>Nothing Playing</div>}
+      <Devices />
       <PlayList currentTrack={nowPlayingItem} height={playerHeight} />
     </div>;
 };

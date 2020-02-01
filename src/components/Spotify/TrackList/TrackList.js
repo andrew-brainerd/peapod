@@ -6,10 +6,13 @@ import Button from '../../common/Button/Button';
 import Track from '../Track/Track';
 import styles from './TrackList.module.scss';
 
-const TrackList = ({ hasAuth, isLoading, tracks }) => {
+const TrackList = ({ hasAuth, isLoading, tracks, play, pause }) => {
   const [selectedTrack, setSelectedTrack] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPlayingPreview, setIsPlayingPreview] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  // !!selectedTrack && console.log(selectedTrack);
 
   return isLoading || !hasAuth ?
     <div className={styles.loading}>Loading Tracks...</div> :
@@ -62,6 +65,21 @@ const TrackList = ({ hasAuth, isLoading, tracks }) => {
               } else {
                 console.log('Previewing Song...');
                 setIsPlayingPreview(true);
+              }
+            }}
+          />
+          <Button
+            className={styles.queueButton}
+            text={isPlaying ? 'Pause' : 'Play'}
+            onClick={() => {
+              if (isPlaying) {
+                console.log('Pausing');
+                pause();
+                setIsPlaying(false);
+              } else {
+                console.log('Playing Song...');
+                play([(selectedTrack || {}).uri]);
+                setIsPlaying(true);
               }
             }}
           />

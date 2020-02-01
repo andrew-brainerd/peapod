@@ -10,6 +10,8 @@ export const getIsLoadingTracks = path(['spotify', 'isLoadingTracks']);
 
 export const getTracks = pathOr([], ['spotify', 'tracks', 'items']);
 
+export const getDevices = pathOr([], ['spotify', 'devices']);
+
 export const getNowPlaying = pathOr({}, ['spotify', 'nowPlaying']);
 
 export const getIsLoadingNowPlaying = path(['spotify', 'isLoadingNowPlaying']);

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { getAccessToken, getIsLoadingTracks, getTracks } from '../../../selectors/spotify';
-import { navTo } from '../../../actions/routing';
+import { play, pause } from '../../../actions/spotify';
 import TrackList from './TrackList';
 
 const mapStateToProps = state => ({
@@ -10,7 +10,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  navTo: path => dispatch(navTo(path))
+  play: uids => dispatch(play(uids)),
+  pause: () => dispatch(pause())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TrackList);

@@ -49,12 +49,68 @@ export const getMyTopTracks = async accessToken => {
   return json;
 };
 
+export const getMyDevices = async accessToken => {
+  const url = `${PEAPOD_API_URL}/api/spotify/myDevices?accessToken=${accessToken}`;
+
+  const response = await fetch(url);
+
+  handleResponse(response);
+  const { devices } = await response.json();
+
+  return devices;
+};
+
 export const getMyNowPlaying = async accessToken => {
   const url = `${PEAPOD_API_URL}/api/spotify/myNowPlaying?accessToken=${accessToken}`;
 
   const response = await fetch(url);
 
   handleResponse(response);
+  const json = await response.json();
+
+  return json;
+};
+
+export const transferPlayback = async (accessToken, devices, shouldPlay = false) => {
+  const url = `${PEAPOD_API_URL}/api/spotify/transferPlayback?accessToken=${accessToken}`;
+
+  const response = await fetch(url, {
+    method: 'PUT',
+    headers: basicJsonHeader,
+    body: JSON.stringify({ devices, shouldPlay })
+  });
+
+  handleResponse(response);
+  const json = await response.json();
+
+  return json;
+};
+
+export const play = async (accessToken, uris) => {
+  console.log(`Play: %o`, { uris });
+  const url = `${PEAPOD_API_URL}/api/spotify/play?accessToken=${accessToken}`;
+
+  const response = await fetch(url, {
+    method: 'PUT',
+    headers: basicJsonHeader,
+    body: JSON.stringify({ uris: uris })
+  });
+
+  handleResponse(response, 204);
+  const json = await response.json();
+
+  return json;
+};
+
+export const pause = async accessToken => {
+  const url = `${PEAPOD_API_URL}/api/spotify/pause?accessToken=${accessToken}`;
+
+  const response = await fetch(url, {
+    method: 'PUT',
+    headers: basicJsonHeader
+  });
+
+  handleResponse(response, 204);
   const json = await response.json();
 
   return json;

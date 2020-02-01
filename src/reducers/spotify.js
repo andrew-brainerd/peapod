@@ -1,34 +1,38 @@
 import {
   SET_AUTH,
+  LOADING_PROFILE,
+  PROFILE_LOADED,
   LOADING_ARTISTS,
   ARTISTS_LOADED,
   LOADING_ALBUMS,
   ALBUMS_LOADED,
   LOADING_TRACKS,
   TRACKS_LOADED,
+  LOADING_DEVICES,
+  DEVICES_LOADED,
   LOADING_NOW_PLAYING,
   NOW_PLAYING_LOADED,
   LOADING_SEARCH_RESULTS,
-  SEARCH_RESULTS_LOADED,
-  LOADING_PROFILE,
-  PROFILE_LOADED
+  SEARCH_RESULTS_LOADED
 } from '../actions/spotify';
 
 const initialState = {
   accessToken: null,
   refreshToken: null,
   expireTime: null,
+  isLoadingDevices: false,
   isLoadingAlbums: false,
   isLoadingTracks: false,
   isLoadingNowPlaying: false,
   profile: null,
+  devices: [],
   artists: [],
   albums: [],
   tracks: [],
   nowPlaying: {}
 };
 
-export default function spotify (state = initialState, action) {
+export default function spotify(state = initialState, action) {
   switch (action.type) {
     case SET_AUTH:
       return {
@@ -90,6 +94,17 @@ export default function spotify (state = initialState, action) {
       return {
         ...state,
         isSearching: false
+      };
+    case LOADING_DEVICES:
+      return {
+        ...state,
+        isLoadingDevices: true
+      };
+    case DEVICES_LOADED:
+      return {
+        ...state,
+        isLoadingDevices: false,
+        devices: action.devices
       };
     case LOADING_NOW_PLAYING:
       return {

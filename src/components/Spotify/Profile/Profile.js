@@ -8,7 +8,6 @@ import styles from './Profile.module.scss';
 
 const getProfilePic = images => {
   const imageUrl = path(['0', 'url'], images);
-  console.log(imageUrl);
   return imageUrl && <img src={imageUrl} alt='My Profile' />;
 };
 
@@ -19,8 +18,6 @@ const Profile = ({ pathname, profile, isSignedIn, navTo, signOut }) => {
   const myPodsRoute = MY_PODS_ROUTE.replace(':userId', id);
 
   useOnClickOutside(menuRef, () => setIsMenuOpen(false));
-
-  console.log(profile);
 
   return isSignedIn && (
     <div className={styles.profile}>
