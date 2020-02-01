@@ -141,14 +141,14 @@ export const play = uris => async (dispatch, getState) => {
   console.log(`Playing: %o`, uris);
   dispatch(playing);
   spotify.play(getAccessToken(getState()), uris)
-    .then(play => console.log(`[Action] Played: %o`, play))
+    .then(() => setTimeout(() => dispatch(getMyNowPlaying()), 1000))
     .catch(err => console.error('Failed to play', err));
 };
 
 export const pause = () => async (dispatch, getState) => {
   dispatch(pausing);
   spotify.pause(getAccessToken(getState()))
-    .then(pause => console.log(`[Action] Pause: %o`, pause))
+    .then(() => setTimeout(() => dispatch(getMyNowPlaying()), 1000))
     .catch(err => console.error('Failed to pause', err));
 };
 

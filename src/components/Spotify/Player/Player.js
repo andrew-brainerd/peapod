@@ -68,14 +68,14 @@ const Player = ({
               </div>}
             <TrackProgress playTime={playTime} trackLength={trackLength} />
           </div>
-          <Controls />
+          <Controls isPlaying={isPlaying} />
           <div className={styles.albumArt}>
             <img src={albumArt} alt={'Album Art'} />
           </div>
         </div> :
         <div className={styles.emptyPlayer}>
           Nothing Playing
-          <Controls />
+          <Controls isPlaying={isPlaying} />
         </div>}
       <Devices />
       <PlayList currentTrack={nowPlayingItem} height={playerHeight} />

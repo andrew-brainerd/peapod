@@ -12,15 +12,15 @@ $separationBorder: 15px solid $primaryColor;
   width: 95%;
 
   .nowPlaying {
+    align-items: center;
     border-bottom: $separationBorder;
     display: flex;
-    flex-direction: row;
     font-size: 1.5em;
     padding: 25px;
     position: relative;
 
     .trackInfo {
-      flex: 1;
+      flex: 3;
 
       .trackName {
         font-size: 1.5em;
@@ -29,6 +29,8 @@ $separationBorder: 15px solid $primaryColor;
     }
 
     .albumArt {
+      flex: 1;
+
       img {
         width: 100px;
       }

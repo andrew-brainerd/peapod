@@ -1,7 +1,13 @@
+@import '../../../../styles/colors.scss';
+
 .controls {
-  > div {
+  margin: 0 65px;
+
+  svg {
+    fill: $primaryTextColor;
+    height: 50px;
     margin: 10px;
-    width: 50px;
+    width: 30px;
   }
 
   .play {

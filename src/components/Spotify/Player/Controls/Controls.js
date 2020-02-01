@@ -1,26 +1,28 @@
 import React from 'react';
-import { func } from 'prop-types';
-import Button from '../../../common/Button/Button';
+import { bool, func } from 'prop-types';
+import { ReactComponent as PlayButton } from '../../../../img/play.svg';
+import { ReactComponent as PauseButton } from '../../../../img/pause.svg';
 import styles from './Controls.module.scss';
 
-const Controls = ({ play, pause }) => {
+const Controls = ({ isPlaying, play, pause }) => {
   return (
     <div className={styles.controls}>
-      <Button
-        className={styles.play}
-        text={'>'}
-        onClick={() => play()}
-      />
-      <Button
-        className={styles.play}
-        text={'||'}
-        onClick={pause}
-      />
+      {isPlaying ?
+        <PauseButton
+          className={styles.pause}
+          onClick={pause}
+        /> :
+        <PlayButton
+          className={styles.play}
+          onClick={() => play()}
+        />
+      }
     </div>
   );
 };
 
 Controls.propTypes = {
+  isPlaying: bool.isRequired,
   play: func.isRequired,
   pause: func.isRequired
 };
