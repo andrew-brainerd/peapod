@@ -27,6 +27,7 @@ const Pod = ({ getPod, pathname, pod, userId, height, view, navTo, sendInvitatio
   useEffect(() => {
     const podId = getPodId(pathname);
     podId !== prevPodId && getPod(podId);
+    podId && podId !== prevPodId && getPod(podId);
   }, [pathname, prevPodId, getPod]);
 
   usePollingEffect(() => {

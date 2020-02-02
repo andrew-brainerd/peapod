@@ -3,7 +3,7 @@ import { bool, object, string, number, func } from 'prop-types';
 import moment from 'moment';
 import usePrevious from '../../../hooks/usePrevious';
 import usePollingEffect from '../../../hooks/usePollingEffect';
-import { getTimeFromMilliseconds } from '../../../utils/spotify';
+import { getTimeFromDuration } from '../../../utils/spotify';
 import {
   getIsPlaying,
   getNowPlayingItem,
@@ -30,7 +30,7 @@ const Player = ({
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const isPlaying = getIsPlaying(nowPlaying);
   const nowPlayingItem = getNowPlayingItem(nowPlaying);
-  const { type, name } = nowPlayingItem;
+  const { id, type, name } = nowPlayingItem;
   const trackProgress = moment.duration(getTrackProgress(nowPlaying));
   const trackDuration = moment.duration(getTrackLength(nowPlaying));
   const trackImages = getTrackImages(nowPlaying);
@@ -40,15 +40,15 @@ const Player = ({
     name && addToPlayHistory(nowPlayingItem);
   }
 
-  const playTime = getTimeFromMilliseconds(trackProgress);
-  const trackLength = getTimeFromMilliseconds(trackDuration);
+  const playTime = getTimeFromDuration(trackProgress);
+  const trackLength = getTimeFromDuration(trackDuration);
   const albumArt = (trackImages[1] || {}).url;
 
   usePollingEffect(() => {
     if (hasAuth) {
       setIsInitialLoad(false);
       getMyNowPlaying();
-      getPod(podId);
+      podId && getPod(podId);
     }
   }, [hasAuth, getMyNowPlaying], 5000);
 
@@ -65,9 +65,13 @@ const Player = ({
               <div className={styles.trackName}>
                 {name}
               </div>}
-            <TrackProgress playTime={playTime} trackLength={trackLength} />
+            <TrackProgress
+              trackId={id}
+              playTime={playTime}
+              trackLength={trackLength}
+            />
           </div>
-          <Controls isPlaying={isPlaying} />
+          <Controls className={styles.activeControls} isPlaying={isPlaying} />
           <div className={styles.albumArt}>
             <img src={albumArt} alt={'Album Art'} />
           </div>

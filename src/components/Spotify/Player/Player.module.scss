@@ -28,6 +28,10 @@ $separationBorder: 15px solid $primaryColor;
       }
     }
 
+    .activeControls {
+      background: transparent;
+    }
+
     .albumArt {
       flex: 1;
 

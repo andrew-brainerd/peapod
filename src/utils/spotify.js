@@ -43,7 +43,23 @@ export const getLocalAuth = () => {
 
 export const hasValidLocalAuth = () => !getIsAuthExpired(moment());
 
-export const getTimeFromMilliseconds = ms => {
+export const getTimeFromDuration = ms => {
+  const time = {
+    hours: ms.hours(),
+    minutes: ms.minutes(),
+    seconds: ms.seconds()
+  };
+
+  const hours = time.hours < 10 ? `0${time.hours}` : time.hours;
+  const minutes = time.minutes < 10 ? `0${time.minutes}` : time.minutes;
+  const seconds = time.seconds < 10 ? `0${time.seconds}` : time.seconds;
+
+  return `${hours}:${minutes}:${seconds}`;
+};
+
+export const formatTimer = timer => {
+  const ms = moment.duration(timer);
+
   const time = {
     hours: ms.hours(),
     minutes: ms.minutes(),
