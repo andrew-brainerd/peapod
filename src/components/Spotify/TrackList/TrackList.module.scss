@@ -36,13 +36,19 @@
 
     .viewTrack {
       font-size: 2em;
+      width: 95%;
     }
 
     .songName {
       color: $peapod;
-      margin-bottom: 30px;
+      margin: auto;
+      margin-bottom: 20px;
+      overflow: hidden;
       text-align: center;
+      text-overflow: ellipsis;
       user-select: none;
+      white-space: nowrap;
+      width: 95%;
     }
 
     .previewControls {

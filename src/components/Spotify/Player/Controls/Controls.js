@@ -6,7 +6,7 @@ import { ReactComponent as QueueButton } from '../../../../img/add.svg';
 import styles from './Controls.module.scss';
 
 const Controls = ({ className, isPlaying, options, play, pause }) => {
-  const { canPlay = true, canPause = true, canQueue } = options;
+  const { canPlay = true, canPause = true, canQueue } = options || {};
 
   return (
     <div className={[styles.controls, className].join(' ')}>

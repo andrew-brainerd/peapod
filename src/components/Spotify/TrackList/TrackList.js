@@ -3,18 +3,15 @@ import { bool, array } from 'prop-types';
 import { isEmpty, uniqBy } from 'ramda';
 import Modal from '../../common/Modal/Modal';
 import Controls from '../Player/Controls/Controls';
-import Button from '../../common/Button/Button';
 import Track from '../Track/Track';
-import { ReactComponent as QueueButton } from '../../../img/add.svg';
 import styles from './TrackList.module.scss';
 
 const TrackList = ({ hasAuth, isLoading, tracks }) => {
-  const [selectedTrack, setSelectedTrack] = useState(tracks[0]);
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [selectedTrack, setSelectedTrack] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPlayingPreview, setIsPlayingPreview] = useState(false);
 
   !!selectedTrack && console.log(selectedTrack);
-  console.log(tracks);
 
   useEffect(() => {
     setSelectedTrack(tracks[0]);

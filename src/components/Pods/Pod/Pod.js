@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { func, string, shape, oneOf, number } from 'prop-types';
 import { MY_PODS_ROUTE } from '../../../constants/routes';
 import { SEARCH, NOW_PLAYING, PLAY_QUEUE, PLAY_HISTORY } from '../../../constants/pods';
+import usePrevious from '../../../hooks/usePrevious';
 import usePollingEffect from '../../../hooks/usePollingEffect';
 import PodViewSelector from './PodViewSelector/container';
 import SongSelection from '../../Spotify/SongSelection/container';
@@ -13,7 +14,6 @@ import Button from '../../common/Button/Button';
 import TextInput from '../../common/TextInput/TextInput';
 import { ReactComponent as InviteIcon } from '../../../img/invite.svg';
 import styles from './Pod.module.scss';
-import usePrevious from '../../../hooks/usePrevious';
 
 const getPodId = pathname => pathname.split('/')[2];
 
@@ -30,7 +30,6 @@ const Pod = ({ getPod, pathname, pod, userId, height, view, navTo, sendInvitatio
   }, [pathname, prevPodId, getPod]);
 
   usePollingEffect(() => {
-    console.log(`Polling`);
     _id && getPod(_id);
   }, [_id, getPod], 5000);
 

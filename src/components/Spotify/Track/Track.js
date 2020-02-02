@@ -3,15 +3,20 @@ import { string, func } from 'prop-types';
 import noop from '../../../utils/noop';
 import styles from './Track.module.scss';
 
-const Track = ({ className, name, onClick }) => {
+const getPrimaryArtist = artists => (artists[0] || {}).name;
+
+const Track = ({ className, name, artists, onClick }) => {
+  const artist = getPrimaryArtist(artists);
+
   return (
     <div className={[
       styles.track,
       className || ''
     ].join(' ')}
-    onClick={onClick || noop}
+      onClick={onClick || noop}
     >
-      {name}
+      <span className={styles.name}>{name}</span>
+      <span className={styles.artist}>{artist}</span>
     </div>
   );
 };

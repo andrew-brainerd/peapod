@@ -1,7 +1,12 @@
 @import '../../../../styles/colors.scss';
 
 .controls {
-  margin: 0 65px;
+  display: flex;
+  background: $buttonBackground;
+  border-radius: 15px;
+  justify-content: center;
+  margin: auto;
+  width: 200px;
 
   svg {
     cursor: pointer;
