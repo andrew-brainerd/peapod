@@ -1,25 +1,18 @@
 import React from 'react';
-import { array, func } from 'prop-types';
-import { isEmpty, reverse } from 'ramda';
-import usePollingEffect from '../../../../hooks/usePollingEffect';
+import { number, object, array } from 'prop-types';
+import { reverse } from 'ramda';
 import Track from '../../../Spotify/Track/Track';
 import styles from './PlayHistory.module.scss';
 
-const PlayHistory = ({ height, history, getHistory }) => {
-  usePollingEffect(() => {
-    // getHistory();
-  }, [getHistory], 7500);
-
-  !isEmpty(history) && console.log(`Play History: %o`, history);
-
+const PlayHistory = ({ height, currentTrack, history }) => {
   const PLAYLIST_PADDING = 200;
 
   return (
     <div className={styles.playHistory} style={{ height: height - PLAYLIST_PADDING }}>
       <div className={styles.trackList}>
         {reverse(history).map((track, t) => {
-          return <Track key={t} className={styles.track} {...track} />;
-          //(currentTrack || {}).name !== track.name &&
+          return (currentTrack || {}).name !== track.name &&
+            <Track key={t} className={styles.track} {...track} />;
         })}
       </div>
     </div>
@@ -27,8 +20,9 @@ const PlayHistory = ({ height, history, getHistory }) => {
 };
 
 PlayHistory.propTypes = {
-  history: array,
-  getHistory: func
+  height: number,
+  currentTrack: object,
+  history: array
 };
 
 export default PlayHistory;

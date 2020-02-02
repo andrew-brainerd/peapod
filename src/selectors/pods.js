@@ -12,6 +12,6 @@ export const getCurrentPod = path(['pods', 'currentPod']);
 
 export const getCurrentPodId = compose(prop('_id'), getCurrentPod);
 
-export const getQueue = compose(propOr([], 'queue'), getCurrentPod);
+export const getPlayQueue = compose(propOr([], 'queue'), getCurrentPod);
 
-export const getHistory = compose(propOr([], 'history'), getCurrentPod);
+export const getPlayHistory = compose(propOr([], 'history'), getCurrentPod);

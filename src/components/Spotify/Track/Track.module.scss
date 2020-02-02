@@ -1,7 +1,6 @@
 @import '../../../styles/colors.scss';
 
 .track {
-  cursor: pointer;
   font-size: 2em;
   padding: 13px 0;
   text-align: left;
@@ -10,6 +9,10 @@
 
   &:hover {
     padding-left: 15px;
+  }
+
+  &.hasAction {
+    cursor: pointer;
   }
 
   .name {

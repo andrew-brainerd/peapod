@@ -100,7 +100,7 @@ Pod.propTypes = {
   pod: shape({
     name: string
   }),
-  selectedView: oneOf([
+  view: oneOf([
     SEARCH,
     NOW_PLAYING,
     PLAY_QUEUE,

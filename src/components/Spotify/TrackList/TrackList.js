@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { bool, array } from 'prop-types';
 import { isEmpty, uniqBy } from 'ramda';
 import Modal from '../../common/Modal/Modal';
-import Controls from '../Player/Controls/Controls';
+import Controls from '../Player/Controls/container';
 import Track from '../Track/Track';
 import styles from './TrackList.module.scss';
 
@@ -12,10 +12,6 @@ const TrackList = ({ hasAuth, isLoading, tracks }) => {
   const [isPlayingPreview, setIsPlayingPreview] = useState(false);
 
   !!selectedTrack && console.log(selectedTrack);
-
-  useEffect(() => {
-    setSelectedTrack(tracks[0]);
-  }, [tracks.length]); // eslint-disable-line
 
   return isLoading || !hasAuth ?
     <div className={styles.loading}>Loading Tracks...</div> :
@@ -64,7 +60,9 @@ const TrackList = ({ hasAuth, isLoading, tracks }) => {
             isPlaying={isPlayingPreview}
             play={() => setIsPlayingPreview(true)}
             pause={() => setIsPlayingPreview(false)}
+            selectedTrack={selectedTrack}
             options={{ canQueue: true }}
+            onAddToQueue={() => setIsModalOpen(false)}
           />
         </div>
       </Modal>

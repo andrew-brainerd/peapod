@@ -10,9 +10,9 @@ const Devices = ({ devices, getDevices }) => {
 
   return (
     <div className={styles.devices}>
-      {values(devices).map(device => {
-        //console.log(device);
-      })}
+      {values(devices).map((device, d) =>
+        <div key={d}>{(device || {}).name}</div>
+      )}
     </div>
   );
 };
@@ -22,4 +22,4 @@ Devices.propTypes = {
   getDevices: func.isRequired
 };
 
-export default Devices
+export default Devices;

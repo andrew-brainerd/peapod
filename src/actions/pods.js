@@ -143,7 +143,7 @@ export const getPlayQueue = () => async (dispatch, getState) => {
 export const addTrackToPlayQueue = track => async (dispatch, getState) => {
   const podId = getCurrentPodId(getState());
   dispatch(addingTrackToPlayQueue);
-  pods.addToPlayHistory(podId, track).then(data =>
+  pods.addToPlayQueue(podId, track).then(data =>
     dispatch(trackAddedToPlayQueue(track))
   );
 };

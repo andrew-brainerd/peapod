@@ -10,15 +10,17 @@
 
   .view {
     border: 2px solid transparent;
-    margin: 0 5px;
-    min-width: 120px;
+    margin: 0 15px;
     padding: 7px 0;
     text-align: center;
     transition: 0.3s border;
-    width: 50%;
+
+    &.nowPlaying {
+      min-width: 85px;
+    }
 
     &.selected {
-      border-bottom-color: $modalBorder;
+      border-bottom-color: $peapod;
       cursor: default;
       pointer-events: none;
     }

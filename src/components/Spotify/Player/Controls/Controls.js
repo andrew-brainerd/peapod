@@ -1,11 +1,21 @@
 import React from 'react';
-import { string, bool, shape, func } from 'prop-types';
+import { string, bool, shape, object, func } from 'prop-types';
+import noop from '../../../../utils/noop';
 import { ReactComponent as PlayButton } from '../../../../img/play.svg';
 import { ReactComponent as PauseButton } from '../../../../img/pause.svg';
 import { ReactComponent as QueueButton } from '../../../../img/add.svg';
 import styles from './Controls.module.scss';
 
-const Controls = ({ className, isPlaying, options, play, pause }) => {
+const Controls = ({
+  className,
+  isPlaying,
+  options,
+  selectedTrack,
+  play,
+  pause,
+  addToQueue,
+  onAddToQueue
+}) => {
   const { canPlay = true, canPause = true, canQueue } = options || {};
 
   return (
@@ -14,10 +24,11 @@ const Controls = ({ className, isPlaying, options, play, pause }) => {
         canPause && <PauseButton onClick={pause} /> :
         canPlay && <PlayButton onClick={() => play()} />
       }
-      {canQueue &&
+      {canQueue && !!selectedTrack &&
         <QueueButton
           onClick={() => {
-            console.log('Queueing Song...');
+            addToQueue(selectedTrack);
+            onAddToQueue ? onAddToQueue() : noop();
           }}
         />
       }
@@ -33,8 +44,11 @@ Controls.propTypes = {
     canPause: bool,
     canQueue: bool
   }),
+  selectedTrack: object,
   play: func.isRequired,
-  pause: func.isRequired
+  pause: func.isRequired,
+  addToQueue: func.isRequired,
+  onAddToQueue: func
 };
 
 export default Controls;

@@ -32,7 +32,7 @@ const initialState = {
   nowPlaying: {}
 };
 
-export default function spotify(state = initialState, action) {
+export default function spotify (state = initialState, action) {
   switch (action.type) {
     case SET_AUTH:
       return {

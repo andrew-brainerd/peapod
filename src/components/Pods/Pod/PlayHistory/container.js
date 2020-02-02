@@ -1,14 +1,9 @@
 import { connect } from 'react-redux';
-import { getHistory } from '../../../../selectors/pods';
-import { getPlayHistory } from '../../../../actions/pods';
+import { getPlayHistory } from '../../../../selectors/pods';
 import PlayHistory from './PlayHistory';
 
 const mapStateToProps = state => ({
-  history: getHistory(state)
+  history: getPlayHistory(state)
 });
 
-const mapDispatchToProps = dispatch => ({
-  getHistory: () => dispatch(getPlayHistory())
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(PlayHistory);
+export default connect(mapStateToProps)(PlayHistory);

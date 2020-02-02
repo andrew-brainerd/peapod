@@ -1,26 +1,28 @@
 import React from 'react';
-import { array, func } from 'prop-types';
-import { isEmpty } from 'ramda';
-import usePollingEffect from '../../../../hooks/usePollingEffect';
-import styles from './PlayQueue';
+import { number, object, array } from 'prop-types';
+import { reverse } from 'ramda';
+import Track from '../../../Spotify/Track/Track';
+import styles from './PlayQueue.module.scss';
 
-const PlayQueue = ({ queue, getQueue }) => {
-  usePollingEffect(() => {
-    // getQueue();
-  }, [getQueue], 7500);
-
-  !isEmpty(queue) && console.log(`Play Queue: %o`, queue);
+const PlayQueue = ({ height, currentTrack, queue }) => {
+  const PLAYLIST_PADDING = 200;
 
   return (
-    <div className={styles.playQueue}>
-      <h1>Play Queue</h1>
+    <div className={styles.playQueue} style={{ height: height - PLAYLIST_PADDING }}>
+      <div className={styles.trackList}>
+        {reverse(queue).map((track, t) => {
+          return (currentTrack || {}).name !== track.name &&
+            <Track key={t} className={styles.track} {...track} />;
+        })}
+      </div>
     </div>
   );
 };
 
 PlayQueue.propTypes = {
-  queue: array,
-  getQueue: func
+  height: number,
+  currentTrack: object,
+  queue: array
 };
 
 export default PlayQueue;
