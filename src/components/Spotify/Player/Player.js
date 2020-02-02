@@ -15,7 +15,6 @@ import { TRACK } from '../../../constants/spotify';
 import TrackProgress from './TrackProgress/TrackProgress';
 import Controls from './Controls/container';
 import Devices from '../Devices/container';
-import PlayList from './PlayList/container';
 import styles from './Player.module.scss';
 
 const Player = ({
@@ -77,7 +76,6 @@ const Player = ({
           <Controls isPlaying={isPlaying} />
         </div>}
       <Devices />
-      <PlayList currentTrack={nowPlayingItem} height={playerHeight} />
     </div>;
 };
 

@@ -1,4 +1,4 @@
-import { compose, path, pathOr, prop, propOr } from 'ramda';
+import { compose, path, prop, propOr } from 'ramda';
 
 export const getIsCreatingPod = path(['pods', 'isCreatingPod']);
 
@@ -12,8 +12,6 @@ export const getCurrentPod = path(['pods', 'currentPod']);
 
 export const getCurrentPodId = compose(prop('_id'), getCurrentPod);
 
-export const getQueue = pathOr({}, ['pods', 'queue']);
+export const getQueue = compose(propOr([], 'queue'), getCurrentPod);
 
-export const getHistory = pathOr({}, ['pods', 'history']);
-
-export const getPlayList = compose(propOr([], 'tracks'), getCurrentPod);
+export const getHistory = compose(propOr([], 'history'), getCurrentPod);

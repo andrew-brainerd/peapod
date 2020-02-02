@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { func, string, shape, oneOf, number } from 'prop-types';
 import { MY_PODS_ROUTE } from '../../../constants/routes';
 import { SEARCH, NOW_PLAYING, PLAY_QUEUE, PLAY_HISTORY } from '../../../constants/pods';
+import usePollingEffect from '../../../hooks/usePollingEffect';
 import PodViewSelector from './PodViewSelector/container';
 import SongSelection from '../../Spotify/SongSelection/container';
 import Player from '../../Spotify/Player/container';
@@ -28,6 +29,11 @@ const Pod = ({ getPod, pathname, pod, userId, height, view, navTo, sendInvitatio
     podId !== prevPodId && getPod(podId);
   }, [pathname, prevPodId, getPod]);
 
+  usePollingEffect(() => {
+    console.log(`Polling`);
+    _id && getPod(_id);
+  }, [_id, getPod], 5000);
+
   return (
     <div className={styles.pod} style={{ height: podHeight }}>
       <div className={styles.header}>
@@ -51,8 +57,8 @@ const Pod = ({ getPod, pathname, pod, userId, height, view, navTo, sendInvitatio
       <div className={styles.content}>
         {view === SEARCH ? <SongSelection /> : null}
         {view === NOW_PLAYING ? <Player height={podHeight} /> : null}
-        {view === PLAY_QUEUE ? <PlayQueue /> : null}
-        {view === PLAY_HISTORY ? <PlayHistory /> : null}
+        {view === PLAY_QUEUE ? <PlayQueue height={podHeight} /> : null}
+        {view === PLAY_HISTORY ? <PlayHistory height={podHeight} /> : null}
       </div>
       <Modal
         className={styles.inviteModal}

@@ -96,7 +96,7 @@ export const getPlayHistory = async podId => {
 };
 
 export const addToPlayHistory = async (podId, track) => {
-  const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/tracks`, {
+  const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/history`, {
     method: 'PATCH',
     headers: basicJsonHeader,
     body: JSON.stringify({ track })

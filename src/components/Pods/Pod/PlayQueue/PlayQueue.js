@@ -1,5 +1,5 @@
 import React from 'react';
-import { object, func } from 'prop-types';
+import { array, func } from 'prop-types';
 import { isEmpty } from 'ramda';
 import usePollingEffect from '../../../../hooks/usePollingEffect';
 import styles from './PlayQueue';
@@ -19,7 +19,7 @@ const PlayQueue = ({ queue, getQueue }) => {
 };
 
 PlayQueue.propTypes = {
-  queue: object,
+  queue: array,
   getQueue: func
 };
 
