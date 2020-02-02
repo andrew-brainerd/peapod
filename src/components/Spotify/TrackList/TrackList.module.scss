@@ -28,23 +28,39 @@
 }
 
 .trackModal {
-  display: flex;
-  justify-content: center;
+  height: 200px;
 
-  .viewTrack {
-    font-size: 2em;
-  }
+  .trackModalContent {
+    display: flex;
+    justify-content: center;
 
-  .songName {
-    color: $peapod;
-    font-size: 1.6em;
-    margin-bottom: 50px;
-    text-align: center;
-  }
+    .viewTrack {
+      font-size: 2em;
+    }
 
-  .queueButton {
-    align-self: flex-end;
-    margin: 20px auto;
-    width: 200px;
+    .songName {
+      color: $peapod;
+      margin-bottom: 30px;
+      text-align: center;
+      user-select: none;
+    }
+
+    .previewControls {
+      display: flex;
+      justify-content: center;
+    }
+
+    .queueButton {
+      cursor: pointer;
+      fill: $primaryTextColor;
+      height: 50px;
+      margin: 10px;
+      transition: 0.3s fill;
+      width: 30px;
+
+      &:hover {
+        fill: $peapod;
+      }
+    }
   }
 }
