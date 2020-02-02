@@ -4,15 +4,15 @@ import { values } from 'ramda';
 import styles from './Devices.module.scss';
 
 const Devices = ({ devices, getDevices }) => {
-  // console.log(devices);
-
   useEffect(() => {
     getDevices();
   }, [getDevices]);
 
   return (
     <div className={styles.devices}>
-      {values(devices).map(device => console.log(device))}
+      {values(devices).map(device => {
+        //console.log(device);
+      })}
     </div>
   );
 };

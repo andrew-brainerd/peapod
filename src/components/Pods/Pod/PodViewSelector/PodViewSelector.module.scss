@@ -19,6 +19,8 @@
 
     &.selected {
       border-bottom-color: $modalBorder;
+      cursor: default;
+      pointer-events: none;
     }
   }
 }

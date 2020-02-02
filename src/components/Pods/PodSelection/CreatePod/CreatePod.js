@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { bool, func, shape, string } from 'prop-types';
-import styles from './CreatePod.module.scss';
 import TextInput from '../../../common/TextInput/TextInput';
 import Button from '../../../common/Button/Button';
-import { POD_ROUTE } from '../../../../constants/routes';
+import { POD_SEARCH_ROUTE } from '../../../../constants/routes';
+import styles from './CreatePod.module.scss';
 
 const CreatePod = ({ isCreatingPod, createPod, createdPod, navTo }) => {
   const [podName, setPodName] = useState('');
@@ -31,7 +31,7 @@ const CreatePod = ({ isCreatingPod, createPod, createdPod, navTo }) => {
         clear();
         setTimeout(() => {
           setShowCreated(false);
-          navTo(POD_ROUTE.replace(':podId', (newPod || {})._id));
+          navTo(POD_SEARCH_ROUTE.replace(':podId', (newPod || {})._id));
         }, 3000);
       }
     })

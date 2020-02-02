@@ -88,12 +88,11 @@ export const transferPlayback = async (accessToken, devices, shouldPlay = false)
 
 export const play = async (accessToken, options) => {
   const url = `${PEAPOD_API_URL}/api/spotify/play?accessToken=${accessToken}`;
-  const body = JSON.stringify(options);
-  console.log(`Play Body: %o`, body);
+
   const response = await fetch(url, {
     method: 'PUT',
     headers: basicJsonHeader,
-    body
+    body: JSON.stringify(options)
   });
 
   handleResponse(response, 204);

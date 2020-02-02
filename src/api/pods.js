@@ -77,6 +77,24 @@ export const sendInvitation = async (podId, messageType, to) => {
   return json;
 };
 
+export const getPlayQueue = async podId => {
+  const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/queue`);
+
+  handleResponse(response);
+  const json = await response.json();
+
+  return json;
+};
+
+export const getPlayHistory = async podId => {
+  const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/history`);
+
+  handleResponse(response);
+  const json = await response.json();
+
+  return json;
+};
+
 export const addToPlayHistory = async (podId, track) => {
   const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/tracks`, {
     method: 'PATCH',

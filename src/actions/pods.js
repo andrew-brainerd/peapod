@@ -19,6 +19,12 @@ export const OPEN_INVITE_MODAL = `${PREFIX}/OPEN_INVITE_MODAL`;
 export const CLOSE_INVITE_MODAL = `${PREFIX}/CLOSE_INVITE_MODAL`;
 export const SENDING_INVITATION = `${PREFIX}/SENDING_INVITATION`;
 export const INVITATION_SENT = `${PREFIX}/INVITATION_SENT`;
+export const LOADING_PLAY_QUEUE = `${PREFIX}/LOADING_PLAY_QUEUE`;
+export const PLAY_QUEUE_LOADED = `${PREFIX}/PLAY_QUEUE_LOADED`;
+export const LOADING_PLAY_HISTORY = `${PREFIX}/LOADING_PLAY_HISTORY`;
+export const PLAY_HISTORY_LOADED = `${PREFIX}/PLAY_HISTORY_LOADED`;
+export const ADDING_TRACK_TO_PLAY_QUEUE = `${PREFIX}/ADDING_TRACK_TO_PLAY_QUEUE`;
+export const TRACK_ADDED_TO_PLAY_QUEUE = `${PREFIX}/TRACK_ADDED_TO_PLAY_QUEUE`;
 export const ADDING_TRACK_TO_PLAY_HISTORY = `${PREFIX}/ADDING_TRACK_TO_PLAY_HISTORY`;
 export const TRACK_ADDED_TO_PLAY_HISTORY = `${PREFIX}/TRACK_ADDED_TO_PLAY_HISTORY`;
 
@@ -49,6 +55,18 @@ export const addedMemberToPod = { type: ADDED_MEMBER_TO_POD };
 export const removingMemberFromPod = { type: REMOVING_MEMBER_FROM_POD };
 
 export const removedMemberFromPod = { type: REMOVED_MEMBER_FROM_POD };
+
+export const loadingPlayQueue = { type: LOADING_PLAY_QUEUE };
+
+export const playQueueLoaded = queue => ({ type: PLAY_QUEUE_LOADED });
+
+export const loadingPlayHistory = { type: LOADING_PLAY_HISTORY };
+
+export const playHistoryLoaded = history => ({ type: PLAY_HISTORY_LOADED });
+
+export const addingTrackToPlayQueue = { type: ADDING_TRACK_TO_PLAY_QUEUE };
+
+export const trackAddedToPlayQueue = track => ({ type: TRACK_ADDED_TO_PLAY_QUEUE, track });
 
 export const addingTrackToPlayHistory = { type: ADDING_TRACK_TO_PLAY_HISTORY };
 
@@ -112,6 +130,30 @@ export const removeMemberFromPod = podId => async (dispatch, getState) => {
     dispatch(removedMemberFromPod);
     dispatch(getPods());
   });
+};
+
+export const getPlayQueue = () => async (dispatch, getState) => {
+  const podId = getCurrentPodId(getState());
+  dispatch(loadingPlayQueue);
+  pods.getPlayQueue(podId).then(queue =>
+    dispatch(playQueueLoaded(queue))
+  );
+};
+
+export const addTrackToPlayQueue = track => async (dispatch, getState) => {
+  const podId = getCurrentPodId(getState());
+  dispatch(addingTrackToPlayQueue);
+  pods.addToPlayHistory(podId, track).then(data =>
+    dispatch(trackAddedToPlayQueue(track))
+  );
+};
+
+export const getPlayHistory = () => async (dispatch, getState) => {
+  const podId = getCurrentPodId(getState());
+  dispatch(loadingPlayHistory);
+  pods.getPlayHistory(podId).then(history =>
+    dispatch(playHistoryLoaded(history))
+  );
 };
 
 export const addTrackToPlayHistory = track => async (dispatch, getState) => {

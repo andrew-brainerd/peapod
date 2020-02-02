@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { number, array, string, func } from 'prop-types';
 import PodItem from './PodItem/PodItem';
 import styles from './Pods.module.scss';
-import { POD_ROUTE } from '../../constants/routes';
+import { POD_SEARCH_ROUTE } from '../../constants/routes';
 import { isEmpty } from 'ramda';
 
 const getId = pod => (pod || {})._id;
@@ -27,7 +27,7 @@ const Pods = ({ height, pods, userId, getMyPods, navTo }) => {
               key={p}
               name={getName(pod)}
               numMembers={getNumMembers(pod)}
-              action={() => navTo(POD_ROUTE.replace(':podId', getId(pod)))}
+              action={() => navTo(POD_SEARCH_ROUTE.replace(':podId', getId(pod)))}
             />
           )}
       </div>

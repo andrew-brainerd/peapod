@@ -51,8 +51,7 @@ export default function pods (state = initialState, action) {
     case LOADING_POD:
       return {
         ...state,
-        isLoadingPod: true,
-        currentPod: null
+        isLoadingPod: true
       };
     case POD_LOADED:
       return {

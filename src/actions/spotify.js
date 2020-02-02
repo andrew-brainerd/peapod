@@ -138,7 +138,6 @@ export const transferPlayback = () => async (dispatch, getState) => {
 };
 
 export const play = options => async (dispatch, getState) => {
-  console.log(`[Action] Playing: %o`, options);
   dispatch(playing);
   spotify.play(getAccessToken(getState()), options)
     .then(() => setTimeout(() => dispatch(getMyNowPlaying()), 1000))

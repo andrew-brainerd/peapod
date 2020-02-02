@@ -8,14 +8,11 @@
     fill: $primaryTextColor;
     height: 50px;
     margin: 10px;
+    transition: 0.3s fill;
     width: 30px;
-  }
 
-  .play {
-    
-  }
-
-  .pause {
-
+    &:hover {
+      fill: $peapod;
+    }
   }
 }

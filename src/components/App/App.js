@@ -21,6 +21,7 @@ import JoinPod from '../Pods/PodSelection/JoinPod/container';
 import Pod from '../Pods/Pod/container';
 import SpotifyAuth from '../Spotify/SpotifyAuth/container';
 import styles from './App.module.scss';
+import { SEARCH, NOW_PLAYING, PLAY_QUEUE, PLAY_HISTORY } from '../../constants/pods';
 
 const App = ({ history }) => (
   <div className={styles.peapod}>
@@ -36,6 +37,18 @@ const App = ({ history }) => (
             <Route path={CREATE_POD_ROUTE} exact component={CreatePod} />
             <Route path={JOIN_POD_ROUTE} exact component={JoinPod} />
             <Route path={POD_ROUTE} exact component={Pod} />
+            <Route exact path={`${POD_ROUTE}/search`} render={props => (
+              <Pod {...props} view={SEARCH} />
+            )} />
+            <Route exact path={`${POD_ROUTE}/player`} render={props => (
+              <Pod {...props} view={NOW_PLAYING} />
+            )} />
+            <Route exact path={`${POD_ROUTE}/queue`} render={props => (
+              <Pod {...props} view={PLAY_QUEUE} />
+            )} />
+            <Route exact path={`${POD_ROUTE}/history`} render={props => (
+              <Pod {...props} view={PLAY_HISTORY} />
+            )} />
           </Switch>
         </Spotify>
       </>
