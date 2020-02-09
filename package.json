@@ -45,7 +45,7 @@
     "lint:js": "eslint src/",
     "lint:css": "stylelint --config stylelint.json **/*.scss",
     "lint": "npm-run-all lint:*",
-    "coverage": "npm test --coverage --coverageDirectory coverage --watchAll=false",
+    "coverage": "npm test -- --coverage --coverageDirectory coverage --watchAll=false",
     "verify": "npm-run-all lint test"
   },
   "eslintConfig": {
