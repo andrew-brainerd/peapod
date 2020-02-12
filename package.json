@@ -79,5 +79,10 @@
       "!build/**",
       "!test/**"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run verify"
+    }
   }
 }
