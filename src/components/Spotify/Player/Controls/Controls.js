@@ -13,6 +13,8 @@ const Controls = ({
   selectedTrack,
   play,
   pause,
+  onPlay,
+  onPause,
   addToQueue,
   onAddToQueue
 }) => {
@@ -21,8 +23,8 @@ const Controls = ({
   return (
     <div className={[styles.controls, className].join(' ')}>
       {isPlaying ?
-        canPause && <PauseButton onClick={pause} /> :
-        canPlay && <PlayButton onClick={() => play()} />
+        canPause && <PauseButton onClick={onPause || pause} /> :
+        canPlay && <PlayButton onClick={onPlay || play} />
       }
       {canQueue && !!selectedTrack &&
         <QueueButton
@@ -47,6 +49,8 @@ Controls.propTypes = {
   selectedTrack: object,
   play: func.isRequired,
   pause: func.isRequired,
+  onPlay: func,
+  onPause: func,
   addToQueue: func.isRequired,
   onAddToQueue: func
 };

@@ -25,6 +25,7 @@ const TrackList = ({ hasAuth, isLoading, tracks }) => {
                   .map((track, t) =>
                     <Track
                       key={t}
+                      className={styles.track}
                       onClick={() => {
                         setSelectedTrack(track);
                         setIsModalOpen(true);
@@ -58,8 +59,8 @@ const TrackList = ({ hasAuth, isLoading, tracks }) => {
           <Controls
             className={styles.previewControls}
             isPlaying={isPlayingPreview}
-            play={() => setIsPlayingPreview(true)}
-            pause={() => setIsPlayingPreview(false)}
+            onPlay={() => setIsPlayingPreview(true)}
+            onPause={() => setIsPlayingPreview(false)}
             selectedTrack={selectedTrack}
             options={{ canQueue: true }}
             onAddToQueue={() => setIsModalOpen(false)}

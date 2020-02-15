@@ -4,7 +4,7 @@ import { addTrackToPlayQueue } from '../../../../actions/pods';
 import Controls from './Controls';
 
 const mapDispatchToProps = dispatch => ({
-  play: options => dispatch(play(options)),
+  play: () => dispatch(play()),
   pause: () => dispatch(pause()),
   addToQueue: track => dispatch(addTrackToPlayQueue(track))
 });
