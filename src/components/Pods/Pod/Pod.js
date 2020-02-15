@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { func, string, shape, oneOf, number } from 'prop-types';
-import { MY_PODS_ROUTE } from '../../../constants/routes';
-import { SEARCH, NOW_PLAYING, PLAY_QUEUE, PLAY_HISTORY } from '../../../constants/pods';
 import usePrevious from '../../../hooks/usePrevious';
 import usePollingEffect from '../../../hooks/usePollingEffect';
+import { MY_PODS_ROUTE } from '../../../constants/routes';
+import { SEARCH, NOW_PLAYING, PLAY_QUEUE, PLAY_HISTORY } from '../../../constants/pods';
+import Header from '../../common/Header/container';
 import PodViewSelector from './PodViewSelector/container';
 import SongSelection from '../../Spotify/SongSelection/container';
 import Player from '../../Spotify/Player/container';
@@ -35,63 +36,66 @@ const Pod = ({ getPod, pathname, pod, userId, height, view, navTo, sendInvitatio
   }, [_id, getPod], 5000);
 
   return (
-    <div className={styles.pod} style={{ height: podHeight }}>
-      <div className={styles.header}>
-        <div className={styles.title}>
-          <div className={styles.name}>{name}</div>
-          <div className={styles.inviteIconContainer} onClick={() => setIsModalOpen(true)}>
-            <InviteIcon className={styles.inviteIcon} title={'Invite People'} />
+    <>
+      <Header isMinimal />
+      <div className={styles.pod} style={{ height: podHeight }}>
+        <div className={styles.podHeader}>
+          <div className={styles.title}>
+            <div className={styles.name}>{name}</div>
+            <div className={styles.inviteIconContainer} onClick={() => setIsModalOpen(true)}>
+              <InviteIcon className={styles.inviteIcon} title={'Invite People'} />
+            </div>
           </div>
-        </div>
-        <PodViewSelector
-          className={styles.viewSelector}
-          podId={_id}
-          selectedView={view}
-        />
-        <div
-          className={styles.closeButton}
-          title={'Close Pod'}
-          onClick={() => navTo(MY_PODS_ROUTE.replace(':userId', userId))}
-        />
-      </div>
-      <div className={styles.content}>
-        {view === SEARCH ? <SongSelection /> : null}
-        {view === NOW_PLAYING ? <Player height={podHeight} /> : null}
-        {view === PLAY_QUEUE ? <PlayQueue height={podHeight} /> : null}
-        {view === PLAY_HISTORY ? <PlayHistory height={podHeight} /> : null}
-      </div>
-      <Modal
-        className={styles.inviteModal}
-        isOpen={isModalOpen}
-        closeModal={() => setIsModalOpen(false)}
-        contentClassName={styles.inviteModalContent}
-      >
-        <div className={styles.inviteModalText}>
-          Invite People to the <span className={styles.inviteTitle}>{name}</span> Pod
-        </div>
-        <div className={styles.inputFields}>
-          <TextInput
-            placeholder={'Phone Number'}
-            inputClassName={styles.phoneInput}
-            autofocus
-            value={phoneNumber}
-            onChange={setPhoneNumber}
-            onPressEnter={() => {
-              sendInvitation(_id, 'sms', phoneNumber);
-              setIsModalOpen(false);
-            }}
+          <PodViewSelector
+            className={styles.viewSelector}
+            podId={_id}
+            selectedView={view}
           />
-          <Button
-            className={styles.inviteButton}
-            text={'Invite'}
-            onClick={() => {
-              sendInvitation(_id, 'sms', phoneNumber);
-              setIsModalOpen(false);
-            }}
+          <div
+            className={styles.closeButton}
+            title={'Close Pod'}
+            onClick={() => navTo(MY_PODS_ROUTE.replace(':userId', userId))}
           />
         </div>
-      </Modal>
-    </div>
+        <div className={styles.content}>
+          {view === SEARCH ? <SongSelection /> : null}
+          {view === NOW_PLAYING ? <Player height={podHeight} /> : null}
+          {view === PLAY_QUEUE ? <PlayQueue height={podHeight} /> : null}
+          {view === PLAY_HISTORY ? <PlayHistory height={podHeight} /> : null}
+        </div>
+        <Modal
+          className={styles.inviteModal}
+          isOpen={isModalOpen}
+          closeModal={() => setIsModalOpen(false)}
+          contentClassName={styles.inviteModalContent}
+        >
+          <div className={styles.inviteModalText}>
+            Invite People to the <span className={styles.inviteTitle}>{name}</span> Pod
+        </div>
+          <div className={styles.inputFields}>
+            <TextInput
+              placeholder={'Phone Number'}
+              inputClassName={styles.phoneInput}
+              autofocus
+              value={phoneNumber}
+              onChange={setPhoneNumber}
+              onPressEnter={() => {
+                sendInvitation(_id, 'sms', phoneNumber);
+                setIsModalOpen(false);
+              }}
+            />
+            <Button
+              className={styles.inviteButton}
+              text={'Invite'}
+              onClick={() => {
+                sendInvitation(_id, 'sms', phoneNumber);
+                setIsModalOpen(false);
+              }}
+            />
+          </div>
+        </Modal>
+      </div>
+    </>
   );
 };
 

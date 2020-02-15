@@ -7,6 +7,11 @@ import App from './components/App/App';
 import ReactModal from 'react-modal';
 import './index.scss';
 
+console.log(
+  `%cPeapod App v${process.env.REACT_APP_VERSION}`,
+  'color: rgba(139, 196, 72, 1); font-size: 20px;'
+);
+
 WebFont.load({
   google: {
     families: [

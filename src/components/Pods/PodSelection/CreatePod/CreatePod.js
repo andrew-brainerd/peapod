@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { bool, func, shape, string } from 'prop-types';
+import { POD_SEARCH_ROUTE } from '../../../../constants/routes';
+import Header from '../../../common/Header/container';
 import TextInput from '../../../common/TextInput/TextInput';
 import Button from '../../../common/Button/Button';
-import { POD_SEARCH_ROUTE } from '../../../../constants/routes';
 import styles from './CreatePod.module.scss';
 
 const CreatePod = ({ isCreatingPod, createPod, createdPod, navTo }) => {
@@ -38,32 +39,35 @@ const CreatePod = ({ isCreatingPod, createPod, createdPod, navTo }) => {
     .catch(err => console.error('Failed to create pod', err));
 
   return (
-    <div className={styles.createPod}>
-      <TextInput
-        placeholder={'Pod Name'}
-        inputClassName={styles.podNameInput}
-        autofocus
-        value={podName}
-        onChange={setPodName}
-        onPressEnter={create}
-      />
-      {inputError && (
-        <div className={styles.inputError}>
-          {inputError}
-        </div>
-      )}
-      {createdPod && createdPod.name && showCreated && (
-        <div className={styles.createdPodName}>
-          {`Created Pod ${createdPod.name}`}
-        </div>
-      )}
-      <Button
-        text={'Create'}
-        className={styles.createButton}
-        onClick={create}
-        disabled={isCreatingPod}
-      />
-    </div>
+    <>
+      <Header />
+      <div className={styles.createPod}>
+        <TextInput
+          placeholder={'Pod Name'}
+          inputClassName={styles.podNameInput}
+          autofocus
+          value={podName}
+          onChange={setPodName}
+          onPressEnter={create}
+        />
+        {inputError && (
+          <div className={styles.inputError}>
+            {inputError}
+          </div>
+        )}
+        {createdPod && createdPod.name && showCreated && (
+          <div className={styles.createdPodName}>
+            {`Created Pod ${createdPod.name}`}
+          </div>
+        )}
+        <Button
+          text={'Create'}
+          className={styles.createButton}
+          onClick={create}
+          disabled={isCreatingPod}
+        />
+      </div>
+    </>
   );
 };
 

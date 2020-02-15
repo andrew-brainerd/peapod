@@ -43,9 +43,9 @@ const TrackProgress = ({ nowPlaying }) => {
 
 TrackProgress.propTypes = {
   nowPlaying: shape({
-    id: number.isRequired,
-    duration_ms: number.isRequired,
-    progress_ms: number.isRequired
+    id: number,
+    duration_ms: number,
+    progress_ms: number
   })
 };
 

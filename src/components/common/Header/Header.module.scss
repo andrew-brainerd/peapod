@@ -7,6 +7,24 @@
   margin-bottom: 30px;
   position: relative;
 
+  &.minimal {
+    height: 55px;
+
+    .headerContent {
+      align-items: center;
+      display: flex;
+      padding: 0 20px;
+
+      .headerTitle {
+        margin-bottom: 0;
+      }
+    }
+
+    img {
+      width: 30px;
+    }
+  }
+
   .headerContent {
     display: flex;
     padding: 5px 20px;

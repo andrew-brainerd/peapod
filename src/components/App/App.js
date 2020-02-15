@@ -2,7 +2,6 @@ import React from 'react';
 import { object } from 'prop-types';
 import { ConnectedRouter } from 'connected-react-router';
 import { Route, Switch } from 'react-router-dom';
-import Header from '../common/Header/container';
 import Spotify from '../Spotify/container';
 import {
   HOME_ROUTE,
@@ -27,7 +26,6 @@ const App = ({ history }) => (
   <div className={styles.peapod}>
     <ConnectedRouter history={history}>
       <>
-        <Header />
         <Route path={HOME_ROUTE} exact component={Home} />
         <Route path={SPOTIFY_AUTH_ROUTE} exact component={SpotifyAuth} />
         <Spotify>
