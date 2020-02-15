@@ -2,38 +2,85 @@
 @import '../../../../styles/sizing.scss';
 
 .podViewSelector {
-  align-items: center;
-  cursor: pointer;
   display: flex;
-  justify-content: center;
-  user-select: none;
 
-  .view {
-    border: 2px solid transparent;
-    margin: 0 15px;
-    padding: 7px 0;
-    text-align: center;
-    transition: 0.3s border;
+  .menuButton {
+    display: none;
+    padding: 5px;
 
-    &.nowPlaying {
-      min-width: 85px;
+    svg {
+      fill: white;
+      height: 100%;
+      width: 100%;
     }
+  }
 
-    &.selected {
-      border-bottom-color: $peapod;
-      cursor: default;
-      pointer-events: none;
+  .viewSelector {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    user-select: none;
+
+    .view {
+      border: 2px solid transparent;
+      margin: 0 15px;
+      padding: 7px 0;
+      text-align: center;
+      transition: 0.3s border;
+
+      &.nowPlaying {
+        min-width: 85px;
+      }
+
+      &.selected {
+        border-bottom-color: $peapod;
+        cursor: default;
+        pointer-events: none;
+      }
     }
   }
 }
 
 @media screen and (max-width: $mobileWidth) {
-  .podViewSelector {
-    width: 100%;
+  $menuButtonSize: 30px;
 
-    .view {
-      margin: 0;
-      width: 75px;
+  .podViewSelector {
+    position: relative;
+    z-index: 50;
+
+    &:hover {
+      .viewSelector {
+        background: $gray-80;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+      }
+    }
+
+    .menuButton {
+      display: block;
+      height: $menuButtonSize;
+      position: absolute;
+      width: $menuButtonSize;
+      right: 10px;
+      top: -20px;
+      z-index: 51;
+
+      &:hover {
+        background: $gray-80;
+      }
+    }
+
+    .viewSelector {
+      display: none;
+      width: 100%;
+
+      .view {
+        margin: 0;
+        width: 75px;
+      }
     }
   }
 }

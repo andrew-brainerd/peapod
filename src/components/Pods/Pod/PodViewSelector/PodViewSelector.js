@@ -1,32 +1,46 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { string, func } from 'prop-types';
 import { keys } from 'ramda';
 import { podViews, NOW_PLAYING } from '../../../../constants/pods';
+import { ReactComponent as MenuIcon } from '../../../../img/hamburger.svg';
 import styles from './PodViewSelector.module.scss';
 
-const PodViewSelector = ({ className, podId, selectedView, navTo }) => (
-  <div className={[
-    styles.podViewSelector,
-    className || ''
-  ].join(' ')}>
-    {keys(podViews).map(view => {
-      const { name, path } = podViews[view];
-      return (
-        <div
-          key={name}
-          className={[
-            styles.view,
-            view === NOW_PLAYING ? styles.nowPlaying : '',
-            selectedView === view ? styles.selected : ''
-          ].join(' ')}
-          onClick={() => navTo(path.replace(':podId', podId))}
-        >
-          {name}
-        </div>
-      );
-    })}
-  </div>
-);
+const PodViewSelector = ({ className, podId, selectedView, navTo }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const buttonRef = useRef();
+  return (
+    <div
+      ref={buttonRef}
+      className={styles.podViewSelector}
+      onClick={() => setIsMenuOpen(!isMenuOpen)}
+    >
+      <div className={styles.menuButton}>
+        <MenuIcon />
+      </div>
+      <div className={[
+        styles.viewSelector,
+        className || ''
+      ].join(' ')}>
+        {keys(podViews).map(view => {
+          const { name, path } = podViews[view];
+          return (
+            <div
+              key={name}
+              className={[
+                styles.view,
+                view === NOW_PLAYING ? styles.nowPlaying : '',
+                selectedView === view ? styles.selected : ''
+              ].join(' ')}
+              onClick={() => navTo(path.replace(':podId', podId))}
+            >
+              {name}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
 
 PodViewSelector.propTypes = {
   className: string,

@@ -1,4 +1,5 @@
 @import '../../../styles/colors.scss';
+@import '../../../styles/sizing.scss';
 
 $separationBorder: 15px solid $primaryColor;
 
@@ -55,4 +56,20 @@ $separationBorder: 15px solid $primaryColor;
   font-size: 1.5em;
   margin-top: 30px;
   text-align: center;
+}
+
+@media screen and (max-width: $mobileWidth) {
+  .player {
+    .nowPlaying {
+      .trackInfo {
+        .trackName {
+          font-size: 5vw;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 50%;
+        }
+      }
+    }
+  }
 }

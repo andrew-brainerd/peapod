@@ -71,7 +71,7 @@ const Pod = ({ getPod, pathname, pod, userId, height, view, navTo, sendInvitatio
         >
           <div className={styles.inviteModalText}>
             Invite People to the <span className={styles.inviteTitle}>{name}</span> Pod
-        </div>
+          </div>
           <div className={styles.inputFields}>
             <TextInput
               placeholder={'Phone Number'}

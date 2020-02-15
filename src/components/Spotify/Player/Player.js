@@ -26,7 +26,7 @@ const Player = ({
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const isPlaying = getIsPlaying(nowPlaying);
   const nowPlayingItem = getNowPlayingItem(nowPlaying);
-  const { type, name } = nowPlayingItem;  
+  const { type, name } = nowPlayingItem;
   const trackImages = getTrackImages(nowPlaying);
   const prevName = usePrevious(name);
 

@@ -7,13 +7,13 @@ import { ReactComponent as ComputerIcon } from '../../../img/computer.svg';
 import { ReactComponent as SmartphoneIcon } from '../../../img/smartphone.svg';
 import styles from './Devices.module.scss';
 
-const getDeviceIcon = type => ({
-  Speaker: () => <SpeakerIcon />,
-  TV: () => <TelevisionIcon />,
-  Computer: () => <ComputerIcon />,
-  Smartphone: () => <SmartphoneIcon />,
-  Tablet: () => <SmartphoneIcon />
-})[type];
+const getDeviceIcon = ({
+  Speaker: <SpeakerIcon />,
+  TV: <TelevisionIcon />,
+  Computer: <ComputerIcon />,
+  Smartphone: <SmartphoneIcon />,
+  Tablet: <SmartphoneIcon />
+});
 
 const Devices = ({ devices, getDevices, selectDevice }) => {
   useEffect(() => {
@@ -31,8 +31,6 @@ const Devices = ({ devices, getDevices, selectDevice }) => {
           type
         } = device;
 
-        const deviceIcon = (getDeviceIcon(type) && getDeviceIcon(type)()) || <SpeakerIcon />;
-
         return !isRestricted && (
           <div
             key={id}
@@ -47,7 +45,9 @@ const Devices = ({ devices, getDevices, selectDevice }) => {
               }
             }}
           >
-            <div className={styles.deviceType}>{deviceIcon}</div>
+            <div className={styles.deviceType}>
+              {getDeviceIcon[type] || <SpeakerIcon />}
+            </div>
             {name}
           </div>
         );

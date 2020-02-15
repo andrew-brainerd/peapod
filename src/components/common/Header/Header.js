@@ -27,7 +27,7 @@ const Header = ({ isMinimal, navTo }) => (
 );
 
 Header.propTypes = {
-  isVisible: bool,
+  isMinimal: bool,
   navTo: func.isRequired
 };
 
