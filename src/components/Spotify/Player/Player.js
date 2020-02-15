@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import { bool, object, string, number, func } from 'prop-types';
-import moment from 'moment';
 import usePrevious from '../../../hooks/usePrevious';
 import usePollingEffect from '../../../hooks/usePollingEffect';
-import { getTimeFromDuration } from '../../../utils/spotify';
 import {
   getIsPlaying,
   getNowPlayingItem,
-  getTrackProgress,
-  getTrackLength,
   getTrackImages
 } from '../../../selectors/player';
 import { TRACK } from '../../../constants/spotify';
@@ -30,9 +26,7 @@ const Player = ({
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const isPlaying = getIsPlaying(nowPlaying);
   const nowPlayingItem = getNowPlayingItem(nowPlaying);
-  const { id, type, name } = nowPlayingItem;
-  const trackProgress = moment.duration(getTrackProgress(nowPlaying));
-  const trackDuration = moment.duration(getTrackLength(nowPlaying));
+  const { type, name } = nowPlayingItem;  
   const trackImages = getTrackImages(nowPlaying);
   const prevName = usePrevious(name);
 
@@ -40,8 +34,6 @@ const Player = ({
     name && addToPlayHistory(nowPlayingItem);
   }
 
-  const playTime = getTimeFromDuration(trackProgress);
-  const trackLength = getTimeFromDuration(trackDuration);
   const albumArt = (trackImages[1] || {}).url;
 
   usePollingEffect(() => {
@@ -65,11 +57,7 @@ const Player = ({
               <div className={styles.trackName}>
                 {name}
               </div>}
-            <TrackProgress
-              trackId={id}
-              playTime={playTime}
-              trackLength={trackLength}
-            />
+            <TrackProgress nowPlaying={nowPlaying} />
           </div>
           <Controls className={styles.activeControls} isPlaying={isPlaying} />
           <div className={styles.albumArt}>

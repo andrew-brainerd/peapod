@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { string } from 'prop-types';
+import { shape, number } from 'prop-types';
 import moment from 'moment';
 import usePrevious from '../../../../hooks/usePrevious';
 import useInterval from '../../../../hooks/useInterval';
 import { getTimeFromDuration, formatTimer } from '../../../../utils/spotify';
+import { getTrackProgress, getTrackLength } from '../../../../selectors/player';
 import styles from './TrackProgress.module.scss';
 
-const TrackProgress = ({ trackId, playTime, trackLength }) => {
+const TrackProgress = ({ nowPlaying }) => {
+  const trackProgress = moment.duration(getTrackProgress(nowPlaying));
+  const trackDuration = moment.duration(getTrackLength(nowPlaying));
+  const playTime = getTimeFromDuration(trackProgress);
   const [timer, setTimer] = useState(playTime);
-  const prevTrackId = usePrevious(trackId);
+  const trackLength = getTimeFromDuration(trackDuration);
+  const prevTrackId = usePrevious(nowPlaying.id);
   const playDuration = moment.duration(playTime);
   const timerDuration = moment.duration(timer);
 
@@ -16,10 +21,10 @@ const TrackProgress = ({ trackId, playTime, trackLength }) => {
     const syncDiff = playDuration.asSeconds() - timerDuration.asSeconds();
     const isOutofSync = Math.abs(syncDiff) > 5;
 
-    if (trackId !== prevTrackId || isOutofSync) {
+    if (nowPlaying.id !== prevTrackId || isOutofSync) {
       setTimer(playTime);
     }
-  }, [trackId, playTime, prevTrackId, playDuration, timerDuration]);
+  }, [nowPlaying.id, playTime, prevTrackId, playDuration, timerDuration]);
 
   useInterval(() => {
     if (timer !== trackLength) {
@@ -37,9 +42,11 @@ const TrackProgress = ({ trackId, playTime, trackLength }) => {
 };
 
 TrackProgress.propTypes = {
-  trackId: string,
-  playTime: string,
-  trackLength: string
+  nowPlaying: shape({
+    id: number.isRequired,
+    duration_ms: number.isRequired,
+    progress_ms: number.isRequired
+  })
 };
 
 export default TrackProgress;
