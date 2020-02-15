@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { getDevices } from '../../../selectors/spotify';
-import { getMyDevices } from '../../../actions/spotify';
+import { getMyDevices, transferPlayback } from '../../../actions/spotify';
 import Devices from './Devices';
 
 const mapStateToProps = state => ({
@@ -8,7 +8,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getDevices: () => dispatch(getMyDevices())
+  getDevices: () => dispatch(getMyDevices()),
+  selectDevice: (deviceIds, shouldPlay) => dispatch(transferPlayback([deviceIds], shouldPlay))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Devices);

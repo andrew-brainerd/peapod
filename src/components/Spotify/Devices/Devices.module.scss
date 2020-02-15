@@ -1,4 +1,44 @@
+@import '../../../styles/colors.scss';
+
+$iconSize: 20px;
+
 .devices {
   display: flex;
   flex-direction: column;
+  margin: 25px;
+  max-width: 300px;
+  width: 90%;
+
+  .device {
+    border-bottom: 1px solid transparent;
+    display: flex;
+    padding: 10px;
+    transition: 0.3s all;
+    user-select: none;
+
+    &:hover:not(.active) {
+      background: $gray-75;
+      cursor: pointer;
+    }
+
+    &.active {
+      color: $peapod;
+
+      .deviceType {
+        svg {
+          fill: $peapod;
+        }
+      }
+    }
+
+    .deviceType {
+      width: 50px;
+
+      svg {
+        fill: white;
+        height: $iconSize;
+        width: $iconSize;
+      }
+    }
+  }
 }

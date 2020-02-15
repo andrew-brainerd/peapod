@@ -130,9 +130,9 @@ export const getMyNowPlaying = () => async (dispatch, getState) => {
     .catch(err => console.error('Failed to fetch user now playing', err));
 };
 
-export const transferPlayback = () => async (dispatch, getState) => {
+export const transferPlayback = (devices, shouldPlay) => async (dispatch, getState) => {
   dispatch(tranferringPlayback);
-  spotify.transferPlayback(getAccessToken(getState()))
+  spotify.transferPlayback(getAccessToken(getState()), devices, shouldPlay)
     .then(playback => dispatch(playbackTransferred(playback)))
     .catch(err => console.error('Failed to transfer playback', err));
 };
