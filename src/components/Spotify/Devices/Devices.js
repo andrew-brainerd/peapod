@@ -11,8 +11,9 @@ const getDeviceIcon = type => ({
   Speaker: () => <SpeakerIcon />,
   TV: () => <TelevisionIcon />,
   Computer: () => <ComputerIcon />,
-  Smartphone: () => <SmartphoneIcon />
-})[type]();
+  Smartphone: () => <SmartphoneIcon />,
+  Tablet: () => <SmartphoneIcon />
+})[type];
 
 const Devices = ({ devices, getDevices, selectDevice }) => {
   useEffect(() => {
@@ -30,6 +31,8 @@ const Devices = ({ devices, getDevices, selectDevice }) => {
           type
         } = device;
 
+        const deviceIcon = (getDeviceIcon(type) && getDeviceIcon(type)()) || <SpeakerIcon />;
+
         return !isRestricted && (
           <div
             key={id}
@@ -44,9 +47,7 @@ const Devices = ({ devices, getDevices, selectDevice }) => {
               }
             }}
           >
-            <div className={styles.deviceType}>
-              {getDeviceIcon(type)}
-            </div>
+            <div className={styles.deviceType}>{deviceIcon}</div>
             {name}
           </div>
         );
