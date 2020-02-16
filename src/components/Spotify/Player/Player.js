@@ -17,11 +17,10 @@ const Player = ({
   hasAuth,
   isLoading,
   nowPlaying,
-  podId,
   height,
+  isPodOwner,
   getMyNowPlaying,
   addToPlayHistory,
-  getPod
 }) => {
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const isPlaying = getIsPlaying(nowPlaying);
@@ -39,10 +38,9 @@ const Player = ({
   usePollingEffect(() => {
     if (hasAuth) {
       setIsInitialLoad(false);
-      getMyNowPlaying();
-      podId && getPod(podId);
+      isPodOwner && getMyNowPlaying();
     }
-  }, [hasAuth, getMyNowPlaying], 5000);
+  }, [hasAuth, isPodOwner, getMyNowPlaying], isPodOwner ? 5000 : null);
 
   const PLAYER_PADDING = 200;
   const playerHeight = height - PLAYER_PADDING;
@@ -77,6 +75,7 @@ Player.propTypes = {
   nowPlaying: object,
   podId: string,
   height: number,
+  isPodCreator: bool,
   getMyNowPlaying: func.isRequired,
   addToPlayHistory: func.isRequired,
   getPod: func.isRequired
