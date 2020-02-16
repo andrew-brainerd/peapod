@@ -22,12 +22,12 @@ const getPodId = pathname => pathname.split('/')[2];
 const Pod = ({ getPod, pathname, pod, userId, height, view, navTo, sendInvitation }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
+  const podId = getPodId(pathname);
   const prevPodId = usePrevious(getPodId(pathname));
   const podHeight = height - 50;
   const { _id, name } = pod || {};
 
   useEffect(() => {
-    const podId = getPodId(pathname);
     podId && podId !== prevPodId && getPod(podId);
     getChannel(podId).bind(NOW_PLAYING, data => {
       console.log(`%cNow Playing: %o`, 'color: orange', data);
@@ -35,7 +35,7 @@ const Pod = ({ getPod, pathname, pod, userId, height, view, navTo, sendInvitatio
   }, [pathname, prevPodId, getPod]);
 
   usePollingEffect(() => {
-    _id && getPod(_id);
+    _id && _id === podId && getPod(_id);
   }, [_id, getPod], 5000);
 
   return (
