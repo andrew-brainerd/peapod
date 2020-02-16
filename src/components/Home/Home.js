@@ -1,11 +1,11 @@
 import React from 'react';
-import { func } from 'prop-types';
-import { POD_SELECTION_ROUTE } from '../../constants/routes';
+import { string, func } from 'prop-types';
+import { PODS_ROUTE } from '../../constants/routes';
 import Button from '../common/Button/Button';
 import logo from '../../img/logo.png';
 import styles from './Home.module.scss';
 
-const Home = ({ navTo }) => (
+const Home = ({ userId, navTo }) => (
   <div className={styles.home}>
     <h1>Peapod</h1>
     <div className={styles.logo}>
@@ -14,7 +14,7 @@ const Home = ({ navTo }) => (
     <div className={styles.buttonContainer}>
       <Button
         className={styles.button}
-        onClick={() => navTo(POD_SELECTION_ROUTE)}
+        onClick={() => navTo(PODS_ROUTE.replace(':userId', userId))}
       >
         Take a <span className={styles.buttonText}>Pea</span>k
       </Button>
@@ -23,6 +23,7 @@ const Home = ({ navTo }) => (
 );
 
 Home.propTypes = {
+  userId: string,
   navTo: func.isRequired
 };
 

@@ -7,7 +7,7 @@ import {
   calculateExpireTime
 } from '../utils/spotify';
 import { getAccessToken } from '../selectors/spotify';
-import { POD_SELECTION_ROUTE } from '../constants/routes';
+import { HOME_ROUTE } from '../constants/routes';
 import { navTo } from './routing';
 
 const PREFIX = 'SPOTIFY';
@@ -78,7 +78,7 @@ export const setAuth = ({ accessToken, refreshToken, expireTime }) =>
 
 export const signOut = () => async dispatch => {
   dispatch(clearData());
-  dispatch(navTo(POD_SELECTION_ROUTE));
+  dispatch(navTo(HOME_ROUTE));
 };
 
 export const refreshAuth = ({ accessToken, refreshToken }) => async dispatch => {

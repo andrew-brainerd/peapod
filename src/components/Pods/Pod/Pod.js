@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { func, string, shape, oneOf, number } from 'prop-types';
 import usePrevious from '../../../hooks/usePrevious';
 import usePollingEffect from '../../../hooks/usePollingEffect';
-import { MY_PODS_ROUTE } from '../../../constants/routes';
+import { PODS_ROUTE } from '../../../constants/routes';
 import { SEARCH, NOW_PLAYING, PLAY_QUEUE, PLAY_HISTORY } from '../../../constants/pods';
 import { getChannel } from '../../../utils/pusher';
 import Header from '../../common/Header/container';
@@ -57,7 +57,7 @@ const Pod = ({ getPod, pathname, pod, userId, height, view, navTo, sendInvitatio
           <div
             className={styles.closeButton}
             title={'Close Pod'}
-            onClick={() => navTo(MY_PODS_ROUTE.replace(':userId', userId))}
+            onClick={() => navTo(PODS_ROUTE.replace(':userId', userId))}
           />
         </div>
         <div className={styles.content}>

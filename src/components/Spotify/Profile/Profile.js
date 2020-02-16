@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { string, object, func } from 'prop-types';
 import { path } from 'ramda';
 import useOnClickOutside from '../../../hooks/useOnClickOutside';
-import { MY_PODS_ROUTE } from '../../../constants/routes';
+import { PODS_ROUTE } from '../../../constants/routes';
 import Button from '../../common/Button/Button';
 import styles from './Profile.module.scss';
 
@@ -15,7 +15,7 @@ const Profile = ({ pathname, profile, isSignedIn, navTo, signOut }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef();
   const { id, display_name: name, images } = profile || {};
-  const myPodsRoute = MY_PODS_ROUTE.replace(':userId', id);
+  const myPodsRoute = PODS_ROUTE.replace(':userId', id);
 
   useOnClickOutside(menuRef, () => setIsMenuOpen(false));
 

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { bool, func, shape, string } from 'prop-types';
-import { POD_SEARCH_ROUTE } from '../../../../constants/routes';
-import Header from '../../../common/Header/container';
-import TextInput from '../../../common/TextInput/TextInput';
-import Button from '../../../common/Button/Button';
+import { POD_SEARCH_ROUTE } from '../../../constants/routes';
+import Header from '../../common/Header/container';
+import TextInput from '../../common/TextInput/TextInput';
+import Button from '../../common/Button/Button';
 import styles from './CreatePod.module.scss';
 
 const CreatePod = ({ isCreatingPod, createPod, createdPod, navTo }) => {
