@@ -22,17 +22,25 @@ const getPodId = pathname => pathname.split('/')[2];
 const Pod = ({ getPod, pathname, pod, userId, height, view, navTo, sendInvitation }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [isPusherConnected, setIsPusherConnected] = useState(false);
   const podId = getPodId(pathname);
   const prevPodId = usePrevious(getPodId(pathname));
   const podHeight = height - 50;
-  const { _id, name } = pod || {};
+  const { _id, name, createdBy } = pod || {};
+
+  useEffect(() => {
+    if (userId && userId !== (createdBy || {}).id && !isPusherConnected) {
+      console.log(`%cConnecting to Pusher channel...`, 'color: cyan');
+      getChannel(podId).bind(NOW_PLAYING, data => {
+        console.log(`%cNow Playing: %o`, 'color: orange', data);
+      });
+      setIsPusherConnected(true);
+    }
+  }, [podId, userId, createdBy, isPusherConnected]);
 
   useEffect(() => {
     podId && podId !== prevPodId && getPod(podId);
-    getChannel(podId).bind(NOW_PLAYING, data => {
-      console.log(`%cNow Playing: %o`, 'color: orange', data);
-    })
-  }, [pathname, prevPodId, getPod]);
+  }, [podId, prevPodId, getPod]);
 
   usePollingEffect(() => {
     _id && _id === podId && getPod(_id);
