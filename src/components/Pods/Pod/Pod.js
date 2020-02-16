@@ -4,6 +4,7 @@ import usePrevious from '../../../hooks/usePrevious';
 import usePollingEffect from '../../../hooks/usePollingEffect';
 import { MY_PODS_ROUTE } from '../../../constants/routes';
 import { SEARCH, NOW_PLAYING, PLAY_QUEUE, PLAY_HISTORY } from '../../../constants/pods';
+import { getChannel } from '../../../utils/pusher';
 import Header from '../../common/Header/container';
 import PodViewSelector from './PodViewSelector/container';
 import SongSelection from '../../Spotify/SongSelection/container';
@@ -27,8 +28,10 @@ const Pod = ({ getPod, pathname, pod, userId, height, view, navTo, sendInvitatio
 
   useEffect(() => {
     const podId = getPodId(pathname);
-    podId !== prevPodId && getPod(podId);
     podId && podId !== prevPodId && getPod(podId);
+    getChannel(podId).bind(NOW_PLAYING, data => {
+      console.log(`%cNow Playing: %o`, 'color: orange', data);
+    })
   }, [pathname, prevPodId, getPod]);
 
   usePollingEffect(() => {
