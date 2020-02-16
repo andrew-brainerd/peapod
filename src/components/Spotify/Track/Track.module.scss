@@ -7,7 +7,7 @@
   transition: 0.3s all;
   user-select: none;
 
-  &:hover {
+  &:hover:not(.isMobile) {
     padding-left: 15px;
   }
 

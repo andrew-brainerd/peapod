@@ -1,5 +1,6 @@
 import React from 'react';
 import { string, array, func } from 'prop-types';
+import { isMobile } from 'react-device-detect';
 import noop from '../../../utils/noop';
 import styles from './Track.module.scss';
 
@@ -13,6 +14,7 @@ const Track = ({ className, name, artists, onClick }) => {
       className={[
         styles.track,
         onClick ? styles.hasAction : '',
+        isMobile ? styles.isMobile : '',
         className || ''
       ].join(' ')}
       onClick={onClick || noop}
