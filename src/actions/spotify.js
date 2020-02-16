@@ -9,6 +9,7 @@ import {
 import { getAccessToken } from '../selectors/spotify';
 import { HOME_ROUTE } from '../constants/routes';
 import { navTo } from './routing';
+import { updateClients } from './sync';
 
 const PREFIX = 'SPOTIFY';
 
@@ -126,7 +127,10 @@ export const getMyDevices = () => async (dispatch, getState) => {
 export const getMyNowPlaying = () => async (dispatch, getState) => {
   dispatch(loadingNowPlaying);
   spotify.getMyNowPlaying(getAccessToken(getState()))
-    .then(nowPlaying => dispatch(nowPlayingLoaded(nowPlaying)))
+    .then(nowPlaying => {
+      dispatch(nowPlayingLoaded(nowPlaying));
+      dispatch(updateClients(nowPlaying));
+    })
     .catch(err => console.error('Failed to fetch user now playing', err));
 };
 
