@@ -1,8 +1,10 @@
-import { path, pathOr } from 'ramda';
+import { compose, path, pathOr, prop } from 'ramda';
 
 export const getAccessToken = path(['spotify', 'accessToken']);
 
 export const getProfile = path(['spotify', 'profile']);
+
+export const getProfileId = compose(prop('id'), getProfile);
 
 export const getAlbums = pathOr([], ['spotify', 'albums', 'items']);
 

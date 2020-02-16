@@ -1,5 +1,4 @@
 import * as pods from '../api/pods';
-import { getCurrentUser } from '../selectors/users';
 import { getCurrentPodId } from '../selectors/pods';
 import { getProfile } from '../selectors/spotify';
 
@@ -115,7 +114,7 @@ export const sendInvitation = (podId, messageType, to) => async dispatch => {
 };
 
 export const addMemberToPod = podId => async (dispatch, getState) => {
-  const user = getCurrentUser(getState());
+  const user = getProfile(getState());
   dispatch(addingMemberToPod);
   pods.addMemberToPod(podId, user).then(() => {
     dispatch(addedMemberToPod);
@@ -124,7 +123,7 @@ export const addMemberToPod = podId => async (dispatch, getState) => {
 };
 
 export const removeMemberFromPod = podId => async (dispatch, getState) => {
-  const user = getCurrentUser(getState());
+  const user = getProfile(getState());
   dispatch(removingMemberFromPod);
   pods.removeMemberFromPod(podId, user).then(() => {
     dispatch(removedMemberFromPod);

@@ -16,7 +16,6 @@ import Home from '../Home/container';
 import PodSelection from '../Pods/PodSelection/container';
 import Pods from '../Pods/container';
 import CreatePod from '../Pods/PodSelection/CreatePod/container';
-import JoinPod from '../Pods/PodSelection/JoinPod/container';
 import Pod from '../Pods/Pod/container';
 import SpotifyAuth from '../Spotify/SpotifyAuth/container';
 import styles from './App.module.scss';
@@ -33,7 +32,6 @@ const App = ({ history }) => (
             <Route path={POD_SELECTION_ROUTE} exact component={PodSelection} />
             <Route path={MY_PODS_ROUTE} exact component={Pods} />
             <Route path={CREATE_POD_ROUTE} exact component={CreatePod} />
-            <Route path={JOIN_POD_ROUTE} exact component={JoinPod} />
             <Route path={POD_ROUTE} exact component={Pod} />
             <Route exact path={`${POD_ROUTE}/search`} render={props => (
               <Pod {...props} view={SEARCH} />

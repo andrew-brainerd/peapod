@@ -2,14 +2,14 @@ import { connect } from 'react-redux';
 import { compose } from 'ramda';
 import withSizes from 'react-sizes';
 import { getPodList } from '../../selectors/pods';
-import { getCurrentUserId } from '../../selectors/users';
+import { getProfileId } from '../../selectors/spotify';
 import { getPods } from '../../actions/pods';
 import { navTo } from '../../actions/routing';
 import Pods from './Pods';
 
 const mapStateToProps = state => ({
   pods: getPodList(state),
-  userId: getCurrentUserId(state)
+  userId: getProfileId(state)
 });
 
 const mapSizesToProps = ({ height }) => ({ height });
