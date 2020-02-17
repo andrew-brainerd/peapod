@@ -16,10 +16,6 @@ const SpotifyAuth = ({ query, setAuth, navTo }) => {
     setLocalAuth(auth);
     setAuth(auth);
 
-    if (process.env.NODE_ENV === 'production') {
-      window.location.href = `https://peapodbb.herokuapp.com${getLocalReturnUri()}`;
-    }
-
     navTo(getLocalReturnUri() || HOME_ROUTE);
   });
 
