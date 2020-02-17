@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { shape, string, func } from 'prop-types';
 import { setLocalAuth, calculateExpireTime, getLocalReturnUri } from '../../../utils/spotify';
-import { SPOTIFY_ROUTE } from '../../../constants/routes';
+import { HOME_ROUTE } from '../../../constants/routes';
 import Loading from '../../common/Loading/Loading';
 import styles from './SpotifyAuth.module.scss';
 
@@ -16,7 +16,11 @@ const SpotifyAuth = ({ query, setAuth, navTo }) => {
     setLocalAuth(auth);
     setAuth(auth);
 
-    navTo(getLocalReturnUri() || SPOTIFY_ROUTE);
+    if (process.env.NODE_ENV === 'production') {
+      window.location.href = `https://peapodbb.herokuapp.com${getLocalReturnUri()}`;
+    }
+
+    navTo(getLocalReturnUri() || HOME_ROUTE);
   });
 
   return (
