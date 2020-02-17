@@ -17,7 +17,7 @@ const InviteModal = ({ isOpen, podId, podName, closeModal, sendInvitation }) => 
     >
       <div className={styles.inviteModalText}>
         Invite People to the <span className={styles.inviteTitle}>{podName}</span> Pod
-          </div>
+      </div>
       <div className={styles.inputFields}>
         <TextInput
           placeholder={'Phone Number'}

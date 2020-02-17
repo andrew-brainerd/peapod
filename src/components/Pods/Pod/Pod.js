@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { func, string, shape, oneOf, number } from 'prop-types';
+import { func, string, shape, oneOf, bool, number } from 'prop-types';
 import usePrevious from '../../../hooks/usePrevious';
 import usePollingEffect from '../../../hooks/usePollingEffect';
 import { PODS_ROUTE } from '../../../constants/routes';
@@ -37,10 +37,10 @@ const Pod = ({
 
   useEffect(() => {
     if (!!pod && !!pod.createdBy && !!userId && !isPodOwner && !isPusherConnected) {
-      console.log(`%cConnecting to Pusher channel...`, 'color: cyan');
+      console.log('%cConnecting to Pusher channel...', 'color: cyan');
       getChannel(podId).bind(NOW_PLAYING, track => {
-        console.log(`%cNow Playing: %o`, 'color: orange', track.item.name);
-        nowPlayingLoaded(track)
+        console.log('%cNow Playing: %o', 'color: orange', track.item.name);
+        nowPlayingLoaded(track);
       });
       setIsPusherConnected(true);
     }
@@ -106,6 +106,7 @@ Pod.propTypes = {
     PLAY_HISTORY
   ]),
   userId: string,
+  isPodOwner: bool,
   height: number,
   navTo: func.isRequired,
   nowPlayingLoaded: func.isRequired

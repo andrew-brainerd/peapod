@@ -4,7 +4,7 @@ import withSizes from 'react-sizes';
 import { getPathname } from '../../../selectors/routing';
 import { getCurrentPod, getIsPodOwner } from '../../../selectors/pods';
 import { getProfileId } from '../../../selectors/spotify';
-import { getPod, sendInvitation } from '../../../actions/pods';
+import { getPod } from '../../../actions/pods';
 import { navTo } from '../../../actions/routing';
 import { nowPlayingLoaded } from '../../../actions/spotify';
 import Pod from './Pod';

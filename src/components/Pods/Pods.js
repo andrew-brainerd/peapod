@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { number, array, string, func } from 'prop-types';
+import { number, bool, array, string, func } from 'prop-types';
 import { isEmpty } from 'ramda';
 import { POD_SEARCH_ROUTE } from '../../constants/routes';
 import Header from '../common/Header/container';
@@ -46,6 +46,7 @@ const Pods = ({ height, isLoading, pods, userId, getMyPods, navTo }) => {
 
 Pods.propTypes = {
   height: number,
+  isLoading: bool,
   pods: array,
   userId: string,
   getMyPods: func.isRequired,

@@ -52,12 +52,6 @@ $separationBorder: 15px solid $primaryColor;
   }
 }
 
-.loading {
-  font-size: 1.5em;
-  margin-top: 30px;
-  text-align: center;
-}
-
 @media screen and (max-width: $mobileWidth) {
   .player {
     .nowPlaying {

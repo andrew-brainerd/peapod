@@ -16,6 +16,6 @@ const CreatNewButton = ({ navTo }) => (
 
 CreatNewButton.propTypes = {
   navTo: func.isRequired
-}
+};
 
 export default CreatNewButton;

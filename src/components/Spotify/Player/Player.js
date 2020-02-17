@@ -18,7 +18,7 @@ const Player = ({
   height,
   isPodOwner,
   getMyNowPlaying,
-  addToPlayHistory,
+  addToPlayHistory
 }) => {
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const isPlaying = getIsPlaying(nowPlaying);
@@ -30,8 +30,6 @@ const Player = ({
   if (prevName !== name) {
     name && addToPlayHistory(nowPlayingItem);
   }
-
-  console.log(`Player Now Playing: %o`, nowPlaying);
 
   usePollingEffect(() => {
     if (hasAuth) {
@@ -67,6 +65,7 @@ Player.propTypes = {
   nowPlaying: object,
   podId: string,
   height: number,
+  isPodOwner: bool,
   isPodCreator: bool,
   getMyNowPlaying: func.isRequired,
   addToPlayHistory: func.isRequired,
