@@ -11,9 +11,7 @@ import SongSelection from '../../Spotify/SongSelection/container';
 import Player from '../../Spotify/Player/container';
 import PlayQueue from './PlayQueue/container';
 import PlayHistory from './PlayHistory/container';
-import Modal from '../../common/Modal/Modal';
-import Button from '../../common/Button/Button';
-import TextInput from '../../common/TextInput/TextInput';
+import InviteModal from './InviteModal/container';
 import { ReactComponent as InviteIcon } from '../../../img/invite.svg';
 import styles from './Pod.module.scss';
 
@@ -28,11 +26,9 @@ const Pod = ({
   height,
   view,
   navTo,
-  sendInvitation,
   nowPlayingLoaded
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState('');
   const [isPusherConnected, setIsPusherConnected] = useState(false);
   const podId = getPodId(pathname);
   const prevPodId = usePrevious(getPodId(pathname));
@@ -86,37 +82,12 @@ const Pod = ({
           {view === PLAY_QUEUE ? <PlayQueue height={podHeight} /> : null}
           {view === PLAY_HISTORY ? <PlayHistory height={podHeight} /> : null}
         </div>
-        <Modal
-          className={styles.inviteModal}
+        <InviteModal
           isOpen={isModalOpen}
+          podId={_id}
+          podName={name}
           closeModal={() => setIsModalOpen(false)}
-          contentClassName={styles.inviteModalContent}
-        >
-          <div className={styles.inviteModalText}>
-            Invite People to the <span className={styles.inviteTitle}>{name}</span> Pod
-          </div>
-          <div className={styles.inputFields}>
-            <TextInput
-              placeholder={'Phone Number'}
-              inputClassName={styles.phoneInput}
-              autofocus
-              value={phoneNumber}
-              onChange={setPhoneNumber}
-              onPressEnter={() => {
-                sendInvitation(_id, 'sms', phoneNumber);
-                setIsModalOpen(false);
-              }}
-            />
-            <Button
-              className={styles.inviteButton}
-              text={'Invite'}
-              onClick={() => {
-                sendInvitation(_id, 'sms', phoneNumber);
-                setIsModalOpen(false);
-              }}
-            />
-          </div>
-        </Modal>
+        />
       </div>
     </>
   );
@@ -137,7 +108,6 @@ Pod.propTypes = {
   userId: string,
   height: number,
   navTo: func.isRequired,
-  sendInvitation: func.isRequired,
   nowPlayingLoaded: func.isRequired
 };
 

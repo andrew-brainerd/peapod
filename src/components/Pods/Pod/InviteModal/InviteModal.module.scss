@@ -1,0 +1,35 @@
+@import '../../../../styles/colors.scss';
+@import '../../../../styles/mixins.scss';
+
+.inviteModal {
+  .inviteModalContent {
+    align-items: center;
+    display: flex;
+    flex-flow: column nowrap;
+
+    .inviteTitle {
+      color: $peapod;
+      font-size: 1.6em;
+    }
+
+    .inviteModalText {
+      font-size: 1.5em;
+      margin-bottom: 50px;
+      user-select: none;
+    }
+
+    .inputFields {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+      .phoneInput {
+        @include defaultInput();
+
+        font-size: 1.5em;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+    }
+  }
+}

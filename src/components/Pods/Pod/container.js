@@ -21,7 +21,6 @@ const mapSizesToProps = ({ height }) => ({ height });
 const mapDispatchToProps = dispatch => ({
   getPod: podId => dispatch(getPod(podId)),
   navTo: path => dispatch(navTo(path)),
-  sendInvitation: (podId, messageType, to) => dispatch(sendInvitation(podId, messageType, to)),
   nowPlayingLoaded: nowPlaying => dispatch(nowPlayingLoaded(nowPlaying))
 });
 
