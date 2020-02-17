@@ -19,7 +19,18 @@ import styles from './Pod.module.scss';
 
 const getPodId = pathname => pathname.split('/')[2];
 
-const Pod = ({ getPod, pathname, pod, userId, isPodOwner, height, view, navTo, sendInvitation }) => {
+const Pod = ({
+  getPod,
+  pathname,
+  pod,
+  userId,
+  isPodOwner,
+  height,
+  view,
+  navTo,
+  sendInvitation,
+  nowPlayingLoaded
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isPusherConnected, setIsPusherConnected] = useState(false);
@@ -29,15 +40,15 @@ const Pod = ({ getPod, pathname, pod, userId, isPodOwner, height, view, navTo, s
   const { _id, name } = pod || {};
 
   useEffect(() => {
-    // console.log({ podId, creator: pod && pod.createdBy.id, userId, isPodOwner, isPusherConnected });
     if (!!pod && !!pod.createdBy && !!userId && !isPodOwner && !isPusherConnected) {
       console.log(`%cConnecting to Pusher channel...`, 'color: cyan');
-      getChannel(podId).bind(NOW_PLAYING, data => {
-        console.log(`%cNow Playing: %o`, 'color: orange', data);
+      getChannel(podId).bind(NOW_PLAYING, track => {
+        console.log(`%cNow Playing: %o`, 'color: orange', track.item.name);
+        nowPlayingLoaded(track)
       });
       setIsPusherConnected(true);
     }
-  }, [podId, pod, userId, isPodOwner, isPusherConnected]);
+  }, [podId, pod, userId, isPodOwner, isPusherConnected, nowPlayingLoaded]);
 
   useEffect(() => {
     podId && podId !== prevPodId && getPod(podId);
@@ -126,7 +137,8 @@ Pod.propTypes = {
   userId: string,
   height: number,
   navTo: func.isRequired,
-  sendInvitation: func.isRequired
+  sendInvitation: func.isRequired,
+  nowPlayingLoaded: func.isRequired
 };
 
 export default Pod;

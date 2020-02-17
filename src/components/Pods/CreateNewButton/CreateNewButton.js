@@ -1,6 +1,6 @@
 import React from 'react';
 import { func } from 'prop-types';
-import { POD_SEARCH_ROUTE, CREATE_POD_ROUTE } from '../../../constants/routes';
+import { CREATE_POD_ROUTE } from '../../../constants/routes';
 import Button from '../../common/Button/Button';
 import { ReactComponent as NewIcon } from '../../../img/add.svg';
 import styles from './CreateNewButton.module.scss';

@@ -56,7 +56,7 @@ const playing = { type: PLAYING };
 const pausing = { type: PAUSING };
 
 const loadingNowPlaying = { type: LOADING_NOW_PLAYING };
-const nowPlayingLoaded = nowPlaying => ({ type: NOW_PLAYING_LOADED, nowPlaying });
+export const nowPlayingLoaded = nowPlaying => ({ type: NOW_PLAYING_LOADED, nowPlaying });
 
 const loadingSearchResults = { type: LOADING_SEARCH_RESULTS };
 const searchResultsLoaded = { type: SEARCH_RESULTS_LOADED };

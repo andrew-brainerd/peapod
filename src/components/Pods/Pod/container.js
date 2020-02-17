@@ -6,6 +6,7 @@ import { getCurrentPod, getIsPodOwner } from '../../../selectors/pods';
 import { getProfileId } from '../../../selectors/spotify';
 import { getPod, sendInvitation } from '../../../actions/pods';
 import { navTo } from '../../../actions/routing';
+import { nowPlayingLoaded } from '../../../actions/spotify';
 import Pod from './Pod';
 
 const mapStateToProps = state => ({
@@ -20,7 +21,8 @@ const mapSizesToProps = ({ height }) => ({ height });
 const mapDispatchToProps = dispatch => ({
   getPod: podId => dispatch(getPod(podId)),
   navTo: path => dispatch(navTo(path)),
-  sendInvitation: (podId, messageType, to) => dispatch(sendInvitation(podId, messageType, to))
+  sendInvitation: (podId, messageType, to) => dispatch(sendInvitation(podId, messageType, to)),
+  nowPlayingLoaded: nowPlaying => dispatch(nowPlayingLoaded(nowPlaying))
 });
 
 export default compose(
