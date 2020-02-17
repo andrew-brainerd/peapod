@@ -11,7 +11,7 @@ const getProfilePic = images => {
   return imageUrl && <img src={imageUrl} alt='My Profile' />;
 };
 
-const Profile = ({ pathname, profile, isSignedIn, navTo, signOut }) => {
+const Profile = ({ pathname, profile, isSignedIn, isMinimal, navTo, signOut }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef();
   const { id, display_name: name, images } = profile || {};
@@ -20,7 +20,10 @@ const Profile = ({ pathname, profile, isSignedIn, navTo, signOut }) => {
   useOnClickOutside(menuRef, () => setIsMenuOpen(false));
 
   return isSignedIn && (
-    <div className={styles.profile}>
+    <div className={[
+      styles.profile,
+      isMinimal ? styles.minimal : ''
+    ].join(' ')}>
       <Button
         className={[
           styles.profileButton,

@@ -45,6 +45,12 @@
       }
     }
   }
+
+  &.minimal {
+    .menu {
+      top: 50px;
+    }
+  }
 }
 
 @media screen and (max-width: $mobileWidth) {

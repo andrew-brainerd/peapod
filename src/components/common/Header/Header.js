@@ -18,7 +18,7 @@ const Header = ({ isMinimal, navTo }) => (
         <div className={styles.headerTitle}>Peapod</div>
       </div>
       <div className={styles.nav}>
-        <Profile />
+        <Profile isMinimal={isMinimal} />
       </div>
     </div>
     <Notification />

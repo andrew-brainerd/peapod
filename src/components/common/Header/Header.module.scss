@@ -41,8 +41,8 @@
       font-size: 2em;
       margin-left: 20px;
       margin-bottom: 5px;
-      animation: fadeIn 2s;
-      -webkit-animation: fadeIn 2s;
+      position: relative;
+      top: 5px;
       transition: 0.5s all;
     }
 
