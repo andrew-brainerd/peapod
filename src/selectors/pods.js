@@ -10,6 +10,8 @@ export const getCreatedPodName = compose(prop('name'), getCreatedPod);
 
 export const getPodList = path(['pods', 'items']);
 
+export const getIsLoadingPods = path(['pods', 'isLoadingPods']);
+
 export const getCurrentPod = path(['pods', 'currentPod']);
 
 export const getCurrentPodId = compose(prop('_id'), getCurrentPod);

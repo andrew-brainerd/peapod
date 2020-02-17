@@ -1,0 +1,22 @@
+@import '../../../styles/colors.scss';
+
+.createNew {
+  align-items: center;
+  display: flex;
+  height: 125px;
+  justify-content: center;
+  margin: 20px;
+
+  svg {
+    fill: white;
+    height: 50px;
+    transition: 0.3s fill;
+    width: 50px;
+  }
+
+  &:hover {
+    svg {
+      fill: $peapod;
+    }
+  }
+}
