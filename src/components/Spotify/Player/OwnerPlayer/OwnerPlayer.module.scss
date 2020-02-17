@@ -1,0 +1,75 @@
+@import '../../../../styles/colors.scss';
+@import '../../../../styles/sizing.scss';
+
+$separationBorder: 15px solid $primaryColor;
+
+.ownerPlayer {
+  background: $gray-80;
+  border-radius: 10px;
+  font-size: 16px;
+  margin: 15px auto;
+  max-width: 750px;
+  overflow: hidden;
+  width: 95%;
+
+  .nowPlaying {
+    align-items: center;
+    border-bottom: $separationBorder;
+    display: flex;
+    font-size: 1.5em;
+    padding: 25px;
+    position: relative;
+
+    .trackInfo {
+      flex: 3;
+
+      .trackName {
+        font-size: 1.5em;
+        margin-bottom: 25px;
+      }
+    }
+
+    .activeControls {
+      background: transparent;
+    }
+
+    .albumArt {
+      flex: 1;
+
+      img {
+        width: 100px;
+      }
+    }
+  }
+
+  .emptyPlayer {
+    align-items: center;
+    border-bottom: $separationBorder;
+    display: flex;
+    font-size: 3em;
+    height: 150px;
+    justify-content: center;
+  }
+}
+
+.loading {
+  font-size: 1.5em;
+  margin-top: 30px;
+  text-align: center;
+}
+
+@media screen and (max-width: $mobileWidth) {
+  .player {
+    .nowPlaying {
+      .trackInfo {
+        .trackName {
+          font-size: 5vw;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 50%;
+        }
+      }
+    }
+  }
+}

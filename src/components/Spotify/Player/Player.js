@@ -7,11 +7,9 @@ import {
   getNowPlayingItem,
   getTrackImages
 } from '../../../selectors/player';
-import { TRACK } from '../../../constants/spotify';
-import TrackProgress from './TrackProgress/TrackProgress';
-import Controls from './Controls/container';
-import Devices from '../Devices/container';
 import styles from './Player.module.scss';
+import OwnerPlayer from './OwnerPlayer/OwnerPlayer';
+import ClientPlayer from './ClientPlayer/ClientPlayer';
 
 const Player = ({
   hasAuth,
@@ -25,15 +23,15 @@ const Player = ({
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const isPlaying = getIsPlaying(nowPlaying);
   const nowPlayingItem = getNowPlayingItem(nowPlaying);
-  const { type, name } = nowPlayingItem;
-  const trackImages = getTrackImages(nowPlaying);
+  const { name } = nowPlayingItem;
+  const albumArt = (getTrackImages(nowPlaying)[1] || {}).url;
   const prevName = usePrevious(name);
 
   if (prevName !== name) {
     name && addToPlayHistory(nowPlayingItem);
   }
 
-  const albumArt = (trackImages[1] || {}).url;
+  console.log(`Player Now Playing: %o`, nowPlaying);
 
   usePollingEffect(() => {
     if (hasAuth) {
@@ -47,26 +45,20 @@ const Player = ({
 
   return (isInitialLoad && isLoading) || !hasAuth ?
     <div className={styles.loading}>Loading Player...</div> :
-    <div className={styles.player} style={{ height: playerHeight }}>
-      {isPlaying ?
-        <div className={styles.nowPlaying}>
-          <div className={styles.trackInfo}>
-            {type === TRACK &&
-              <div className={styles.trackName}>
-                {name}
-              </div>}
-            <TrackProgress nowPlaying={nowPlaying} />
-          </div>
-          <Controls className={styles.activeControls} isPlaying={isPlaying} />
-          <div className={styles.albumArt}>
-            <img src={albumArt} alt={'Album Art'} />
-          </div>
-        </div> :
-        <div className={styles.emptyPlayer}>
-          <Controls isPlaying={isPlaying} />
-        </div>}
-      <Devices />
-    </div>;
+    isPodOwner ?
+      <OwnerPlayer
+        height={playerHeight}
+        isPlaying={isPlaying}
+        trackName={name}
+        nowPlaying={nowPlaying}
+        albumArt={albumArt}
+      /> :
+      <ClientPlayer
+        isPlaying={isPlaying}
+        trackName={name}
+        nowPlaying={nowPlaying}
+        albumArt={albumArt}
+      />;
 };
 
 Player.propTypes = {
@@ -82,7 +74,8 @@ Player.propTypes = {
 };
 
 Player.defaultProps = {
-  isLoading: true
+  isLoading: true,
+  nowPlaying: {}
 };
 
 export default Player;
