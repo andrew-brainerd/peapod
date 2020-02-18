@@ -3,7 +3,7 @@ import { closeNotification } from '../../../actions/notify';
 import Notification from './Notification';
 
 const mapStateToProps = ({ notify }) => ({
-  hidden: notify.hidden,
+  isHidden: notify.hidden,
   message: notify.message
 });
 

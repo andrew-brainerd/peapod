@@ -2,11 +2,11 @@ import React from 'react';
 import { bool, string, func } from 'prop-types';
 import styles from './Notification.module.scss';
 
-const Notification = ({ closeNotification, hidden, message }) => (
+const Notification = ({ isHidden, message, closeNotification }) => (
   <div
     className={[
       styles.notification,
-      hidden ? styles.hidden : ''
+      isHidden ? styles.hidden : ''
     ].join(' ')}
     onClick={closeNotification}
   >
@@ -15,9 +15,9 @@ const Notification = ({ closeNotification, hidden, message }) => (
 );
 
 Notification.propTypes = {
-  closeNotification: func.isRequired,
-  hidden: bool,
-  message: string
+  isHidden: bool,
+  message: string,
+  closeNotification: func.isRequired
 };
 
 export default Notification;
