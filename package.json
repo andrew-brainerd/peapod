@@ -45,6 +45,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --watchAll=false",
+    "test:watch": "react-scripts test",
     "lint:js": "eslint src/",
     "lint:css": "stylelint --config stylelint.json **/*.scss",
     "lint": "npm-run-all lint:*",
