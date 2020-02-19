@@ -4,13 +4,12 @@ import Modal from './Modal';
 
 describe('Modal Component', () => {
   let props;
-  let children = <div>Child Component</div>;
 
   beforeEach(() => {
     props = {
       className: '',
       isOpen: true,
-      children,
+      children: <div>Child Component</div>,
       contentClassName: '',
       headerText: 'Modal Header',
       onOpen: jest.fn(),

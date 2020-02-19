@@ -36,7 +36,7 @@ describe('Button Component', () => {
       const component = render();
 
       component.simulate('click');
-  
+
       expect(props.onClick).toHaveBeenCalled();
     });
 
@@ -45,7 +45,7 @@ describe('Button Component', () => {
       const component = render();
 
       component.simulate('click');
-      
+
       expect(component.props().onClick).toEqual(noop);
     });
   });

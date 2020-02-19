@@ -26,7 +26,7 @@ describe('PageHeader Component', () => {
 
   it('should render a PageTitle component', () => {
     const component = render();
-    
+
     expect(component.find(PageTitle)).toBeTruthy();
   });
 });

@@ -33,14 +33,14 @@ describe('TextInput Component', () => {
   it('should call noop when onFocus not provided', () => {
     props.onFocus = undefined;
     const component = render().find('input');
-    
+
     expect(component.props().onFocus).toEqual(noop);
   });
-  
+
   it('should call noop when onBlur not provided', () => {
     props.onBlur = undefined;
     const component = render().find('input');
-    
+
     expect(component.props().onBlur).toEqual(noop);
   });
 
@@ -48,7 +48,7 @@ describe('TextInput Component', () => {
     props.placeholder = undefined;
     const component = render().find('input');
 
-    expect(component.props().placeholder).toEqual('')
+    expect(component.props().placeholder).toEqual('');
   });
 
   describe('set the default input value', () => {

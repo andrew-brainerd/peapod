@@ -44,7 +44,7 @@ Modal.propTypes = {
   contentClassName: string,
   headerText: string,
   onOpen: func,
-  closeModal: func.isRequired,
+  closeModal: func.isRequired
 };
 
 export default Modal;
