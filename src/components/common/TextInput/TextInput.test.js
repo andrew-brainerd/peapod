@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import noop from '../../../utils/noop';
 import TextInput from './TextInput';
 
@@ -9,7 +9,7 @@ describe('TextInput Component', () => {
   beforeEach(() => {
     props = {
       placeholder: 'Placeholder',
-      value: 'input value',
+      value: undefined,
       inputClassName: '',
       error: null,
       autoFocus: false,
@@ -20,7 +20,7 @@ describe('TextInput Component', () => {
     };
   });
 
-  const render = () => shallow(
+  const render = () => mount(
     <TextInput {...props} />
   );
 
@@ -30,29 +30,24 @@ describe('TextInput Component', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call noop when onFocus not provided', () => {
-    props.onFocus = undefined;
-    const component = render().find('input');
-
-    expect(component.props().onFocus).toEqual(noop);
-  });
-
-  it('should call noop when onBlur not provided', () => {
-    props.onBlur = undefined;
-    const component = render().find('input');
-
-    expect(component.props().onBlur).toEqual(noop);
-  });
 
   it('should set the default placeholder', () => {
     props.placeholder = undefined;
-    const component = render().find('input');
+    const input = render().find('input');
 
-    expect(component.props().placeholder).toEqual('');
+    expect(input.props().placeholder).toEqual('');
   });
 
-  describe('set the default input value', () => {
+  it('should show input error', () => {
+    props.error = 'input error';
+    const component = render();
+
+    expect(component.find('.inputError')).toBeTruthy();
+  });
+
+  describe('Default input value', () => {
     it('should set input value to given value', () => {
+      props.value = 'input value';
       const component = render().find('input');
 
       expect(component.props().value).toEqual('input value');
@@ -66,10 +61,58 @@ describe('TextInput Component', () => {
     });
   });
 
-  it('should show input error', () => {
-    props.error = 'input error';
-    const component = render();
+  describe('Update input value', () => {
+    it('should update input value on change', () => {
+      const input = render().find('input');
 
-    expect(component.find('.inputError')).toBeTruthy();
+      input.simulate('change', { target: { value: 'updated value' } });
+      input.update();
+
+      expect(input.instance().value).toBe('updated value');
+    });
+  });
+
+  describe('onKeyPress', () => {
+    it('should call the provided enter function', () => {
+      const input = render().find('input');
+
+      input.simulate('keypress', { key: 'Enter' });
+
+      expect(props.onPressEnter).toHaveBeenCalled();
+    });
+  });
+
+  describe('onFocus', () => {
+    it('should call the provided focus function', () => {
+      const input = render().find('input');
+
+      input.simulate('focus');
+
+      expect(props.onFocus).toHaveBeenCalled();
+    });
+
+    it('should call noop when no focus function provided', () => {
+      props.onFocus = undefined;
+      const input = render().find('input');
+
+      expect(input.props().onFocus).toEqual(noop);
+    });
+  });
+
+  describe('onBlur', () => {
+    it('should call the provided blur function', () => {
+      const input = render().find('input');
+
+      input.simulate('blur');
+
+      expect(props.onBlur).toHaveBeenCalled();
+    });
+
+    it('should call call noop when no blur function provided', () => {
+      props.onBlur = undefined;
+      const input = render().find('input');
+
+      expect(input.props().onBlur).toEqual(noop);
+    });
   });
 });
