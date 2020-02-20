@@ -45,6 +45,6 @@ describe('InviteModal Component', () => {
     const component = render();
     const modal = component.find(Modal);
 
-    expect(component.find(Button)).toBeTruthy();
+    expect(modal.find(Button)).toBeTruthy();
   });
 });

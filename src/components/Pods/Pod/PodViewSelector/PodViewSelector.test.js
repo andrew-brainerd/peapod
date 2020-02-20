@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { SEARCH, NOW_PLAYING } from '../../../../constants/pods';
+import { SEARCH } from '../../../../constants/pods';
 import { ReactComponent as MenuIcon } from '../../../../img/hamburger.svg';
 import PodViewSelector from './PodViewSelector';
 
