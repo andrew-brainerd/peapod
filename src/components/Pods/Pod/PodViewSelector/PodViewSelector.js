@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { string, func } from 'prop-types';
 import { keys } from 'ramda';
 import { podViews, NOW_PLAYING } from '../../../../constants/pods';
-import { ReactComponent as MenuIcon } from '../../../../img/hamburger.svg';
+import Icon from '../../../common/Icon/Icon';
 import styles from './PodViewSelector.module.scss';
 
 const PodViewSelector = ({ className, podId, selectedView, navTo }) => {
@@ -15,7 +15,7 @@ const PodViewSelector = ({ className, podId, selectedView, navTo }) => {
       onClick={() => setIsMenuOpen(!isMenuOpen)}
     >
       <div className={styles.menuButton}>
-        <MenuIcon />
+        <Icon name={'hamburger'} title={'Menu'} />
       </div>
       <div className={[
         styles.viewSelector,

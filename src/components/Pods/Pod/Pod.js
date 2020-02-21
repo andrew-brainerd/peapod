@@ -6,13 +6,13 @@ import { PODS_ROUTE } from '../../../constants/routes';
 import { SEARCH, NOW_PLAYING, PLAY_QUEUE, PLAY_HISTORY } from '../../../constants/pods';
 import { getChannel } from '../../../utils/pusher';
 import Header from '../../common/Header/container';
+import Icon from '../../common/Icon/Icon';
 import PodViewSelector from './PodViewSelector/container';
 import SongSelection from '../../Spotify/SongSelection/container';
 import Player from '../../Spotify/Player/container';
 import PlayQueue from './PlayQueue/container';
 import PlayHistory from './PlayHistory/container';
 import InviteModal from './InviteModal/container';
-import { ReactComponent as InviteIcon } from '../../../img/invite.svg';
 import styles from './Pod.module.scss';
 
 const getPodId = pathname => pathname.split('/')[2];
@@ -62,7 +62,7 @@ const Pod = ({
           <div className={styles.title}>
             <div className={styles.name}>{name}</div>
             <div className={styles.inviteIconContainer} onClick={() => setIsModalOpen(true)}>
-              <InviteIcon className={styles.inviteIcon} title={'Invite People'} />
+              <Icon className={styles.inviteIcon} name={'invite'} title={'Invite People'} />
             </div>
           </div>
           <PodViewSelector

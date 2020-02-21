@@ -1,9 +1,7 @@
 import React from 'react';
 import { string, bool, shape, object, func } from 'prop-types';
 import noop from '../../../../utils/noop';
-import { ReactComponent as PlayButton } from '../../../../img/play.svg';
-import { ReactComponent as PauseButton } from '../../../../img/pause.svg';
-import { ReactComponent as QueueButton } from '../../../../img/add.svg';
+import Icon from '../../../common/Icon/Icon';
 import styles from './Controls.module.scss';
 
 const Controls = ({
@@ -23,11 +21,13 @@ const Controls = ({
   return (
     <div className={[styles.controls, className].join(' ')}>
       {isPlaying ?
-        canPause && <PauseButton onClick={onPause || pause} /> :
-        canPlay && <PlayButton onClick={onPlay || play} />
+        canPause && <Icon name={'pause'} onClick={onPause || pause} /> :
+        canPlay && <Icon name={'play'} onClick={onPlay || play} />
       }
       {canQueue && !!selectedTrack &&
-        <QueueButton
+        <Icon
+          name={'add'}
+          title={'Add Track to Queue'}
           onClick={() => {
             addToQueue(selectedTrack);
             onAddToQueue ? onAddToQueue() : noop();

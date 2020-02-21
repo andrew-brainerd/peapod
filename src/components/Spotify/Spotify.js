@@ -3,7 +3,7 @@ import { bool, string, node, func } from 'prop-types';
 import { getAuth } from '../../api/spotify';
 import { HOME_ROUTE } from '../../constants/routes';
 import Button from '../common/Button/Button';
-import { ReactComponent as SpotifyIcon } from '../../img/spotify.svg';
+import Icon from '../common/Icon/Icon';
 import styles from './Spotify.module.scss';
 
 const Spotify = ({ hasAuth, pathname, children, loadLocalAuth, getProfile }) => {
@@ -16,7 +16,7 @@ const Spotify = ({ hasAuth, pathname, children, loadLocalAuth, getProfile }) => 
       className={styles.authButton}
       onClick={() => getAuth(pathname)}
     >
-      <SpotifyIcon />
+      <Icon name={'spotify'} title={'Spotify Logo'} />
       <div className={styles.authButtonText}>Spotify Login</div>
     </Button> :
     children;

@@ -30,13 +30,16 @@
 
         .inviteIcon {
           cursor: pointer;
-          fill: $peapod;
-          height: 20px;
-          transition: 0.3s fill;
-          width: 45px;
 
-          &:hover {
-            fill: $primaryTextColor;
+          svg {
+            fill: $peapod;
+            height: 20px;
+            transition: 0.3s fill;
+            width: 45px;
+
+            &:hover {
+              fill: $primaryTextColor;
+            }
           }
         }
       }

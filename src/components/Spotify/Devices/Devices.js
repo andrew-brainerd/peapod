@@ -1,18 +1,15 @@
 import React, { useEffect } from 'react';
 import { array, func } from 'prop-types';
 import { values } from 'ramda';
-import { ReactComponent as SpeakerIcon } from '../../../img/headphones.svg';
-import { ReactComponent as TelevisionIcon } from '../../../img/television.svg';
-import { ReactComponent as ComputerIcon } from '../../../img/computer.svg';
-import { ReactComponent as SmartphoneIcon } from '../../../img/smartphone.svg';
+import Icon from '../../common/Icon/Icon';
 import styles from './Devices.module.scss';
 
 const getDeviceIcon = ({
-  Speaker: <SpeakerIcon />,
-  TV: <TelevisionIcon />,
-  Computer: <ComputerIcon />,
-  Smartphone: <SmartphoneIcon />,
-  Tablet: <SmartphoneIcon />
+  Speaker: <Icon name={'headphones'} />,
+  TV: <Icon name={'television'} />,
+  Computer: <Icon name={'computer'} />,
+  Smartphone: <Icon name={'smartphone'} />,
+  Tablet: <Icon name={'headphones'} />
 });
 
 const Devices = ({ devices, getDevices, selectDevice }) => {
@@ -46,7 +43,7 @@ const Devices = ({ devices, getDevices, selectDevice }) => {
             }}
           >
             <div className={styles.deviceType}>
-              {getDeviceIcon[type] || <SpeakerIcon />}
+              {getDeviceIcon[type] || <Icon name={'headphones'} />}
             </div>
             {name}
           </div>
