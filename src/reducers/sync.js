@@ -4,7 +4,7 @@ const initialState = {
   isSyncing: false
 };
 
-export default function sync(state = initialState, action) {
+export default function sync (state = initialState, action) {
   switch (action.type) {
     case SET_CONNECTING:
       return {

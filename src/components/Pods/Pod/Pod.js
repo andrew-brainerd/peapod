@@ -3,11 +3,9 @@ import { func, string, shape, oneOf, bool, number } from 'prop-types';
 import usePrevious from '../../../hooks/usePrevious';
 import useBeforeUnload from '../../../hooks/useBeforeUnload';
 import usePollingEffect from '../../../hooks/usePollingEffect';
-import { PODS_ROUTE } from '../../../constants/routes';
 import { SEARCH, NOW_PLAYING, PLAY_QUEUE, PLAY_HISTORY } from '../../../constants/pods';
 import Header from '../../common/Header/container';
-import Icon from '../../common/Icon/Icon';
-import PodViewSelector from './PodViewSelector/container';
+import PodHeader from './PodHeader/container';
 import SongSelection from '../../Spotify/SongSelection/container';
 import Player from '../../Spotify/Player/container';
 import PlayQueue from './PlayQueue/container';
@@ -61,24 +59,13 @@ const Pod = ({
     <>
       <Header isMinimal />
       <div className={styles.pod} style={{ height: podHeight }}>
-        <div className={styles.podHeader}>
-          <div className={styles.title}>
-            <div className={styles.name}>{name}</div>
-            <div className={styles.inviteIconContainer} onClick={() => setIsModalOpen(true)}>
-              <Icon className={styles.inviteIcon} name={'invite'} title={'Invite People'} />
-            </div>
-          </div>
-          <PodViewSelector
-            className={styles.viewSelector}
-            podId={_id}
-            selectedView={view}
-          />
-          <div
-            className={styles.closeButton}
-            title={'Close Pod'}
-            onClick={() => navTo(PODS_ROUTE.replace(':userId', userId))}
-          />
-        </div>
+        <PodHeader
+          podId={_id}
+          podName={name}
+          userId={userId}
+          view={view}
+          openModal={() => setIsModalOpen(true)}
+        />
         <div className={styles.content}>
           {view === SEARCH ? <SongSelection /> : null}
           {view === NOW_PLAYING ? <Player height={podHeight} /> : null}
