@@ -6,6 +6,7 @@
   border-bottom: 1px solid $buttonBackground;
   margin-bottom: 30px;
   position: relative;
+  z-index: 3;
 
   &.minimal {
     height: 55px;
@@ -28,6 +29,7 @@
   .headerContent {
     display: flex;
     padding: 5px 20px;
+    z-index: 4;
 
     .homeLink {
       flex: 1;
