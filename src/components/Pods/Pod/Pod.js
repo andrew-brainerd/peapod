@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { func, string, shape, oneOf, bool, number } from 'prop-types';
 import usePrevious from '../../../hooks/usePrevious';
+import useBeforeUnload from '../../../hooks/useBeforeUnload';
 import usePollingEffect from '../../../hooks/usePollingEffect';
 import { PODS_ROUTE } from '../../../constants/routes';
 import { SEARCH, NOW_PLAYING, PLAY_QUEUE, PLAY_HISTORY } from '../../../constants/pods';
@@ -53,6 +54,14 @@ const Pod = ({
   usePollingEffect(() => {
     _id && _id === podId && getPod(_id);
   }, [_id, getPod], 5000);
+
+  useBeforeUnload(() => {
+    if (isPusherConnected) {
+      console.log('%cDisconnecting from Pusher channel...', 'color: cyan');
+    } else {
+      console.log('%cPod owner leaving...', 'color: cyan');
+    }
+  });
 
   return (
     <>
