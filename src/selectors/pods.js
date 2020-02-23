@@ -26,3 +26,7 @@ export const getIsPodOwner = createSelector(
   [getCurrentPodCreatorId, getProfileId],
   (creatorId, profileId) => !!creatorId && !!profileId && creatorId === profileId
 );
+
+export const getIsConnectingToPod = path(['pods', 'isConnecting']);
+
+export const getIsConnectedToPod = path(['pods', 'isConnected']);

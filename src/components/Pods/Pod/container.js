@@ -2,12 +2,11 @@ import { connect } from 'react-redux';
 import { compose } from 'ramda';
 import withSizes from 'react-sizes';
 import { getPathname } from '../../../selectors/routing';
-import { getCurrentPod, getIsPodOwner } from '../../../selectors/pods';
+import { getCurrentPod, getIsPodOwner, getIsConnectingToPod, getIsConnectedToPod } from '../../../selectors/pods';
 import { getProfileId } from '../../../selectors/spotify';
 import { getIsSyncing } from '../../../selectors/sync';
-import { getPod } from '../../../actions/pods';
+import { getPod, connectToPod, disconnectFromPod } from '../../../actions/pods';
 import { connectClient } from '../../../actions/sync';
-import { navTo } from '../../../actions/routing';
 import Pod from './Pod';
 
 const mapStateToProps = state => ({
@@ -15,6 +14,8 @@ const mapStateToProps = state => ({
   pod: getCurrentPod(state),
   userId: getProfileId(state),
   isPodOwner: getIsPodOwner(state),
+  isConnecting: getIsConnectingToPod(state),
+  isConnected: getIsConnectedToPod(state),
   isSyncing: getIsSyncing(state)
 });
 
@@ -23,7 +24,8 @@ const mapSizesToProps = ({ height }) => ({ height });
 const mapDispatchToProps = dispatch => ({
   getPod: podId => dispatch(getPod(podId)),
   connectClient: podId => dispatch(connectClient(podId)),
-  navTo: path => dispatch(navTo(path))
+  connectToPod: podId => dispatch(connectToPod(podId)),
+  disconnectFromPod: podId => dispatch(disconnectFromPod(podId))
 });
 
 export default compose(

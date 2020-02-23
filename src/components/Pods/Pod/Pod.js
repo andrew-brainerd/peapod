@@ -20,11 +20,15 @@ const Pod = ({
   pod,
   userId,
   isPodOwner,
+  isConnecting,
+  isConnected,
   isSyncing,
   height,
   view,
   getPod,
-  connectClient
+  connectClient,
+  connectToPod,
+  disconnectFromPod
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const podId = getPodId(pathname);
@@ -34,9 +38,13 @@ const Pod = ({
 
   useEffect(() => {
     if (!!pod && !!pod.createdBy && !!userId && !isPodOwner && !isSyncing) {
+      console.log('%cConnecting to Pod as Client...', 'color: cyan');
       connectClient(podId);
+    } else if (isPodOwner && !isConnected && !isConnecting && userId) {
+      console.log('%cConnecting to Pod as Owner...', 'color: cyan');
+      connectToPod(podId);
     }
-  }, [podId, pod, userId, isPodOwner, isSyncing, connectClient]);
+  }, [podId, pod, userId, isPodOwner, isConnected, isConnecting, isSyncing, connectClient, connectToPod]);
 
   useEffect(() => {
     podId && podId !== prevPodId && getPod(podId);
@@ -52,6 +60,7 @@ const Pod = ({
     } else {
       console.log('%cPod owner leaving...', 'color: cyan');
     }
+    disconnectFromPod(podId);
   });
 
   return (
@@ -95,10 +104,11 @@ Pod.propTypes = {
   ]),
   userId: string,
   isPodOwner: bool,
+  isConnecting: bool,
+  isConnected: bool,
   isSyncing: bool,
   height: number,
   getPod: func.isRequired,
-  navTo: func.isRequired,
   connectClient: func.isRequired
 };
 

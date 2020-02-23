@@ -10,7 +10,9 @@ import {
   ADDING_MEMBER_TO_POD,
   ADDED_MEMBER_TO_POD,
   REMOVING_MEMBER_FROM_POD,
-  REMOVED_MEMBER_FROM_POD
+  REMOVED_MEMBER_FROM_POD,
+  CONNECTING_CLIENT,
+  CLIENT_CONNECTED
 } from '../actions/pods';
 
 const initialState = {
@@ -19,6 +21,7 @@ const initialState = {
   isAddingMember: false,
   isRemovingMember: false,
   isInviteModalOpen: false,
+  isConnected: false,
   items: [],
   currentPod: null
 };
@@ -88,6 +91,18 @@ export default function pods (state = initialState, action) {
       return {
         ...state,
         isInviteModalOpen: false
+      };
+    case CONNECTING_CLIENT:
+      return {
+        ...state,
+        isConnecting: true,
+        isConnected: false,
+      };
+    case CLIENT_CONNECTED:
+      return {
+        ...state,
+        isConnecting: false,
+        isConnected: true
       };
     default:
       return state;
