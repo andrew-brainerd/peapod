@@ -5,7 +5,6 @@ import useBeforeUnload from '../../../hooks/useBeforeUnload';
 import usePollingEffect from '../../../hooks/usePollingEffect';
 import { PODS_ROUTE } from '../../../constants/routes';
 import { SEARCH, NOW_PLAYING, PLAY_QUEUE, PLAY_HISTORY } from '../../../constants/pods';
-import { getChannel } from '../../../utils/pusher';
 import Header from '../../common/Header/container';
 import Icon from '../../common/Icon/Icon';
 import PodViewSelector from './PodViewSelector/container';
@@ -19,33 +18,28 @@ import styles from './Pod.module.scss';
 const getPodId = pathname => pathname.split('/')[2];
 
 const Pod = ({
-  getPod,
   pathname,
   pod,
   userId,
   isPodOwner,
+  isSyncing,
   height,
   view,
-  navTo,
-  nowPlayingLoaded
+  getPod,
+  connectClient,
+  navTo
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isPusherConnected, setIsPusherConnected] = useState(false);
   const podId = getPodId(pathname);
   const prevPodId = usePrevious(getPodId(pathname));
   const podHeight = height - 50;
   const { _id, name } = pod || {};
 
   useEffect(() => {
-    if (!!pod && !!pod.createdBy && !!userId && !isPodOwner && !isPusherConnected) {
-      console.log('%cConnecting to Pusher channel...', 'color: cyan');
-      getChannel(podId).bind(NOW_PLAYING, track => {
-        console.log('%cNow Playing: %o', 'color: orange', track.item.name);
-        nowPlayingLoaded(track);
-      });
-      setIsPusherConnected(true);
+    if (!!pod && !!pod.createdBy && !!userId && !isPodOwner && !isSyncing) {
+      connectClient(podId);
     }
-  }, [podId, pod, userId, isPodOwner, isPusherConnected, nowPlayingLoaded]);
+  }, [podId, pod, userId, isPodOwner, isSyncing, connectClient]);
 
   useEffect(() => {
     podId && podId !== prevPodId && getPod(podId);
@@ -56,7 +50,7 @@ const Pod = ({
   }, [_id, getPod], 5000);
 
   useBeforeUnload(() => {
-    if (isPusherConnected) {
+    if (isSyncing) {
       console.log('%cDisconnecting from Pusher channel...', 'color: cyan');
     } else {
       console.log('%cPod owner leaving...', 'color: cyan');
@@ -103,7 +97,6 @@ const Pod = ({
 };
 
 Pod.propTypes = {
-  getPod: func.isRequired,
   pathname: string,
   pod: shape({
     name: string
@@ -116,9 +109,11 @@ Pod.propTypes = {
   ]),
   userId: string,
   isPodOwner: bool,
+  isSyncing: bool,
   height: number,
+  getPod: func.isRequired,
   navTo: func.isRequired,
-  nowPlayingLoaded: func.isRequired
+  connectClient: func.isRequired
 };
 
 export default Pod;
