@@ -24,8 +24,7 @@ const Pod = ({
   height,
   view,
   getPod,
-  connectClient,
-  navTo
+  connectClient
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const podId = getPodId(pathname);

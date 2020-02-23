@@ -26,6 +26,10 @@ export const ADDING_TRACK_TO_PLAY_QUEUE = `${PREFIX}/ADDING_TRACK_TO_PLAY_QUEUE`
 export const TRACK_ADDED_TO_PLAY_QUEUE = `${PREFIX}/TRACK_ADDED_TO_PLAY_QUEUE`;
 export const ADDING_TRACK_TO_PLAY_HISTORY = `${PREFIX}/ADDING_TRACK_TO_PLAY_HISTORY`;
 export const TRACK_ADDED_TO_PLAY_HISTORY = `${PREFIX}/TRACK_ADDED_TO_PLAY_HISTORY`;
+export const CONNECTING_CLIENT = `${PREFIX}/CONNECTING_CLIENT`;
+export const CLIENT_CONNECTED = `${PREFIX}/CLIENT_CONNECTED`;
+export const DISCONNECTING_CLIENT = `${PREFIX}/DISCONNECTING_CLIENT`;
+export const CLIENT_DISCONNECTED = `${PREFIX}/CLIENT_DISCONNECTED`;
 
 export const creatingPod = { type: CREATING_POD };
 
@@ -70,6 +74,14 @@ export const trackAddedToPlayQueue = track => ({ type: TRACK_ADDED_TO_PLAY_QUEUE
 export const addingTrackToPlayHistory = { type: ADDING_TRACK_TO_PLAY_HISTORY };
 
 export const trackAddedToPlayHistory = track => ({ type: TRACK_ADDED_TO_PLAY_HISTORY, track });
+
+export const connectingClient = { type: CONNECTING_CLIENT };
+
+export const clientConnected = { type: CLIENT_CONNECTED };
+
+export const disconnectingClient = { type: DISCONNECTING_CLIENT };
+
+export const clientDisconnected = { type: CLIENT_DISCONNECTED };
 
 export const createPod = name => async (dispatch, getState) => {
   const profile = getProfile(getState());
@@ -160,5 +172,21 @@ export const addTrackToPlayHistory = track => async (dispatch, getState) => {
   dispatch(addingTrackToPlayHistory);
   pods.addToPlayHistory(podId, track).then(data =>
     dispatch(trackAddedToPlayHistory(track))
+  );
+};
+
+export const connectToPod = podId => async (dispatch, getState) => {
+  dispatch(connectingClient);
+  const user = getProfile(getState());
+  pods.addActiveMemberToPod(podId, user).then(data =>
+    dispatch(clientConnected)
+  );
+};
+
+export const disconnectFromPod = podId => async (dispatch, getState) => {
+  dispatch(disconnectingClient);
+  const user = getProfile(getState());
+  pods.removeActiveMemberFromPod(podId, user).then(data =>
+    dispatch(clientDisconnected)
   );
 };

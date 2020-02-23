@@ -120,3 +120,29 @@ export const addToPlayHistory = async (podId, track) => {
 
   return json;
 };
+
+export const addActiveMemberToPod = async (podId, user) => {
+  const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/activeMembers`, {
+    method: 'PATCH',
+    headers: basicJsonHeader,
+    body: JSON.stringify({ user })
+  });
+
+  handleResponse(response);
+  const json = await response.json();
+
+  return json;
+};
+
+export const removeActiveMemberFromPod = async (podId, user) => {
+  const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/activeMembers`, {
+    method: 'DELETE',
+    headers: basicJsonHeader,
+    body: JSON.stringify({ user })
+  });
+
+  handleResponse(response);
+  const json = await response.json();
+
+  return json;
+};
