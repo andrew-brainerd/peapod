@@ -15,7 +15,7 @@ const TextInput = ({
   onBlur
 }) => {
   const [val, setVal] = useState(value || '');
-  const [inputError, setInputError] = useState(null);
+  const [inputError, setInputError] = useState(error);
   const inputRef = useRef();
 
   useEffect(() => {

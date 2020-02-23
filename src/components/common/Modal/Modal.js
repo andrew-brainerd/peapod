@@ -6,13 +6,13 @@ import styles from './Modal.module.scss';
 import './Modal.css';
 
 const Modal = ({
-  isOpen,
-  onOpen,
-  closeModal,
-  headerText,
-  children,
   className,
-  contentClassName
+  isOpen,
+  children,
+  contentClassName,
+  headerText,
+  onOpen,
+  closeModal
 }) => (
   <ReactModal
     className={[styles.modal, className].join(' ')}
@@ -38,13 +38,13 @@ const Modal = ({
 );
 
 Modal.propTypes = {
-  isOpen: bool.isRequired,
-  onOpen: func,
-  closeModal: func.isRequired,
-  headerText: string,
-  children: node,
   className: string,
-  contentClassName: string
+  isOpen: bool.isRequired,
+  children: node,
+  contentClassName: string,
+  headerText: string,
+  onOpen: func,
+  closeModal: func.isRequired
 };
 
 export default Modal;

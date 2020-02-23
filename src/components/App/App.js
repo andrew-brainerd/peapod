@@ -47,7 +47,7 @@ const App = ({ history }) => (
           </Switch>
         </Spotify>
       </>
-    </ConnectedRouter >
+    </ConnectedRouter>
   </div>
 );
 
