@@ -9,6 +9,14 @@ $iconSize: 20px;
   max-width: 300px;
   width: 90%;
 
+  .title {
+    font-size: 1.1em;
+    left: 20px;
+    padding-bottom: 3px;
+    position: relative;
+    text-decoration: underline;
+  }
+
   .device {
     align-items: center;
     border-bottom: 1px solid transparent;

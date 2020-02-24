@@ -50,6 +50,11 @@ $separationBorder: 15px solid $primaryColor;
     height: 150px;
     justify-content: center;
   }
+
+  .details {
+    display: flex;
+    justify-content: space-evenly;
+  }
 }
 
 @media screen and (max-width: $mobileWidth) {

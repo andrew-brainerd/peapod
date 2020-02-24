@@ -1,0 +1,29 @@
+@import '../../../../styles/colors.scss';
+
+.podMembers {
+  margin: 25px;
+
+  .title {
+    font-size: 1.1em;
+    padding-bottom: 3px;
+    position: relative;
+    text-decoration: underline;
+  }
+
+  .member {
+    padding: 10px 0;
+    margin: 5px 0;
+
+    &.isActive {
+      color: $peapod;
+    }
+
+    &.isCreator {
+      font-style: italic;
+
+      &::after {
+        content: ' (Creator)';
+      }
+    }
+  }
+}

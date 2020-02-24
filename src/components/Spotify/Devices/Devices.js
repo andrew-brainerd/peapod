@@ -19,6 +19,7 @@ const Devices = ({ devices, getDevices, selectDevice }) => {
 
   return (
     <div className={styles.devices}>
+      <div className={styles.title}>Available Devices</div>
       {values(devices).map(device => {
         const {
           id,

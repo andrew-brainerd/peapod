@@ -3,6 +3,7 @@ import { number, bool, string, object } from 'prop-types';
 import TrackProgress from '../TrackProgress/TrackProgress';
 import Controls from '../Controls/container';
 import Devices from '../../Devices/container';
+import PodMembers from '../../../Pods/Pod/PodMembers/container';
 import styles from './OwnerPlayer.module.scss';
 
 const OwnerPlayer = ({ height, isPlaying, trackName, nowPlaying, albumArt }) => {
@@ -24,7 +25,10 @@ const OwnerPlayer = ({ height, isPlaying, trackName, nowPlaying, albumArt }) => 
         <div className={styles.emptyPlayer}>
           <Controls isPlaying={isPlaying} />
         </div>}
-      <Devices />
+      <div className={styles.details}>
+        <Devices />
+        <PodMembers />
+      </div>
     </div>
   );
 };
