@@ -96,7 +96,7 @@ export default function pods (state = initialState, action) {
       return {
         ...state,
         isConnecting: true,
-        isConnected: false,
+        isConnected: false
       };
     case CLIENT_CONNECTED:
       return {

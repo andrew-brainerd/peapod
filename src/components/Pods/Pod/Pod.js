@@ -109,7 +109,9 @@ Pod.propTypes = {
   isSyncing: bool,
   height: number,
   getPod: func.isRequired,
-  connectClient: func.isRequired
+  connectClient: func.isRequired,
+  connectToPod: func.isRequired,
+  disconnectFromPod: func.isRequired
 };
 
 export default Pod;

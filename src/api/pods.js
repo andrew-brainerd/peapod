@@ -1,4 +1,5 @@
 import { basicJsonHeader, handleResponse, parseOptions } from './tools';
+import '../utils/beaconFallback';
 
 const PEAPOD_API_URL = process.env.REACT_APP_PEAPOD_API_URL || 'http://localhost:5000';
 
@@ -135,14 +136,5 @@ export const addActiveMemberToPod = async (podId, user) => {
 };
 
 export const removeActiveMemberFromPod = async (podId, user) => {
-  const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/activeMembers`, {
-    method: 'DELETE',
-    headers: basicJsonHeader,
-    body: JSON.stringify({ user })
-  });
-
-  handleResponse(response);
-  const json = await response.json();
-
-  return json;
+  navigator.sendBeacon(`${PEAPOD_API_URL}/api/pods/${podId}/activeMembers/${user.id}`);
 };
