@@ -1,6 +1,13 @@
 import React from 'react';
 import styles from './Attribution.module.scss';
 
+/*
+
+Loading Icons
+Green + Blue: https://loading.io/asset/345067
+Green + Purple: https://loading.io/asset/345070
+*/
+
 const iconCreators = [
   {
     authorName: 'Those Icons',

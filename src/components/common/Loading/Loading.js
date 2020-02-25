@@ -1,24 +1,24 @@
 import React from 'react';
 import { bool, string } from 'prop-types';
-import loader from '../../../img/loading.png';
+import Icon from '../../common/Icon/Icon';
 import styles from './Loading.module.scss';
 
-const Loading = ({ altText, isLoading }) => {
-  return isLoading && (
+const Loading = ({ isActive, title }) => {
+  return isActive && (
     <div className={styles.loading}>
-      <img src={loader} alt={altText} />
+      <Icon name={'ripple-purple'} title={title} />
     </div>
   );
 };
 
 Loading.propTypes = {
-  altText: string.isRequired,
-  isLoading: bool
+  title: string.isRequired,
+  isActive: bool
 };
 
 Loading.defaultProps = {
-  altText: 'Loading...',
-  isLoading: true
+  title: 'Loading...',
+  isActive: true
 };
 
 export default Loading;

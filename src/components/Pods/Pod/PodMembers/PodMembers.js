@@ -29,6 +29,7 @@ const PodMembers = ({ userId, memberList, activeMemberList, podCreatorId }) => (
 );
 
 PodMembers.propTypes = {
+  userId: string,
   memberList: array,
   activeMemberList: array,
   podCreatorId: string

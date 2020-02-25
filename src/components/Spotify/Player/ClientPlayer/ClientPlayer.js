@@ -1,6 +1,7 @@
 import React from 'react';
 import { number, bool, string, object } from 'prop-types';
 import TrackProgress from '../TrackProgress/TrackProgress';
+import Loading from '../../../common/Loading/Loading';
 import styles from './ClientPlayer.module.scss';
 
 const ClientPlayer = ({ height, isPlaying, trackName, nowPlaying, albumArt }) => {
@@ -18,7 +19,9 @@ const ClientPlayer = ({ height, isPlaying, trackName, nowPlaying, albumArt }) =>
             <img src={albumArt} alt={'Album Art'} />
           </div>
         </div> :
-        <div className={styles.emptyPlayer}></div>}
+        <div className={styles.emptyPlayer}>
+          <Loading altText={'Loading Now Playing...'} />
+        </div>}
     </div>
   );
 };

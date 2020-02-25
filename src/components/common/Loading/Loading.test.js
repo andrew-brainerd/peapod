@@ -8,7 +8,7 @@ describe('Loading Component', () => {
   beforeEach(() => {
     props = {
       altText: '',
-      isLoading: false
+      isActive: false
     };
   });
 
@@ -23,7 +23,7 @@ describe('Loading Component', () => {
   });
 
   it('should not render when not loading', () => {
-    props.isLoading = true;
+    props.isActive = true;
     const component = render();
 
     expect(component).toEqual({});
