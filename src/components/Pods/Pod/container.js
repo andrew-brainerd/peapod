@@ -7,6 +7,7 @@ import { getProfileId } from '../../../selectors/spotify';
 import { getIsSyncing } from '../../../selectors/sync';
 import { getPod, connectToPod, disconnectFromPod } from '../../../actions/pods';
 import { connectClient } from '../../../actions/sync';
+import { getMyPlaylists } from '../../../actions/spotify';
 import Pod from './Pod';
 
 const mapStateToProps = state => ({
@@ -25,7 +26,8 @@ const mapDispatchToProps = dispatch => ({
   getPod: podId => dispatch(getPod(podId)),
   connectClient: podId => dispatch(connectClient(podId)),
   connectToPod: podId => dispatch(connectToPod(podId)),
-  disconnectFromPod: podId => dispatch(disconnectFromPod(podId))
+  disconnectFromPod: podId => dispatch(disconnectFromPod(podId)),
+  getMyPlaylists: userId => dispatch(getMyPlaylists(userId))
 });
 
 export default compose(

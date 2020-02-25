@@ -28,7 +28,8 @@ const Pod = ({
   getPod,
   connectClient,
   connectToPod,
-  disconnectFromPod
+  disconnectFromPod,
+  getMyPlaylists
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const podId = getPodId(pathname);
@@ -62,6 +63,10 @@ const Pod = ({
     }
     disconnectFromPod(podId);
   });
+
+  useEffect(() => {
+    userId && getMyPlaylists(userId);
+  }, [userId, getMyPlaylists]);
 
   return (
     <>
@@ -111,7 +116,8 @@ Pod.propTypes = {
   getPod: func.isRequired,
   connectClient: func.isRequired,
   connectToPod: func.isRequired,
-  disconnectFromPod: func.isRequired
+  disconnectFromPod: func.isRequired,
+  getMyPlaylists: func.isRequired
 };
 
 export default Pod;

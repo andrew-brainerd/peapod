@@ -129,3 +129,30 @@ export const search = async (accessToken, searchText, types, options) => {
 
   return json;
 };
+
+export const getMyPlaylists = async (accessToken, userId) => {
+  const url = `${PEAPOD_API_URL}/api/spotify/playlists/${userId}?accessToken=${accessToken}`;
+
+  console.log('Get My Playlists ', userId);
+
+  const response = await fetch(url);
+
+  handleResponse(response);
+  const json = await response.json();
+
+  console.log(json);
+
+  return json;
+};
+
+export const getPlaylist = async (accessToken, playlistId) => {
+  const url = `${PEAPOD_API_URL}/api/spotify/playlists/${playlistId}?accessToken=${accessToken}`;
+
+  const response = await fetch(url);
+
+  handleResponse(response);
+  const json = await response.json();
+
+  return json;
+};
+

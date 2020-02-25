@@ -33,6 +33,8 @@ export const LOADING_NOW_PLAYING = `${PREFIX}/LOADING_NOW_PLAYING`;
 export const NOW_PLAYING_LOADED = `${PREFIX}/NOW_PLAYING_LOADED`;
 export const LOADING_SEARCH_RESULTS = `${PREFIX}/LOADING_SEARCH_RESULTS`;
 export const SEARCH_RESULTS_LOADED = `${PREFIX}/SEARCH_RESULTS_LOADED`;
+export const LOADING_USER_PLAYLISTS = `${PREFIX}/LOADING_USER_PLAYLISTS`;
+export const USER_PLAYLISTS_LOADED = `${PREFIX}/USER_PLAYLISTS_LOADED`;
 
 const loadingProfile = { type: LOADING_PROFILE };
 const profileLoaded = profile => ({ type: PROFILE_LOADED, profile });
@@ -60,6 +62,9 @@ export const nowPlayingLoaded = nowPlaying => ({ type: NOW_PLAYING_LOADED, nowPl
 
 const loadingSearchResults = { type: LOADING_SEARCH_RESULTS };
 const searchResultsLoaded = { type: SEARCH_RESULTS_LOADED };
+
+const loadingUserPlaylists = { type: LOADING_USER_PLAYLISTS };
+const userPlaylistsLoaded = playlists => ({ type: USER_PLAYLISTS_LOADED, playlists });
 
 export const clearData = () => async dispatch => {
   window.localStorage.clear();
@@ -174,4 +179,11 @@ export const search = searchText => async (dispatch, getState) => {
         tracks && dispatch(tracksLoaded(tracks));
       });
   }
+};
+
+export const getMyPlaylists = userId => async (dispatch, getState) => {
+  dispatch(loadingUserPlaylists);
+  spotify.getMyPlaylists(getAccessToken(getState()), userId).then(
+    playlists => dispatch(userPlaylistsLoaded(playlists))
+  );
 };
