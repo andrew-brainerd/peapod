@@ -6,6 +6,10 @@ $trackBorder: 5px solid $gray-85;
   margin: 20px;
   overflow-y: auto;
 
+  .startButton {
+    margin-left: 10px;
+  }
+
   .title {
     color: $peapod;
     font-family: 'Chilanka';
