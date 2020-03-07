@@ -13,6 +13,7 @@ import ClientPlayer from './ClientPlayer/ClientPlayer';
 
 const Player = ({
   hasAuth,
+  isVisible,
   isLoading,
   nowPlaying,
   height,
@@ -28,7 +29,7 @@ const Player = ({
   const prevName = usePrevious(name);
 
   if (prevName !== name) {
-    name && addToPlayHistory(nowPlayingItem);
+    isPodOwner && name && addToPlayHistory(nowPlayingItem);
   }
 
   usePollingEffect(() => {
@@ -41,26 +42,35 @@ const Player = ({
   const PLAYER_PADDING = 200;
   const playerHeight = height - PLAYER_PADDING;
 
-  return (isInitialLoad && isLoading) || !hasAuth ?
-    <div className={styles.loading}>Loading Player...</div> :
-    isPodOwner ?
-      <OwnerPlayer
-        height={playerHeight}
-        isPlaying={isPlaying}
-        trackName={name}
-        nowPlaying={nowPlaying}
-        albumArt={albumArt}
-      /> :
-      <ClientPlayer
-        isPlaying={isPlaying}
-        trackName={name}
-        nowPlaying={nowPlaying}
-        albumArt={albumArt}
-      />;
+  return (
+    <div className={[
+      styles.player,
+      !isVisible ? styles.hidden : ''
+    ].join(' ')}>
+      {(isInitialLoad && isLoading) || !hasAuth ?
+        <div className={styles.loading}>Loading Player...</div> :
+        isPodOwner ?
+          <OwnerPlayer
+            height={playerHeight}
+            isPlaying={isPlaying}
+            trackName={name}
+            nowPlaying={nowPlaying}
+            albumArt={albumArt}
+          /> :
+          <ClientPlayer
+            isPlaying={isPlaying}
+            trackName={name}
+            nowPlaying={nowPlaying}
+            albumArt={albumArt}
+          />
+      }
+    </div>
+  );
 };
 
 Player.propTypes = {
   hasAuth: bool,
+  isVisible: bool,
   isLoading: bool,
   nowPlaying: object,
   podId: string,
@@ -73,6 +83,7 @@ Player.propTypes = {
 };
 
 Player.defaultProps = {
+  isVisible: false,
   isLoading: true,
   nowPlaying: {}
 };

@@ -81,7 +81,7 @@ const Pod = ({
         />
         <div className={styles.content}>
           {view === SEARCH ? <SongSelection /> : null}
-          {view === NOW_PLAYING ? <Player height={podHeight} /> : null}
+          <Player height={podHeight} isVisible={view === NOW_PLAYING} />
           {view === PLAY_QUEUE ? <PlayQueue height={podHeight} /> : null}
           {view === PLAY_HISTORY ? <PlayHistory height={podHeight} /> : null}
         </div>
