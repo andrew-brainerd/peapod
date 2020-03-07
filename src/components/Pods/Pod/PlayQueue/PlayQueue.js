@@ -8,12 +8,14 @@ import styles from './PlayQueue.module.scss';
 const PlayQueue = ({ height, currentTrack, queue, play }) => {
   const PLAYLIST_PADDING = 200;
 
+  const playUris = queue.map(({ uri }) => uri);
+
   return (
     <div className={styles.playQueue} style={{ height: height - PLAYLIST_PADDING }}>
       <Button
         className={styles.startButton}
         text={'Start Playing Queue'}
-        onClick={() => play(queue)}
+        onClick={() => play({ uris: playUris })}
         disabled={!queue}
       />
       <div className={styles.trackList}>
