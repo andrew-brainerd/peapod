@@ -18,9 +18,9 @@ export const getCurrentPodId = compose(prop('_id'), getCurrentPod);
 
 export const getCurrentPodCreatorId = compose(path(['createdBy', 'id']), getCurrentPod);
 
-export const getCurrentPodMembers = compose(prop('members'), getCurrentPod);
+export const getCurrentPodMembers = compose(propOr([], 'members'), getCurrentPod);
 
-export const getCurrentPodActiveMembers = compose(prop('activeMembers'), getCurrentPod);
+export const getCurrentPodActiveMembers = compose(propOr([], 'activeMembers'), getCurrentPod);
 
 export const getPlayQueue = compose(propOr([], 'queue'), getCurrentPod);
 

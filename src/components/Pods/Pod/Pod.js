@@ -28,7 +28,8 @@ const Pod = ({
   getPod,
   connectClient,
   connectToPod,
-  disconnectFromPod
+  disconnectFromPod,
+  getMyPlaylists
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const podId = getPodId(pathname);
@@ -63,6 +64,10 @@ const Pod = ({
     disconnectFromPod(podId);
   });
 
+  useEffect(() => {
+    userId && getMyPlaylists(userId);
+  }, [userId, getMyPlaylists]);
+
   return (
     <>
       <Header isMinimal />
@@ -76,7 +81,7 @@ const Pod = ({
         />
         <div className={styles.content}>
           {view === SEARCH ? <SongSelection /> : null}
-          {view === NOW_PLAYING ? <Player height={podHeight} /> : null}
+          <Player height={podHeight} isVisible={view === NOW_PLAYING} />
           {view === PLAY_QUEUE ? <PlayQueue height={podHeight} /> : null}
           {view === PLAY_HISTORY ? <PlayHistory height={podHeight} /> : null}
         </div>
@@ -111,7 +116,8 @@ Pod.propTypes = {
   getPod: func.isRequired,
   connectClient: func.isRequired,
   connectToPod: func.isRequired,
-  disconnectFromPod: func.isRequired
+  disconnectFromPod: func.isRequired,
+  getMyPlaylists: func.isRequired
 };
 
 export default Pod;

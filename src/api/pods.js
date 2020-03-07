@@ -109,6 +109,19 @@ export const addToPlayQueue = async (podId, track) => {
   return json;
 };
 
+export const removeFromPlayQueue = async (podId, track) => {
+  const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/queue`, {
+    method: 'DELETE',
+    headers: basicJsonHeader,
+    body: JSON.stringify({ track })
+  });
+
+  handleResponse(response);
+  const json = await response.json();
+
+  return json;
+};
+
 export const addToPlayHistory = async (podId, track) => {
   const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/history`, {
     method: 'PATCH',
