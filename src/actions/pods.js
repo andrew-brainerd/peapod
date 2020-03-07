@@ -24,6 +24,8 @@ export const LOADING_PLAY_HISTORY = `${PREFIX}/LOADING_PLAY_HISTORY`;
 export const PLAY_HISTORY_LOADED = `${PREFIX}/PLAY_HISTORY_LOADED`;
 export const ADDING_TRACK_TO_PLAY_QUEUE = `${PREFIX}/ADDING_TRACK_TO_PLAY_QUEUE`;
 export const TRACK_ADDED_TO_PLAY_QUEUE = `${PREFIX}/TRACK_ADDED_TO_PLAY_QUEUE`;
+export const REMOVING_TRACK_FROM_PLAY_QUEUE = `${PREFIX}/REMOVING_TRACK_FROM_PLAY_QUEUE`;
+export const TRACK_REMOVED_FROM_PLAY_QUEUE = `${PREFIX}/TRACK_REMOVED_FROM_PLAY_QUEUE`;
 export const ADDING_TRACK_TO_PLAY_HISTORY = `${PREFIX}/ADDING_TRACK_TO_PLAY_HISTORY`;
 export const TRACK_ADDED_TO_PLAY_HISTORY = `${PREFIX}/TRACK_ADDED_TO_PLAY_HISTORY`;
 export const CONNECTING_CLIENT = `${PREFIX}/CONNECTING_CLIENT`;
@@ -70,6 +72,10 @@ export const playHistoryLoaded = history => ({ type: PLAY_HISTORY_LOADED });
 export const addingTrackToPlayQueue = { type: ADDING_TRACK_TO_PLAY_QUEUE };
 
 export const trackAddedToPlayQueue = track => ({ type: TRACK_ADDED_TO_PLAY_QUEUE, track });
+
+export const removingTrackFromPlayQueue = { type: REMOVING_TRACK_FROM_PLAY_QUEUE };
+
+export const trackRemovedFromPlayQueue = track => ({ type: TRACK_REMOVED_FROM_PLAY_QUEUE, track });
 
 export const addingTrackToPlayHistory = { type: ADDING_TRACK_TO_PLAY_HISTORY };
 
@@ -159,6 +165,14 @@ export const addTrackToPlayQueue = track => async (dispatch, getState) => {
   );
 };
 
+export const removeTrackFromPlayQueue = track => async (dispatch, getState) => {
+  const podId = getCurrentPodId(getState());
+  dispatch(removingTrackFromPlayQueue);
+  pods.removeFromPlayQueue(podId, track).then(data =>
+    dispatch(trackRemovedFromPlayQueue(track))
+  );
+}
+
 export const getPlayHistory = () => async (dispatch, getState) => {
   const podId = getCurrentPodId(getState());
   dispatch(loadingPlayHistory);
@@ -170,9 +184,10 @@ export const getPlayHistory = () => async (dispatch, getState) => {
 export const addTrackToPlayHistory = track => async (dispatch, getState) => {
   const podId = getCurrentPodId(getState());
   dispatch(addingTrackToPlayHistory);
-  pods.addToPlayHistory(podId, track).then(data =>
-    dispatch(trackAddedToPlayHistory(track))
-  );
+  pods.addToPlayHistory(podId, track).then(data => {
+    dispatch(trackAddedToPlayHistory(track));
+    dispatch(removeTrackFromPlayQueue(track));
+  });
 };
 
 export const connectToPod = podId => async (dispatch, getState) => {
