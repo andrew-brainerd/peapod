@@ -171,7 +171,7 @@ export const removeTrackFromPlayQueue = track => async (dispatch, getState) => {
   pods.removeFromPlayQueue(podId, track).then(data =>
     dispatch(trackRemovedFromPlayQueue(track))
   );
-}
+};
 
 export const getPlayHistory = () => async (dispatch, getState) => {
   const podId = getCurrentPodId(getState());
