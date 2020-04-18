@@ -91,14 +91,9 @@ export const clientDisconnected = { type: CLIENT_DISCONNECTED };
 
 export const createPod = name => async (dispatch, getState) => {
   const profile = getProfile(getState());
-  const createdBy = {
-    id: profile.id,
-    name: profile.display_name,
-    email: profile.email
-  };
 
   name && profile && dispatch(creatingPod);
-  return name && profile && pods.createPod(name, createdBy).then(
+  return name && profile && pods.createPod(name, profile).then(
     pod => {
       dispatch(podCreated(pod));
       return pod;

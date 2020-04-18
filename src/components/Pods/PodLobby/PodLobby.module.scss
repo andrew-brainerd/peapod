@@ -1,0 +1,36 @@
+@import '../../../styles/colors.scss';
+@import '../../../styles/mixins.scss';
+
+.podLobby {
+  display: flex;
+  flex-direction: column;
+  height: 92vh;
+  margin: auto;
+  padding: 20px 50px;
+  width: 100%;
+
+  .podMembers {
+    border: 1px solid $gray-80;
+    min-height: 200px;
+    width: 100%;
+
+    .podMember {
+      background: $gray-80;
+      border: 1px solid $gray-80;
+      border-radius: 5px;
+      display: inline-block;
+      margin: 10px;
+      padding: 5px 10px;
+      text-align: center;
+    }
+  }
+
+  .launchButton {
+    align-self: flex-end;
+    bottom: 50px;
+    display: flex;
+    justify-content: space-around;
+    position: absolute;
+    width: 125px;
+  }
+}
