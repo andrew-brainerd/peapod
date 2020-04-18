@@ -10,7 +10,8 @@ describe('PlayQueue Component', () => {
     props = {
       height: 1000,
       currentTrack: {},
-      queue: []
+      queue: [],
+      play: jest.fn()
     };
   });
 

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { string, object, func } from 'prop-types';
+import { object, bool, func } from 'prop-types';
 import { path } from 'ramda';
 import useOnClickOutside from '../../../hooks/useOnClickOutside';
 import { PODS_ROUTE } from '../../../constants/routes';
@@ -11,7 +11,7 @@ const getProfilePic = images => {
   return imageUrl && <img src={imageUrl} alt='My Profile' />;
 };
 
-const Profile = ({ pathname, profile, isSignedIn, isMinimal, navTo, signOut }) => {
+const Profile = ({ profile, isSignedIn, isMinimal, signOut, navTo }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef();
   const { id, display_name: name, images } = profile || {};
@@ -58,9 +58,11 @@ const Profile = ({ pathname, profile, isSignedIn, isMinimal, navTo, signOut }) =
 };
 
 Profile.propTypes = {
-  pathname: string,
   profile: object,
-  signOut: func.isRequired
+  isSignedIn: bool,
+  isMinimal: bool,
+  signOut: func.isRequired,
+  navTo: func.isRequired
 };
 
 export default Profile;

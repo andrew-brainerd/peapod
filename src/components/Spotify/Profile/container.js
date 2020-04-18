@@ -14,8 +14,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  navTo: path => dispatch(navTo(path)),
-  signOut: () => dispatch(signOut())
+  signOut: () => dispatch(signOut()),
+  navTo: path => dispatch(navTo(path))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
