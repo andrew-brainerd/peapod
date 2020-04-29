@@ -35,7 +35,7 @@ const Pod = ({
   const podId = getPodId(pathname);
   const prevPodId = usePrevious(getPodId(pathname));
   const podHeight = height - 50;
-  const { _id, name } = pod || {};
+  const { name } = pod || {};
 
   useEffect(() => {
     if (!!pod && !!pod.createdBy && !!userId && !isPodOwner && !isSyncing) {
@@ -52,8 +52,8 @@ const Pod = ({
   }, [podId, prevPodId, getPod]);
 
   usePollingEffect(() => {
-    _id && _id === podId && getPod(_id);
-  }, [_id, getPod], 5000);
+    podId && getPod(podId);
+  }, [podId, getPod], 5000);
 
   useBeforeUnload(() => {
     if (isSyncing) {
@@ -73,7 +73,7 @@ const Pod = ({
       <Header isMinimal />
       <div className={styles.pod} style={{ height: podHeight }}>
         <PodHeader
-          podId={_id}
+          podId={podId}
           podName={name}
           userId={userId}
           view={view}
@@ -87,7 +87,7 @@ const Pod = ({
         </div>
         <InviteModal
           isOpen={isModalOpen}
-          podId={_id}
+          podId={podId}
           podName={name}
           closeModal={() => setIsModalOpen(false)}
         />

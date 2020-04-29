@@ -30,9 +30,6 @@ const App = ({ history }) => (
             <Route path={PODS_ROUTE} exact component={Pods} />
             <Route path={CREATE_POD_ROUTE} exact component={CreatePod} />
             <Route path={POD_ROUTE} exact component={PodLobby} />
-            <Route path={'/pods'} exact>
-              <div>PODS</div>
-            </Route>
             <Route exact path={`${POD_ROUTE}/search`} render={props => (
               <Pod {...props} view={SEARCH} />
             )} />
