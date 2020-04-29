@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { string, arrayOf, shape, bool, func } from 'prop-types';
 import { isDefined } from '../../../utils/validation';
 import { POD_SEARCH_ROUTE } from '../../../constants/routes';
@@ -7,9 +7,15 @@ import Button from '../../common/Button/Button';
 import styles from './PodLobby.module.scss';
 
 const PodLobby = ({ podId, podMembers, shouldUpdate, getPod, navTo }) => {
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
   useEffect(() => {
-    isDefined(podId) && getPod(podId);
-  }, [podId, getPod]);
+    if (isDefined(podId) && (isInitialLoad || shouldUpdate)) {
+      console.log('Loading Pod...');
+      getPod(podId);
+      setIsInitialLoad(false);
+    }
+  }, [podId, isInitialLoad, shouldUpdate, getPod]);
 
   return (
     <>
