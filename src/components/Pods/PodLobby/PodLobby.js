@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { string, arrayOf, shape, func } from 'prop-types';
+import { string, arrayOf, shape, bool, func } from 'prop-types';
 import { isDefined } from '../../../utils/validation';
 import { POD_SEARCH_ROUTE } from '../../../constants/routes';
 import Header from '../../common/Header/container';
 import Button from '../../common/Button/Button';
 import styles from './PodLobby.module.scss';
 
-const PodLobby = ({ podId, podMembers, getPod, navTo }) => {
+const PodLobby = ({ podId, podMembers, shouldUpdate, getPod, navTo }) => {
   useEffect(() => {
     isDefined(podId) && getPod(podId);
   }, [podId, getPod]);
@@ -37,6 +37,7 @@ PodLobby.propTypes = {
   podMembers: arrayOf(shape({
     display_name: string
   })),
+  shouldUpdate: bool,
   getPod: func.isRequired,
   navTo: func.isRequired
 };

@@ -13,10 +13,9 @@ export const SET_SYNCING = `${PREFIX}/SET_SYNCING`;
 
 export const setSyncing = isSyncing => ({ type: SET_SYNCING, isSyncing });
 
-export const connectToUpdates = channelId => async dispatch => {
+export const connectToPusher = channelId => async dispatch => {
   console.log('%cConnecting to Pusher channel...', 'color: cyan');
   getChannel(channelId).bind(NOW_PLAYING, track => {
-    track && track.item && console.log('%cNow Playing: %o', 'color: orange', track.item.name);
     dispatch(nowPlayingLoaded(track));
   });
   dispatch(setSyncing(true));
@@ -24,7 +23,7 @@ export const connectToUpdates = channelId => async dispatch => {
 
 export const connectClient = podId => async dispatch => {
   dispatch(connectToPod(podId));
-  dispatch(connectToUpdates(podId));
+  dispatch(connectToPusher(podId));
 };
 
 export const updateClients = (nowPlaying = {}) => async (dispatch, getState) => {

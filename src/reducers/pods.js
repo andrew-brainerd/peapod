@@ -12,7 +12,8 @@ import {
   REMOVING_MEMBER_FROM_POD,
   REMOVED_MEMBER_FROM_POD,
   CONNECTING_CLIENT,
-  CLIENT_CONNECTED
+  CLIENT_CONNECTED,
+  TRIGGER_UPDATE
 } from '../actions/pods';
 
 const initialState = {
@@ -23,7 +24,8 @@ const initialState = {
   isInviteModalOpen: false,
   isConnected: false,
   items: [],
-  currentPod: null
+  currentPod: null,
+  hasUpdates: false
 };
 
 export default function pods (state = initialState, action) {
@@ -60,7 +62,8 @@ export default function pods (state = initialState, action) {
       return {
         ...state,
         isLoadingPod: false,
-        currentPod: action.pod
+        currentPod: action.pod,
+        hasUpdates: false
       };
     case ADDING_MEMBER_TO_POD:
       return {
@@ -103,6 +106,11 @@ export default function pods (state = initialState, action) {
         ...state,
         isConnecting: false,
         isConnected: true
+      };
+    case TRIGGER_UPDATE:
+      return {
+        ...state,
+        hasUpdates: true
       };
     default:
       return state;
