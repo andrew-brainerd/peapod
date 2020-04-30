@@ -1,6 +1,29 @@
 @import '../../../styles/colors.scss';
 @import '../../../styles/mixins.scss';
 
+.inviteIconContainer {
+  align-self: center;
+  display: flex;
+  flex: 1 1;
+  position: relative;
+  top: 2px;
+
+  .inviteIcon {
+    cursor: pointer;
+
+    svg {
+      fill: $peapod;
+      height: 20px;
+      transition: 0.3s fill;
+      width: 45px;
+
+      &:hover {
+        fill: $primaryTextColor;
+      }
+    }
+  }
+}
+
 .podLobby {
   display: flex;
   flex-direction: column;

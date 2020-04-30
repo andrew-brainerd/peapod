@@ -1,6 +1,8 @@
 @import '../../../styles/colors.scss';
 
 .searchBar {
+  margin-top: 10px;
+
   .searchInput {
     border: 1px solid $gray-75;
   }

@@ -5,7 +5,6 @@ import { Route, Switch } from 'react-router-dom';
 import Spotify from '../Spotify/container';
 import {
   HOME_ROUTE,
-  CREATE_POD_ROUTE,
   PODS_ROUTE,
   SPOTIFY_AUTH_ROUTE,
   POD_ROUTE
