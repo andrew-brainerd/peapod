@@ -62,7 +62,7 @@ export const connectingClient = { type: CONNECTING_CLIENT };
 export const clientConnected = { type: CLIENT_CONNECTED };
 export const disconnectingClient = { type: DISCONNECTING_CLIENT };
 export const clientDisconnected = { type: CLIENT_DISCONNECTED };
-export const triggerUpdate = { TYPE: TRIGGER_UPDATE };
+export const triggerUpdate = { type: TRIGGER_UPDATE };
 
 export const createPod = name => async (dispatch, getState) => {
   const profile = getProfile(getState());
@@ -175,3 +175,5 @@ export const disconnectFromPod = podId => async (dispatch, getState) => {
     dispatch(clientDisconnected)
   );
 };
+
+export const launchPod = podId => async () => pods.launchPod(podId);

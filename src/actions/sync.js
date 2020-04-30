@@ -17,7 +17,7 @@ export const clientConnected = { type: CLIENT_CONNECTED };
 export const setSyncing = isSyncing => ({ type: SET_SYNCING, isSyncing });
 
 export const connectToPusher = (channelId, type, action) => async dispatch => {
-  console.log('%cConnecting to Pusher channel...', 'color: cyan');
+  console.log('%cConnecting to Pusher channel%o', 'color: cyan', { channelId, type, action });
   getChannel(channelId).bind(type, action);
 };
 
