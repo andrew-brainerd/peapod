@@ -32,73 +32,43 @@ export const CONNECTING_CLIENT = `${PREFIX}/CONNECTING_CLIENT`;
 export const CLIENT_CONNECTED = `${PREFIX}/CLIENT_CONNECTED`;
 export const DISCONNECTING_CLIENT = `${PREFIX}/DISCONNECTING_CLIENT`;
 export const CLIENT_DISCONNECTED = `${PREFIX}/CLIENT_DISCONNECTED`;
+export const TRIGGER_UPDATE = `${PREFIX}/TRIGGER_UPDATE`;
 
 export const creatingPod = { type: CREATING_POD };
-
 export const podCreated = pod => ({ type: POD_CREATED, pod });
-
 export const loadingPods = { type: LOADING_PODS };
-
 export const podsLoaded = pods => ({ type: PODS_LOADED, pods });
-
 export const loadingPod = { type: LOADING_POD };
-
 export const podLoaded = pod => ({ type: POD_LOADED, pod });
-
 export const openInviteModal = { type: OPEN_INVITE_MODAL };
-
 export const closeInviteModal = { type: CLOSE_INVITE_MODAL };
-
 export const sendingInvitation = { type: SENDING_INVITATION };
-
 export const invitationSent = { type: INVITATION_SENT };
-
 export const addingMemberToPod = { type: ADDING_MEMBER_TO_POD };
-
 export const addedMemberToPod = { type: ADDED_MEMBER_TO_POD };
-
 export const removingMemberFromPod = { type: REMOVING_MEMBER_FROM_POD };
-
 export const removedMemberFromPod = { type: REMOVED_MEMBER_FROM_POD };
-
 export const loadingPlayQueue = { type: LOADING_PLAY_QUEUE };
-
 export const playQueueLoaded = queue => ({ type: PLAY_QUEUE_LOADED });
-
 export const loadingPlayHistory = { type: LOADING_PLAY_HISTORY };
-
 export const playHistoryLoaded = history => ({ type: PLAY_HISTORY_LOADED });
-
 export const addingTrackToPlayQueue = { type: ADDING_TRACK_TO_PLAY_QUEUE };
-
 export const trackAddedToPlayQueue = track => ({ type: TRACK_ADDED_TO_PLAY_QUEUE, track });
-
 export const removingTrackFromPlayQueue = { type: REMOVING_TRACK_FROM_PLAY_QUEUE };
-
 export const trackRemovedFromPlayQueue = track => ({ type: TRACK_REMOVED_FROM_PLAY_QUEUE, track });
-
 export const addingTrackToPlayHistory = { type: ADDING_TRACK_TO_PLAY_HISTORY };
-
 export const trackAddedToPlayHistory = track => ({ type: TRACK_ADDED_TO_PLAY_HISTORY, track });
-
 export const connectingClient = { type: CONNECTING_CLIENT };
-
 export const clientConnected = { type: CLIENT_CONNECTED };
-
 export const disconnectingClient = { type: DISCONNECTING_CLIENT };
-
 export const clientDisconnected = { type: CLIENT_DISCONNECTED };
+export const triggerUpdate = { type: TRIGGER_UPDATE };
 
 export const createPod = name => async (dispatch, getState) => {
   const profile = getProfile(getState());
-  const createdBy = {
-    id: profile.id,
-    name: profile.display_name,
-    email: profile.email
-  };
 
   name && profile && dispatch(creatingPod);
-  return name && profile && pods.createPod(name, createdBy).then(
+  return name && profile && pods.createPod(name, profile).then(
     pod => {
       dispatch(podCreated(pod));
       return pod;
@@ -205,3 +175,5 @@ export const disconnectFromPod = podId => async (dispatch, getState) => {
     dispatch(clientDisconnected)
   );
 };
+
+export const launchPod = podId => async () => pods.launchPod(podId);

@@ -2,13 +2,14 @@ import React from 'react';
 import WebFont from 'webfontloader';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { version } from '../package.json';
 import configureStore, { history } from './store/configureStore';
 import App from './components/App/App';
 import ReactModal from 'react-modal';
 import './index.scss';
 
 console.log(
-  `%cPeapod App v${process.env.REACT_APP_VERSION}`,
+  `%cPeapod App v${version}`,
   'color: rgba(139, 196, 72, 1); font-size: 20px;'
 );
 

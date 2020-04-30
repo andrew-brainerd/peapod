@@ -14,6 +14,7 @@ import { SEARCH, NOW_PLAYING, PLAY_QUEUE, PLAY_HISTORY } from '../../constants/p
 import Home from '../Home/container';
 import Pods from '../Pods/container';
 import CreatePod from '../Pods/CreatePod/container';
+import PodLobby from '../Pods/PodLobby/container';
 import Pod from '../Pods/Pod/container';
 import SpotifyAuth from '../Spotify/SpotifyAuth/container';
 import styles from './App.module.scss';
@@ -28,10 +29,7 @@ const App = ({ history }) => (
           <Switch>
             <Route path={PODS_ROUTE} exact component={Pods} />
             <Route path={CREATE_POD_ROUTE} exact component={CreatePod} />
-            <Route path={POD_ROUTE} exact component={Pod} />
-            <Route path={'/pods'} exact>
-              <div>PODS</div>
-            </Route>
+            <Route path={POD_ROUTE} exact component={PodLobby} />
             <Route exact path={`${POD_ROUTE}/search`} render={props => (
               <Pod {...props} view={SEARCH} />
             )} />

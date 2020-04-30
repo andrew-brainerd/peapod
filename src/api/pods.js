@@ -151,3 +151,15 @@ export const addActiveMemberToPod = async (podId, user) => {
 export const removeActiveMemberFromPod = async (podId, user) => {
   navigator.sendBeacon(`${PEAPOD_API_URL}/api/pods/${podId}/activeMembers/${user.id}`);
 };
+
+export const launchPod = async podId => {
+  const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/launch`, {
+    method: 'PUT',
+    headers: basicJsonHeader
+  });
+
+  handleResponse(response);
+  const json = await response.json();
+
+  return json;
+};

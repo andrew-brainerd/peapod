@@ -34,3 +34,5 @@ export const getIsPodOwner = createSelector(
 export const getIsConnectingToPod = path(['pods', 'isConnecting']);
 
 export const getIsConnectedToPod = path(['pods', 'isConnected']);
+
+export const getShouldUpdatePod = path(['pods', 'hasUpdates']);

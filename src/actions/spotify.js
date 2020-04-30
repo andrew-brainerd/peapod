@@ -150,8 +150,6 @@ export const transferPlayback = (devices, shouldPlay) => async (dispatch, getSta
 };
 
 export const play = options => async (dispatch, getState) => {
-  console.log('Play: %o', options);
-
   dispatch(playing);
   spotify.play(getAccessToken(getState()), options)
     .then(() => setTimeout(() => dispatch(getMyNowPlaying()), 1000))
