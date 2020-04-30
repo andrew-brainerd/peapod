@@ -3,11 +3,11 @@ import '../utils/beaconFallback';
 
 const PEAPOD_API_URL = process.env.REACT_APP_PEAPOD_API_URL || 'http://localhost:5000';
 
-export const createPod = async (name, createdBy) => {
+export const createPod = async createdBy => {
   const response = await fetch(`${PEAPOD_API_URL}/api/pods`, {
     method: 'POST',
     headers: basicJsonHeader,
-    body: JSON.stringify({ name, createdBy })
+    body: JSON.stringify({ createdBy })
   });
 
   handleResponse(response, 201);

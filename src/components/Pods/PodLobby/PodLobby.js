@@ -59,6 +59,7 @@ const PodLobby = ({
             className={styles.launchButton}
             text={'Launch Pod'}
             onClick={() => launchPod(podId)}
+            disabled={podMembers.length < 2}
           />
         )}
       </div>

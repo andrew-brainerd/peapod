@@ -64,11 +64,11 @@ export const disconnectingClient = { type: DISCONNECTING_CLIENT };
 export const clientDisconnected = { type: CLIENT_DISCONNECTED };
 export const triggerUpdate = { type: TRIGGER_UPDATE };
 
-export const createPod = name => async (dispatch, getState) => {
+export const createPod = () => async (dispatch, getState) => {
   const profile = getProfile(getState());
 
-  name && profile && dispatch(creatingPod);
-  return name && profile && pods.createPod(name, profile).then(
+  profile && dispatch(creatingPod);
+  return profile && pods.createPod(profile).then(
     pod => {
       dispatch(podCreated(pod));
       return pod;
