@@ -17,9 +17,16 @@
     background: $buttonBackgroundHover;
     transform: scale(1.1);
   }
-}
 
-.disabled {
-  cursor: default;
-  opacity: 0.8;
+  &.mobile {
+    &:hover {
+      background: $buttonBackground;
+      transform: scale(1);
+    }
+  }
+
+  &.disabled {
+    cursor: default;
+    opacity: 0.8;
+  }
 }

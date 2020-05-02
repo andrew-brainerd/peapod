@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { func, string, shape, oneOf, bool, number } from 'prop-types';
 import usePrevious from '../../../hooks/usePrevious';
 import useBeforeUnload from '../../../hooks/useBeforeUnload';
@@ -10,7 +10,6 @@ import SongSelection from '../../Spotify/SongSelection/container';
 import Player from '../../Spotify/Player/container';
 import PlayQueue from './PlayQueue/container';
 import PlayHistory from './PlayHistory/container';
-import InviteModal from './InviteModal/container';
 import styles from './Pod.module.scss';
 
 const getPodId = pathname => pathname.split('/')[2];
@@ -31,11 +30,9 @@ const Pod = ({
   disconnectFromPod,
   getMyPlaylists
 }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const podId = getPodId(pathname);
   const prevPodId = usePrevious(getPodId(pathname));
   const podHeight = height - 50;
-  const { name } = pod || {};
 
   useEffect(() => {
     if (!!pod && !!pod.createdBy && !!userId && !isPodOwner && !isSyncing) {
@@ -74,10 +71,8 @@ const Pod = ({
       <div className={styles.pod} style={{ height: podHeight }}>
         <PodHeader
           podId={podId}
-          podName={name}
           userId={userId}
           view={view}
-          openModal={() => setIsModalOpen(true)}
         />
         <div className={styles.content}>
           {view === SEARCH ? <SongSelection /> : null}
@@ -85,12 +80,6 @@ const Pod = ({
           {view === PLAY_QUEUE ? <PlayQueue height={podHeight} /> : null}
           {view === PLAY_HISTORY ? <PlayHistory height={podHeight} /> : null}
         </div>
-        <InviteModal
-          isOpen={isModalOpen}
-          podId={podId}
-          podName={name}
-          closeModal={() => setIsModalOpen(false)}
-        />
       </div>
     </>
   );

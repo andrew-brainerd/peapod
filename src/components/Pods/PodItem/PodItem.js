@@ -1,16 +1,15 @@
 import React from 'react';
-import { string, number, func } from 'prop-types';
+import { number, func } from 'prop-types';
 import Button from '../../common/Button/Button';
 import styles from './PodItem.module.scss';
 
-const PodItem = ({ name, numMembers, action }) => {
+const PodItem = ({ numMembers, action }) => {
   return (
     <Button
       className={styles.podItem}
-      text={name}
+      text={'Pod'}
       onClick={() => action(true)}
     >
-      <div className={styles.name}>{name}</div>
       <div className={styles.numMembers}>
         {`${numMembers} member${numMembers !== 1 ? 's' : ''}`}
       </div>
@@ -19,7 +18,6 @@ const PodItem = ({ name, numMembers, action }) => {
 };
 
 PodItem.propTypes = {
-  name: string.isRequired,
   numMembers: number,
   action: func
 };

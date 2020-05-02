@@ -2,11 +2,11 @@ import { connect } from 'react-redux';
 import { getIsCreatingPod, getCreatedPod } from '../../../selectors/pods';
 import { createPod } from '../../../actions/pods';
 import { navTo } from '../../../actions/routing';
-import CreatePod from './CreatePod';
+import CreateNewButton from './CreateNewButton';
 
 const mapStateToProps = state => ({
   isCreatingPod: getIsCreatingPod(state),
-  createdPod: getCreatedPod(state)
+  newPod: getCreatedPod(state)
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -14,4 +14,4 @@ const mapDispatchToProps = dispatch => ({
   navTo: path => dispatch(navTo(path))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreatePod);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateNewButton);

@@ -5,7 +5,6 @@ import { Route, Switch } from 'react-router-dom';
 import Spotify from '../Spotify/container';
 import {
   HOME_ROUTE,
-  CREATE_POD_ROUTE,
   PODS_ROUTE,
   SPOTIFY_AUTH_ROUTE,
   POD_ROUTE
@@ -13,7 +12,6 @@ import {
 import { SEARCH, NOW_PLAYING, PLAY_QUEUE, PLAY_HISTORY } from '../../constants/pods';
 import Home from '../Home/container';
 import Pods from '../Pods/container';
-import CreatePod from '../Pods/CreatePod/container';
 import PodLobby from '../Pods/PodLobby/container';
 import Pod from '../Pods/Pod/container';
 import SpotifyAuth from '../Spotify/SpotifyAuth/container';
@@ -28,7 +26,6 @@ const App = ({ history }) => (
         <Spotify>
           <Switch>
             <Route path={PODS_ROUTE} exact component={Pods} />
-            <Route path={CREATE_POD_ROUTE} exact component={CreatePod} />
             <Route path={POD_ROUTE} exact component={PodLobby} />
             <Route exact path={`${POD_ROUTE}/search`} render={props => (
               <Pod {...props} view={SEARCH} />

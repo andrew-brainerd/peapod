@@ -5,6 +5,8 @@ import { MEMBER_ADDED, LAUNCH_GAME } from '../../../constants/sync';
 import { POD_SEARCH_ROUTE } from '../../../constants/routes';
 import Header from '../../common/Header/container';
 import Button from '../../common/Button/Button';
+import Icon from '../../common/Icon/Icon';
+import InviteModal from '../Pod/InviteModal/container';
 import styles from './PodLobby.module.scss';
 
 const PodLobby = ({
@@ -21,6 +23,7 @@ const PodLobby = ({
   navTo
 }) => {
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     if (isDefined(podId) && !!userId) {
@@ -34,9 +37,8 @@ const PodLobby = ({
       connectToPusher(podId, LAUNCH_GAME, () =>
         navTo(POD_SEARCH_ROUTE.replace(':podId', podId))
       );
-      addMember(podId);
     }
-  }, [podId, userId, connectToPusher, navTo, addMember]);
+  }, [podId, userId, connectToPusher, navTo]);
 
   useEffect(() => {
     if (isDefined(podId) && (isInitialLoad || shouldUpdate)) {
@@ -48,6 +50,13 @@ const PodLobby = ({
   return (
     <>
       <Header />
+      <Button
+        className={styles.inviteIconContainer}
+        onClick={() => setIsModalOpen(true)}
+      >
+        <span className={styles.inviteText}>Invite Friends</span>
+        <Icon className={styles.inviteIcon} name={'invite'} title={'Invite People'} />
+      </Button>
       <div className={styles.podLobby}>
         <div className={styles.podMembers}>
           {podMembers.map(({ display_name: name }, p) =>
@@ -59,9 +68,15 @@ const PodLobby = ({
             className={styles.launchButton}
             text={'Launch Pod'}
             onClick={() => launchPod(podId)}
+            disabled={podMembers.length < 2}
           />
         )}
       </div>
+      <InviteModal
+        isOpen={isModalOpen}
+        podId={podId}
+        closeModal={() => setIsModalOpen(false)}
+      />
     </>
   );
 };
