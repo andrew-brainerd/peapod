@@ -1,6 +1,7 @@
 import * as pods from '../api/pods';
 import { getCurrentPodId } from '../selectors/pods';
 import { getProfile } from '../selectors/spotify';
+import { isMobile } from 'react-device-detect';
 
 const PREFIX = 'PODS';
 
@@ -163,6 +164,7 @@ export const addTrackToPlayHistory = track => async (dispatch, getState) => {
 export const connectToPod = podId => async (dispatch, getState) => {
   dispatch(connectingClient);
   const user = getProfile(getState());
+  isMobile && alert('%s is now active', user);
   pods.addActiveMemberToPod(podId, user).then(data =>
     dispatch(clientConnected)
   );

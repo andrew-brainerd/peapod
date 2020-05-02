@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { string, arrayOf, shape, bool, func } from 'prop-types';
+import { isEmpty } from 'ramda';
 import { isDefined } from '../../../utils/validation';
 import { MEMBER_ADDED, LAUNCH_GAME } from '../../../constants/sync';
 import { POD_SEARCH_ROUTE } from '../../../constants/routes';
@@ -24,11 +25,12 @@ const PodLobby = ({
 }) => {
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const isAlreadyMember = !isEmpty(podMembers.filter(member => member.id === userId));
 
   useEffect(() => {
     if (isDefined(podId) && !!userId) {
       connectToPusher(podId, MEMBER_ADDED, triggerUpdate);
-      addMember(podId);
+      !isAlreadyMember && addMember(podId);
     }
   }, [podId, userId, connectToPusher, triggerUpdate, addMember]);
 
