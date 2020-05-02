@@ -50,12 +50,13 @@ const PodLobby = ({
   return (
     <>
       <Header />
-      <div
+      <Button
         className={styles.inviteIconContainer}
         onClick={() => setIsModalOpen(true)}
       >
+        <span className={styles.inviteText}>Invite Friends</span>
         <Icon className={styles.inviteIcon} name={'invite'} title={'Invite People'} />
-      </div>
+      </Button>
       <div className={styles.podLobby}>
         <div className={styles.podMembers}>
           {podMembers.map(({ display_name: name }, p) =>

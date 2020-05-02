@@ -2,24 +2,27 @@
 @import '../../../styles/mixins.scss';
 
 .inviteIconContainer {
-  align-self: center;
+  align-content: center;
   display: flex;
-  flex: 1 1;
+  margin-left: 50px;
+  padding: 10px 15px;
   position: relative;
-  top: 2px;
+  width: 150px;
+
+  .inviteText {
+    vertical-align: middle;
+  }
 
   .inviteIcon {
     cursor: pointer;
+    position: absolute;
+    right: 5px;
+    top: 7px;
 
     svg {
       fill: $peapod;
       height: 20px;
-      transition: 0.3s fill;
       width: 45px;
-
-      &:hover {
-        fill: $primaryTextColor;
-      }
     }
   }
 }
