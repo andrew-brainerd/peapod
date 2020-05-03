@@ -32,7 +32,7 @@ const PodLobby = ({
       connectToPusher(podId, MEMBER_ADDED, triggerUpdate);
       !isAlreadyMember && addMember(podId);
     }
-  }, [podId, userId, connectToPusher, triggerUpdate, addMember]);
+  }, [podId, userId, connectToPusher, triggerUpdate, isAlreadyMember, addMember]);
 
   useEffect(() => {
     if (isDefined(podId) && !!userId) {

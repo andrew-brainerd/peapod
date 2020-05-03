@@ -50,9 +50,9 @@ export const addedMemberToPod = { type: ADDED_MEMBER_TO_POD };
 export const removingMemberFromPod = { type: REMOVING_MEMBER_FROM_POD };
 export const removedMemberFromPod = { type: REMOVED_MEMBER_FROM_POD };
 export const loadingPlayQueue = { type: LOADING_PLAY_QUEUE };
-export const playQueueLoaded = queue => ({ type: PLAY_QUEUE_LOADED });
+export const playQueueLoaded = queue => ({ type: PLAY_QUEUE_LOADED, queue });
 export const loadingPlayHistory = { type: LOADING_PLAY_HISTORY };
-export const playHistoryLoaded = history => ({ type: PLAY_HISTORY_LOADED });
+export const playHistoryLoaded = history => ({ type: PLAY_HISTORY_LOADED, history });
 export const addingTrackToPlayQueue = { type: ADDING_TRACK_TO_PLAY_QUEUE };
 export const trackAddedToPlayQueue = track => ({ type: TRACK_ADDED_TO_PLAY_QUEUE, track });
 export const removingTrackFromPlayQueue = { type: REMOVING_TRACK_FROM_PLAY_QUEUE };
@@ -74,13 +74,6 @@ export const createPod = () => async (dispatch, getState) => {
       dispatch(podCreated(pod));
       return pod;
     }
-  );
-};
-
-export const getPods = options => async dispatch => {
-  dispatch(loadingPods);
-  pods.getPods(options).then(
-    pods => dispatch(podsLoaded(pods))
   );
 };
 
@@ -107,7 +100,6 @@ export const addMemberToPod = podId => async (dispatch, getState) => {
   dispatch(addingMemberToPod);
   pods.addMemberToPod(podId, user).then(() => {
     dispatch(addedMemberToPod);
-    dispatch(getPods());
   });
 };
 
@@ -116,7 +108,6 @@ export const removeMemberFromPod = podId => async (dispatch, getState) => {
   dispatch(removingMemberFromPod);
   pods.removeMemberFromPod(podId, user).then(() => {
     dispatch(removedMemberFromPod);
-    dispatch(getPods());
   });
 };
 

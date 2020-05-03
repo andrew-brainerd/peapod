@@ -13,9 +13,8 @@ const getProfilePic = images => {
 
 const Profile = ({ profile, isSignedIn, isMinimal, signOut, navTo }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { display_name: name, images } = profile || {};
   const menuRef = useRef();
-  const { id, display_name: name, images } = profile || {};
-  const myPodsRoute = PODS_ROUTE.replace(':userId', id);
 
   useOnClickOutside(menuRef, () => setIsMenuOpen(false));
 
@@ -37,10 +36,10 @@ const Profile = ({ profile, isSignedIn, isMinimal, signOut, navTo }) => {
         <div ref={menuRef} className={styles.menu}>
           <Button
             className={styles.menuItem}
-            text={'My Pods'}
+            text={'Pod Selection'}
             onClick={() => {
               setIsMenuOpen(false);
-              navTo(myPodsRoute);
+              navTo(PODS_ROUTE);
             }}
           />
           <Button

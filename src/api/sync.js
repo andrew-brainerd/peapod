@@ -1,16 +1,7 @@
-import { basicJsonHeader, handleResponse } from './tools';
-
-const PEAPOD_API_URL = process.env.REACT_APP_PEAPOD_API_URL || 'http://localhost:5000';
+import { prop } from 'ramda';
+import { client } from './tools';
 
 export const pushNowPlayingToClients = async (podId, nowPlaying) => {
-  const response = await fetch(`${PEAPOD_API_URL}/api/sync?podId=${podId}`, {
-    method: 'POST',
-    headers: basicJsonHeader,
-    body: JSON.stringify({ nowPlaying })
-  });
-
-  handleResponse(response, 201);
-  const json = await response.json();
-
-  return json;
+  const response = await client.post(`/sync?podId=${podId}`, { nowPlaying });
+  return prop('data', response);
 };

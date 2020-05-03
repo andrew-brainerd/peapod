@@ -7,7 +7,6 @@ import styles from './CreateNewButton.module.scss';
 
 const CreateNewButton = ({ createPod, newPod, navTo }) => {
   useEffect(() => {
-    console.log(newPod);
     newPod && navTo(POD_ROUTE.replace(':podId', newPod._id));
   }, [navTo, newPod]);
 

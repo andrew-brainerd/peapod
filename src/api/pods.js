@@ -1,165 +1,70 @@
-import { basicJsonHeader, handleResponse, parseOptions } from './tools';
+import { prop } from 'ramda';
+import { client, PEAPOD_API_URL } from './tools';
 import '../utils/beaconFallback';
 
-const PEAPOD_API_URL = process.env.REACT_APP_PEAPOD_API_URL || 'http://localhost:5000';
-
 export const createPod = async createdBy => {
-  const response = await fetch(`${PEAPOD_API_URL}/api/pods`, {
-    method: 'POST',
-    headers: basicJsonHeader,
-    body: JSON.stringify({ createdBy })
-  });
-
-  handleResponse(response, 201);
-  const json = await response.json();
-
-  return json;
-};
-
-export const getPods = async options => {
-  const query = parseOptions(options);
-  const response = await fetch(`${PEAPOD_API_URL}/api/pods${query}`, {
-    headers: basicJsonHeader
-  });
-
-  handleResponse(response);
-  const json = await response.json();
-
-  return json;
+  const response = await client.post('/pods', { createdBy });
+  return prop('data', response);
 };
 
 export const getPod = async podId => {
-  const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}`, {
-    headers: basicJsonHeader
-  });
-
-  handleResponse(response);
-  const json = await response.json();
-
-  return json;
+  const response = await client.get(`/pods/${podId}`);
+  return prop('data', response);
 };
 
 export const addMemberToPod = async (podId, user) => {
-  const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/members`, {
-    method: 'PATCH',
-    headers: basicJsonHeader,
-    body: JSON.stringify({ user })
-  });
-
-  handleResponse(response);
-  const json = await response.json();
-
-  return json;
+  const response = await client.patch(`/pods/${podId}/members`, { user });
+  return prop('data', response);
 };
 
 export const removeMemberFromPod = async (podId, user) => {
-  const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/members`, {
-    method: 'DELETE',
-    headers: basicJsonHeader,
-    body: JSON.stringify({ user })
-  });
-
-  handleResponse(response);
-  const json = await response.json();
-
-  return json;
+  const response = await client.delete(`/pods/${podId}/members`, { user });
+  return prop('data', response);
 };
 
 export const sendInvitation = async (podId, messageType, to) => {
-  const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/invite`, {
-    method: 'POST',
-    headers: basicJsonHeader,
-    body: JSON.stringify({ messageType: messageType || 'sms', to })
+  const response = await client.post(`/pods/${podId}/invite`, {
+    messageType: messageType || 'sms',
+    to
   });
-
-  handleResponse(response);
-  const json = await response.json();
-
-  return json;
+  return prop('data', response);
 };
 
 export const getPlayQueue = async podId => {
-  const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/queue`);
-
-  handleResponse(response);
-  const json = await response.json();
-
-  return json;
+  const response = await client.get(`/pods/${podId}/queue`);
+  return prop('data', response);
 };
 
 export const getPlayHistory = async podId => {
-  const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/history`);
-
-  handleResponse(response);
-  const json = await response.json();
-
-  return json;
+  const response = await client.get(`/pods/${podId}/history`);
+  return prop('data', response);
 };
 
 export const addToPlayQueue = async (podId, track) => {
-  const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/queue`, {
-    method: 'PATCH',
-    headers: basicJsonHeader,
-    body: JSON.stringify({ track })
-  });
-
-  handleResponse(response);
-  const json = await response.json();
-
-  return json;
+  const response = await client.patch(`/pods/${podId}/queue`, { track });
+  return prop('data', response);
 };
 
 export const removeFromPlayQueue = async (podId, track) => {
-  const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/queue`, {
-    method: 'DELETE',
-    headers: basicJsonHeader,
-    body: JSON.stringify({ track })
-  });
-
-  handleResponse(response);
-  const json = await response.json();
-
-  return json;
+  const response = await client.delete(`/pods/${podId}/queue`, { track });
+  return prop('data', response);
 };
 
 export const addToPlayHistory = async (podId, track) => {
-  const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/history`, {
-    method: 'PATCH',
-    headers: basicJsonHeader,
-    body: JSON.stringify({ track })
-  });
-
-  handleResponse(response, 409);
-  const json = await response.json();
-
-  return json;
+  const response = await client.patch(`/pods/${podId}/history`, { track });
+  return prop('data', response);
 };
 
 export const addActiveMemberToPod = async (podId, user) => {
-  const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/activeMembers`, {
-    method: 'PATCH',
-    headers: basicJsonHeader,
-    body: JSON.stringify({ user })
-  });
-
-  handleResponse(response);
-  const json = await response.json();
-
-  return json;
+  const response = await client.patch(`/pods/${podId}/activeMembers`, { user });
+  return prop('data', response);
 };
 
 export const removeActiveMemberFromPod = async (podId, user) => {
-  navigator.sendBeacon(`${PEAPOD_API_URL}/api/pods/${podId}/activeMembers/${user.id}`);
+  navigator.sendBeacon(`${PEAPOD_API_URL}/pods/${podId}/activeMembers/${user.id}`);
 };
 
 export const launchPod = async podId => {
-  const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/launch`, {
-    method: 'PUT',
-    headers: basicJsonHeader
-  });
-
-  handleResponse(response);
-  const json = await response.json();
-
-  return json;
+  const response = await client.put(`/pods/${podId}/launch`);
+  return prop('data', response);
 };

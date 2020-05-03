@@ -1,74 +1,38 @@
-import { basicJsonHeader, handleResponse } from './tools';
+import { path, prop } from 'ramda';
+import { basicJsonHeader, handleResponse, client } from './tools';
 import { setLocalReturnUri } from '../utils/spotify';
 
 const PEAPOD_API_URL = process.env.REACT_APP_PEAPOD_API_URL || 'http://localhost:5000';
 
 export const getAuth = async returnUri => {
-  const response = await fetch(`${PEAPOD_API_URL}/api/spotify/auth`);
-
-  handleResponse(response);
-  const { authUrl } = await response.json();
-
+  const response = await client.get('/spotify/auth');
   setLocalReturnUri(returnUri);
-  window.location = authUrl;
+  window.location = path(['data', 'authUrl'], response);
 };
 
 export const refreshAuth = async (accessToken, refreshToken) => {
-  const response = await fetch(`${PEAPOD_API_URL}/api/spotify/auth`, {
-    method: 'POST',
-    headers: basicJsonHeader,
-    body: JSON.stringify({ accessToken, refreshToken })
-  });
-
-  handleResponse(response);
-  const json = await response.json();
-  const { body } = json.response;
-
-  return { ...body };
+  const response = await client.post('/spotify/auth', { accessToken, refreshToken });
+  return path(['data', 'response', 'body'], response);
 };
 
 export const getProfile = async accessToken => {
-  const url = `${PEAPOD_API_URL}/api/spotify/profile?accessToken=${accessToken}`;
-
-  const response = await fetch(url);
-
-  handleResponse(response);
-  const json = await response.json();
-
-  return json;
+  const response = await client.get('/spotify/profile', { params: { accessToken } });
+  return prop('data', response);
 };
 
 export const getMyTopTracks = async accessToken => {
-  const url = `${PEAPOD_API_URL}/api/spotify/myTopTracks?accessToken=${accessToken}`;
-
-  const response = await fetch(url);
-
-  handleResponse(response);
-  const json = await response.json();
-
-  return json;
+  const response = await client.get('/spotify/myTopTracks', { params: { accessToken } });
+  return prop('data', response);
 };
 
 export const getMyDevices = async accessToken => {
-  const url = `${PEAPOD_API_URL}/api/spotify/myDevices?accessToken=${accessToken}`;
-
-  const response = await fetch(url);
-
-  handleResponse(response);
-  const { devices } = await response.json();
-
-  return devices;
+  const response = await client.get('/spotify/myDevices', { params: { accessToken } });
+  return path(['data', 'devices'], response);
 };
 
 export const getMyNowPlaying = async accessToken => {
-  const url = `${PEAPOD_API_URL}/api/spotify/myNowPlaying?accessToken=${accessToken}`;
-
-  const response = await fetch(url);
-
-  handleResponse(response);
-  const json = await response.json();
-
-  return json;
+  const response = await client.get('/spotify/myNowPlaying', { params: { accessToken } });
+  return prop('data', response);
 };
 
 export const transferPlayback = async (accessToken, devices, shouldPlay = false) => {
