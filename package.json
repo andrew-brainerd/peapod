@@ -48,9 +48,9 @@
     "test:watch": "react-scripts test",
     "lint:js": "eslint src/",
     "lint:css": "stylelint --config stylelint.json **/*.scss",
-    "lint": "yarn lint:js && yarn lint:css",
-    "coverage": "yarn test --coverage --watchAll=false",
-    "verify": "yarn lint && yarn test"
+    "lint": "pnpm lint:js && pnpm lint:css",
+    "coverage": "pnpm test --coverage --watchAll=false",
+    "verify": "pnpm lint && pnpm test"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -86,7 +86,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "yarn lint"
+      "pre-push": "pnpm lint"
     }
   }
 }
