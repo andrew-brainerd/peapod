@@ -5,7 +5,6 @@
   "type": "module",
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",
-    "prop-types": "^15.8.1",
     "pusher-js": "^5.1.1",
     "react": "^19.2.4",
     "react-device-detect": "^2.2.3",
@@ -21,6 +20,9 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@types/react-modal": "^3.16.3",
     "@vitejs/plugin-react": "^4.0.0",
     "eslint": "^9.0.0",
     "eslint-plugin-react": "^7.37.0",
@@ -31,20 +33,24 @@
     "sass": "^1.80.0",
     "stylelint": "^16.0.0",
     "stylelint-config-standard-scss": "^14.0.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.56.1",
     "vite": "^6.0.0",
     "vitest": "^4.0.18"
   },
   "scripts": {
-    "start": "vite",
+    "dev": "vite",
+    "start": "vite build && vite preview",
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
     "coverage": "vitest run --coverage",
     "lint:js": "eslint src/",
     "lint:css": "stylelint \"**/*.scss\"",
     "lint": "pnpm lint:js && pnpm lint:css",
-    "verify": "pnpm lint && pnpm test"
+    "verify": "pnpm lint && pnpm typecheck && pnpm test"
   },
   "browserslist": {
     "production": [
