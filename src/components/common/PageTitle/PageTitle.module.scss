@@ -1,5 +1,5 @@
-@import '../../../constants/colors.scss';
-@import '../../../constants/sizing.scss';
+@use '../../../constants/colors.scss' as *;
+@use '../../../constants/sizing.scss' as *;
 
 .title {
   cursor: default;

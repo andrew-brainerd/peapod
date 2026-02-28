@@ -1,13 +1,11 @@
-import { compose, prop, propOr } from 'ramda';
+export const getIsPlaying = obj => obj?.is_playing;
 
-export const getIsPlaying = prop('is_playing');
+export const getTrackProgress = obj => obj?.progress_ms;
 
-export const getTrackProgress = prop('progress_ms');
+export const getNowPlayingItem = obj => obj?.item ?? {};
 
-export const getNowPlayingItem = propOr({}, 'item');
+export const getTrackLength = obj => obj?.item?.duration_ms;
 
-export const getTrackLength = compose(prop('duration_ms'), getNowPlayingItem);
+export const getNowPlayingAlbum = obj => obj?.item?.album ?? {};
 
-export const getNowPlayingAlbum = compose(propOr({}, 'album'), getNowPlayingItem);
-
-export const getTrackImages = compose(propOr([], 'images'), getNowPlayingAlbum);
+export const getTrackImages = obj => obj?.item?.album?.images ?? [];

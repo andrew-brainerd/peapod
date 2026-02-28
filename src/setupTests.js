@@ -1,4 +1,12 @@
-import { configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import '@testing-library/jest-dom';
 
-configure({ adapter: new Adapter() });
+// Mock pusher-js to avoid requiring an API key during tests
+vi.mock('pusher-js', () => {
+  return {
+    default: class Pusher {
+      subscribe() {
+        return { bind: vi.fn() };
+      }
+    }
+  };
+});

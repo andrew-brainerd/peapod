@@ -1,5 +1,5 @@
-@import '../../../styles/mixins.scss';
-@import '../../../styles/sizing.scss';
+@use '../../../styles/mixins.scss' as *;
+@use '../../../styles/sizing.scss' as *;
 
 .pod {
   margin: -20px auto 0;

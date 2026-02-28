@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import moment from 'moment';
 import useInterval from './useInterval';
 
 const usePollingEffect = (
@@ -10,20 +9,19 @@ const usePollingEffect = (
   const [isPolling, setIsPolling] = useState(false);
   const [lastUpdateTime, setLastUpdateTime] = useState(0);
 
-  const getIsDataStale = currentMoment =>
-    moment.duration(currentMoment.diff(lastUpdateTime)).asMilliseconds() > pollInterval;
+  const getIsDataStale = () => Date.now() - lastUpdateTime > pollInterval;
 
   useEffect(() => {
     setIsPolling(false);
     effectFunction();
-    setLastUpdateTime(moment()); // eslint-disable-next-line
+    setLastUpdateTime(Date.now()); // eslint-disable-next-line
   }, effectDependencies);
 
   useInterval(() => {
-    if (getIsDataStale(moment())) {
+    if (getIsDataStale()) {
       setIsPolling(true);
       effectFunction();
-      setLastUpdateTime(moment());
+      setLastUpdateTime(Date.now());
     }
   }, pollInterval);
 

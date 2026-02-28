@@ -1,8 +1,8 @@
 import {
   showNotification,
   hideNotification
-} from '../actions/notify';
-import reducer from './notify';
+} from '../slices/notify';
+import reducer from '../slices/notify';
 
 describe('Notify Reducer', () => {
   it('should return the default state', () => {
@@ -45,7 +45,7 @@ describe('Notify Reducer', () => {
         hidden: true
       };
 
-      const action = hideNotification;
+      const action = hideNotification();
 
       const newState = reducer(initialState, action);
 

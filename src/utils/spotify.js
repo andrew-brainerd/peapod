@@ -1,12 +1,11 @@
-import moment from 'moment';
-
 const SPOTIFY_RETURN_URI = 'spotifyReturnUri';
 const SPOTIFY_ACCESS_TOKEN = 'spotifyAccessToken';
 const SPOTIFY_REFRESH_TOKEN = 'spotifyRefreshToken';
 const SPOITFY_EXPIRE_TIME = 'spotifyExpireTime';
 const REFRESH_THRESHOLD_MIN = 1;
 
-export const calculateExpireTime = expiresIn => moment().add(expiresIn, 'seconds').toString();
+export const calculateExpireTime = expiresIn =>
+  new Date(Date.now() + expiresIn * 1000).toISOString();
 
 export const setLocalReturnUri = returnUri => localStorage.setItem(SPOTIFY_RETURN_URI, returnUri);
 
@@ -18,15 +17,15 @@ export const setLocalAuth = ({ accessToken, refreshToken, expireTime }) => {
 
 export const getLocalReturnUri = () => localStorage.getItem(SPOTIFY_RETURN_URI);
 
-const getLocalExpireTime = currentMoment => {
+const getLocalExpireTime = () => {
   const expireTime = localStorage.getItem(SPOITFY_EXPIRE_TIME);
-  return expireTime ? moment(new Date(expireTime)) : currentMoment;
+  return expireTime ? new Date(expireTime).getTime() : Date.now();
 };
 
-const getIsAuthExpired = currentMoment => {
-  const expireTime = getLocalExpireTime(currentMoment);
-  const expireDiff = moment.duration(expireTime.diff(currentMoment)).asMinutes();
-  return expireDiff < REFRESH_THRESHOLD_MIN;
+const getIsAuthExpired = () => {
+  const expireTime = getLocalExpireTime();
+  const diffMin = (expireTime - Date.now()) / 60000;
+  return diffMin < REFRESH_THRESHOLD_MIN;
 };
 
 export const getLocalAccessToken = () => localStorage.getItem(SPOTIFY_ACCESS_TOKEN);
@@ -37,38 +36,34 @@ export const getLocalAuth = () => {
   return {
     accessToken: getLocalAccessToken(),
     refreshToken: getLocalRefreshToken(),
-    expireTime: (getLocalExpireTime() || '').toString()
+    expireTime: new Date(getLocalExpireTime()).toISOString()
   };
 };
 
-export const hasValidLocalAuth = () => !getIsAuthExpired(moment());
+export const hasValidLocalAuth = () => !getIsAuthExpired();
 
 export const getTimeFromDuration = ms => {
-  const time = {
-    hours: ms.hours(),
-    minutes: ms.minutes(),
-    seconds: ms.seconds()
-  };
+  const totalSeconds = Math.floor(ms / 1000);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
 
-  const hours = time.hours < 10 ? `0${time.hours}` : time.hours;
-  const minutes = time.minutes < 10 ? `0${time.minutes}` : time.minutes;
-  const seconds = time.seconds < 10 ? `0${time.seconds}` : time.seconds;
+  const hh = hours < 10 ? `0${hours}` : hours;
+  const mm = minutes < 10 ? `0${minutes}` : minutes;
+  const ss = seconds < 10 ? `0${seconds}` : seconds;
 
-  return `${hours}:${minutes}:${seconds}`;
+  return `${hh}:${mm}:${ss}`;
 };
 
 export const formatTimer = timer => {
-  const ms = moment.duration(timer);
+  const totalSeconds = typeof timer === 'number' ? Math.floor(timer / 1000) : 0;
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
 
-  const time = {
-    hours: ms.hours(),
-    minutes: ms.minutes(),
-    seconds: ms.seconds()
-  };
+  const hh = hours > 0 ? `${hours}:` : '';
+  const mm = minutes < 10 ? `0${minutes}` : minutes;
+  const ss = seconds < 10 ? `0${seconds}` : seconds;
 
-  const hours = time.hours > 0 ? `${time.hours}:` : '';
-  const minutes = time.minutes < 10 ? `0${time.minutes}` : time.minutes;
-  const seconds = time.seconds < 10 ? `0${time.seconds}` : time.seconds;
-
-  return `${hours}${minutes}:${seconds}`;
+  return `${hh}${mm}:${ss}`;
 };

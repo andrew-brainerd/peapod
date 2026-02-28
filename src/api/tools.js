@@ -1,5 +1,3 @@
-import { isEmpty, keys } from 'ramda';
-
 export const printResponse = response => console.log('Response: %o', response);
 
 export const basicJsonHeader = { 'Content-Type': 'application/json' };
@@ -14,8 +12,8 @@ export const handleResponse = async (response, expected) => {
 };
 
 export const parseOptions = options => {
-  return (options && !isEmpty(options) &&
-    `?${keys(options).map(option =>
-      `${option}=${options[option]}`
-    ).join('&')}`) || '';
+  if (!options || Object.keys(options).length === 0) return '';
+  return `?${Object.keys(options).map(key =>
+    `${key}=${options[key]}`
+  ).join('&')}`;
 };

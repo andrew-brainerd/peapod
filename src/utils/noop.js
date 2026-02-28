@@ -1,5 +1,3 @@
-import { always } from 'ramda';
-
-const noop = always(undefined);
+const noop = () => {};
 
 export default noop;

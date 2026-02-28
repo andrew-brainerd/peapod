@@ -1,6 +1,6 @@
 import { basicJsonHeader, handleResponse } from './tools';
 
-const PEAPOD_API_URL = process.env.REACT_APP_PEAPOD_API_URL || 'http://localhost:5000';
+const PEAPOD_API_URL = import.meta.env.VITE_PEAPOD_API_URL || 'http://localhost:5000';
 
 export const pushNowPlayingToClients = async (podId, nowPlaying) => {
   const response = await fetch(`${PEAPOD_API_URL}/api/sync?podId=${podId}`, {

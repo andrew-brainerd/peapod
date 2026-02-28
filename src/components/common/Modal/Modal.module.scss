@@ -1,6 +1,6 @@
-@import '../../../styles/colors.scss';
-@import '../../../styles/mixins.scss';
-@import '../../../styles/sizing.scss';
+@use '../../../styles/colors.scss' as *;
+@use '../../../styles/mixins.scss' as *;
+@use '../../../styles/sizing.scss' as *;
 
 .modal {
   background: $modalBackground;

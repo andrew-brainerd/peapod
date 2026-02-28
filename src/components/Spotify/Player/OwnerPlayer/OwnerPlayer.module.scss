@@ -1,5 +1,5 @@
-@import '../../../../styles/colors.scss';
-@import '../../../../styles/sizing.scss';
+@use '../../../../styles/colors.scss' as *;
+@use '../../../../styles/sizing.scss' as *;
 
 $separationBorder: 15px solid $primaryColor;
 

@@ -1,19 +1,20 @@
-import { createBrowserHistory } from 'history';
-import { createStore, applyMiddleware } from 'redux';
-import { routerMiddleware } from 'connected-react-router';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import thunk from 'redux-thunk';
-import rootReducer from '../reducers';
+import { configureStore } from '@reduxjs/toolkit';
+import notify from '../slices/notify';
+import pods from '../slices/pods';
+import spotify from '../slices/spotify';
+import sync from '../slices/sync';
 
-export const history = createBrowserHistory();
-
-export default function configureStore (initialState) {
-  return createStore(
-    rootReducer(history),
-    initialState,
-    composeWithDevTools(applyMiddleware(
-      routerMiddleware(history),
-      thunk
-    ))
-  );
-};
+export default function createStore () {
+  return configureStore({
+    reducer: {
+      notify,
+      pods,
+      spotify,
+      sync
+    },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: false
+      })
+  });
+}

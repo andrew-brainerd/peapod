@@ -1,34 +1,34 @@
-@import './colors.scss';
+@use './colors.scss' as colors;
 
 @mixin defaultBorder {
-  border: 1px solid $accentColor;
+  border: 1px solid colors.$accentColor;
 }
 
 @mixin defaultInput {
   appearance: none;
-  background: $primaryColor;
+  background: colors.$primaryColor;
   border: 1px solid transparent;
   border-radius: 5px;
-  color: $primaryTextColor;
+  color: colors.$primaryTextColor;
   outline: none;
   padding: 10px 5px;
   transition: 0.2s border;
 
   &:active,
   &:focus {
-    border: 1px solid $accentColor;
+    border: 1px solid colors.$accentColor;
     outline: none;
   }
 }
 
 @mixin errorText {
-  color: $errorText;
+  color: colors.$errorText;
   font-style: italic;
   margin: 7px 0;
 }
 
 @mixin successText {
-  color: $successText;
+  color: colors.$successText;
   font-style: italic;
   margin: 7px 0;
 }
