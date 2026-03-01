@@ -2,7 +2,7 @@ import { basicJsonHeader, handleResponse, parseOptions } from './tools';
 import type { SpotifyProfile, SpotifyTrack } from '../types';
 import '../utils/beaconFallback';
 
-const PEAPOD_API_URL = import.meta.env.VITE_PEAPOD_API_URL || 'http://localhost:3001';
+const PEAPOD_API_URL = import.meta.env.VITE_PEAPOD_API_URL || '';
 
 export const createPod = async (createdBy: SpotifyProfile) => {
   const response = await fetch(`${PEAPOD_API_URL}/api/pods`, {

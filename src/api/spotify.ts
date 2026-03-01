@@ -1,7 +1,7 @@
 import { basicJsonHeader, handleResponse } from './tools';
 import { setLocalReturnUri } from '../utils/spotify';
 
-const PEAPOD_API_URL = import.meta.env.VITE_PEAPOD_API_URL || 'http://localhost:3001';
+const PEAPOD_API_URL = import.meta.env.VITE_PEAPOD_API_URL || '';
 
 export const getAuth = async (returnUri: string) => {
   const response = await fetch(`${PEAPOD_API_URL}/api/spotify/auth`);
