@@ -1,40 +1,39 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { MemoryRouter } from 'react-router-dom';
+import { RouterTestWrapper } from '../../test/helpers';
 import Home from './Home';
 
 const mockStore = configureStore({
   reducer: {
-    spotify: () => ({ profile: { id: '12345' } }),
-    notify: () => ({ hidden: true, message: '' })
+    spotify: () => ({ accessToken: null, refreshToken: null, expireTime: null })
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false })
 });
 
 describe('Home Component', () => {
-  it('should render', () => {
+  it('should render', async () => {
     render(
       <Provider store={mockStore}>
-        <MemoryRouter>
-          <Home />
-        </MemoryRouter>
+        <RouterTestWrapper component={Home} />
       </Provider>
     );
 
-    expect(screen.getByText('Peapod')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('Peapod')).toBeInTheDocument();
+    });
   });
 
-  it('should render the logo', () => {
+  it('should render the logo', async () => {
     render(
       <Provider store={mockStore}>
-        <MemoryRouter>
-          <Home />
-        </MemoryRouter>
+        <RouterTestWrapper component={Home} />
       </Provider>
     );
 
-    expect(screen.getByAltText('Peapod Logo')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByAltText('Peapod Logo')).toBeInTheDocument();
+    });
   });
 });

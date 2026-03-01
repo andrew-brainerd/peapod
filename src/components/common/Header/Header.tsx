@@ -1,7 +1,6 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from '@tanstack/react-router';
 import Notification from '../Notification/Notification';
-import { HOME_ROUTE } from '../../../constants/routes';
 import Profile from '../../Spotify/Profile/Profile';
 import logo from '../../../img/logo.png';
 import styles from './Header.module.scss';
@@ -19,7 +18,7 @@ const Header = ({ isMinimal }: HeaderProps) => {
       isMinimal ? styles.minimal : ''
     ].join(' ')}>
       <div className={styles.headerContent}>
-        <div className={styles.homeLink} onClick={() => navigate(HOME_ROUTE)}>
+        <div className={styles.homeLink} onClick={() => navigate({ to: '/' })}>
           <img src={logo} className={styles.logo} alt="logo" />
           <div className={styles.headerTitle}>Peapod</div>
         </div>

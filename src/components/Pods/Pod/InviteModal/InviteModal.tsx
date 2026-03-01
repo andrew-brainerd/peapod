@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import type { AppDispatch } from '../../../../store/configureStore';
-import { sendInvitation } from '../../../../slices/pods';
+import { useSendInvitationMutation } from '../../../../queries/pods';
 import Modal from '../../../common/Modal/Modal';
 import TextInput from '../../../common/TextInput/TextInput';
 import Button from '../../../common/Button/Button';
@@ -15,8 +13,13 @@ interface InviteModalProps {
 }
 
 const InviteModal = ({ isOpen = false, podId = '', podName, closeModal }: InviteModalProps) => {
-  const dispatch = useDispatch<AppDispatch>();
+  const sendInvitation = useSendInvitationMutation();
   const [phoneNumber, setPhoneNumber] = useState('');
+
+  const handleInvite = () => {
+    sendInvitation.mutate({ podId, messageType: 'sms', to: phoneNumber });
+    closeModal();
+  };
 
   return (
     <Modal
@@ -35,18 +38,12 @@ const InviteModal = ({ isOpen = false, podId = '', podName, closeModal }: Invite
           autofocus
           value={phoneNumber}
           onChange={setPhoneNumber}
-          onPressEnter={() => {
-            dispatch(sendInvitation(podId, 'sms', phoneNumber));
-            closeModal();
-          }}
+          onPressEnter={handleInvite}
         />
         <Button
           className={styles.inviteButton}
           text={'Invite'}
-          onClick={() => {
-            dispatch(sendInvitation(podId, 'sms', phoneNumber));
-            closeModal();
-          }}
+          onClick={handleInvite}
         />
       </div>
     </Modal>

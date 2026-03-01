@@ -1,29 +1,29 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { MemoryRouter } from 'react-router-dom';
+import { RouterTestWrapper } from '../../../test/helpers';
 import CreateNewButton from './CreateNewButton';
 
 const mockStore = configureStore({
   reducer: {
-    pods: () => ({ isCreatingPod: false, createdPod: null }),
-    spotify: () => ({}),
+    spotify: () => ({ accessToken: null, refreshToken: null, expireTime: null }),
+    pods: () => ({ isConnected: false, isConnecting: false, currentPod: null }),
     notify: () => ({ hidden: true, message: '' })
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false })
 });
 
 describe('CreateNewButton Component', () => {
-  it('should render', () => {
-    const { container } = render(
+  it('should render', async () => {
+    render(
       <Provider store={mockStore}>
-        <MemoryRouter>
-          <CreateNewButton />
-        </MemoryRouter>
+        <RouterTestWrapper component={CreateNewButton} />
       </Provider>
     );
 
-    expect(container.firstChild).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByTitle('Create New Pod')).toBeInTheDocument();
+    });
   });
 });

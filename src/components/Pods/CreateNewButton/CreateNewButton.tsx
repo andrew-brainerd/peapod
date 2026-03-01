@@ -1,27 +1,31 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import type { AppDispatch } from '../../../store/configureStore';
-import { useNavigate } from 'react-router-dom';
-import { getCreatedPod, createPod } from '../../../slices/pods';
-import { POD_ROUTE } from '../../../constants/routes';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from '@tanstack/react-router';
+import { getAccessToken } from '../../../slices/spotify';
+import { useProfile } from '../../../queries/spotify';
+import { useCreatePodMutation } from '../../../queries/pods';
 import Button from '../../common/Button/Button';
 import Icon from '../../common/Icon/Icon';
 import styles from './CreateNewButton.module.scss';
 
 const CreateNewButton = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
-  const newPod = useSelector(getCreatedPod);
-
-  useEffect(() => {
-    console.log(newPod);
-    newPod && navigate(POD_ROUTE.replace(':podId', newPod._id));
-  }, [navigate, newPod]);
+  const accessToken = useSelector(getAccessToken);
+  const { data: profile } = useProfile(accessToken);
+  const createPod = useCreatePodMutation();
 
   return (
     <Button
       className={styles.createNew}
-      onClick={() => dispatch(createPod())}
+      onClick={() => {
+        if (profile) {
+          createPod.mutate(profile, {
+            onSuccess: (pod) => {
+              navigate({ to: '/pods/$podId', params: { podId: pod._id } });
+            }
+          });
+        }
+      }}
     >
       <Icon name={'add'} title={'Create New Pod'} />
     </Button>

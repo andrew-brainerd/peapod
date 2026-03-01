@@ -1,10 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../../store/configureStore';
-import { useNavigate } from 'react-router-dom';
-import { getProfile, signOut } from '../../../slices/spotify';
+import { useNavigate } from '@tanstack/react-router';
+import { getAccessToken, signOut } from '../../../slices/spotify';
+import { useProfile } from '../../../queries/spotify';
 import useOnClickOutside from '../../../hooks/useOnClickOutside';
-import { PODS_ROUTE, HOME_ROUTE } from '../../../constants/routes';
 import Button from '../../common/Button/Button';
 import type { SpotifyImage } from '../../../types';
 import styles from './Profile.module.scss';
@@ -21,12 +21,12 @@ interface ProfileProps {
 const Profile = ({ isMinimal }: ProfileProps) => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const profile = useSelector(getProfile);
+  const accessToken = useSelector(getAccessToken);
+  const { data: profile } = useProfile(accessToken);
   const isSignedIn = !!profile;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  const { id, display_name: name, images } = profile || {};
-  const myPodsRoute = PODS_ROUTE.replace(':userId', id || '');
+  const { display_name: name, images } = profile || {};
 
   useOnClickOutside(menuRef, () => setIsMenuOpen(false));
 
@@ -51,7 +51,7 @@ const Profile = ({ isMinimal }: ProfileProps) => {
             text={'My Pods'}
             onClick={() => {
               setIsMenuOpen(false);
-              navigate(myPodsRoute);
+              navigate({ to: '/pods' });
             }}
           />
           <Button
@@ -60,7 +60,7 @@ const Profile = ({ isMinimal }: ProfileProps) => {
             onClick={() => {
               setIsMenuOpen(false);
               dispatch(signOut());
-              navigate(HOME_ROUTE);
+              navigate({ to: '/' });
             }}
           />
         </div>

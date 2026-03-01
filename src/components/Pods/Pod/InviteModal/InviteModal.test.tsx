@@ -1,29 +1,22 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { createTestQueryClient } from '../../../../test/helpers';
 import InviteModal from './InviteModal';
-
-const mockStore = configureStore({
-  reducer: {
-    pods: () => ({}),
-    spotify: () => ({}),
-    notify: () => ({ hidden: true, message: '' })
-  },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false })
-});
 
 describe('InviteModal Component', () => {
   it('should render when open', () => {
+    const queryClient = createTestQueryClient();
+
     render(
-      <Provider store={mockStore}>
+      <QueryClientProvider client={queryClient}>
         <InviteModal
           isOpen={true}
           podId="12345"
           podName="Pod"
           closeModal={vi.fn()}
         />
-      </Provider>
+      </QueryClientProvider>
     );
 
     expect(screen.getByText('Invite')).toBeInTheDocument();

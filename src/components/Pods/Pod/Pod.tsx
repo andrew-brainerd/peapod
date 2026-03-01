@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../../store/configureStore';
-import { useParams } from 'react-router-dom';
-import usePrevious from '../../../hooks/usePrevious';
+import { useParams } from '@tanstack/react-router';
 import useBeforeUnload from '../../../hooks/useBeforeUnload';
-import usePollingEffect from '../../../hooks/usePollingEffect';
 import { SEARCH, NOW_PLAYING, PLAY_QUEUE, PLAY_HISTORY } from '../../../constants/pods';
-import { getCurrentPod, getIsPodOwner, getIsConnectingToPod, getIsConnectedToPod, getPod, connectToPod, disconnectFromPod } from '../../../slices/pods';
-import { getProfileId, getMyPlaylists } from '../../../slices/spotify';
+import { getIsConnectingToPod, getIsConnectedToPod, disconnectFromPod } from '../../../slices/pods';
+import { getAccessToken } from '../../../slices/spotify';
 import { getIsSyncing, connectClient } from '../../../slices/sync';
+import { useProfile, usePlaylists } from '../../../queries/spotify';
+import { usePod, useConnectToPodMutation } from '../../../queries/pods';
 import Header from '../../common/Header/Header';
 import PodHeader from './PodHeader/PodHeader';
 import SongSelection from '../../Spotify/SongSelection/SongSelection';
@@ -23,34 +23,31 @@ interface PodProps {
 
 const Pod = ({ view }: PodProps) => {
   const dispatch = useDispatch<AppDispatch>();
-  const pod = useSelector(getCurrentPod);
-  const userId = useSelector(getProfileId);
-  const isPodOwner = useSelector(getIsPodOwner);
+  const { podId } = useParams({ strict: false }) as { podId: string };
+  const accessToken = useSelector(getAccessToken);
+  const { data: profile } = useProfile(accessToken);
+  const userId = profile?.id;
+  const { data: pod } = usePod(podId);
   const isConnecting = useSelector(getIsConnectingToPod);
   const isConnected = useSelector(getIsConnectedToPod);
   const isSyncing = useSelector(getIsSyncing);
+  const connectToPod = useConnectToPodMutation();
   const height = window.innerHeight;
-  const { podId } = useParams();
-  const prevPodId = usePrevious(podId);
   const podHeight = height - 50;
+
+  const isPodOwner = !!pod?.createdBy && !!userId && pod.createdBy.id === userId;
+
+  usePlaylists(accessToken, userId ?? undefined);
 
   useEffect(() => {
     if (!!pod && !!pod.createdBy && !!userId && !isPodOwner && !isSyncing) {
       console.log('%cConnecting to Pod as Client...', 'color: cyan');
       dispatch(connectClient(podId!));
-    } else if (isPodOwner && !isConnected && !isConnecting && userId) {
+    } else if (isPodOwner && !isConnected && !isConnecting && userId && profile) {
       console.log('%cConnecting to Pod as Owner...', 'color: cyan');
-      dispatch(connectToPod(podId!));
+      connectToPod.mutate({ podId: podId!, user: profile });
     }
   }, [podId, pod, userId, isPodOwner, isConnected, isConnecting, isSyncing, dispatch]);
-
-  useEffect(() => {
-    podId && podId !== prevPodId && dispatch(getPod(podId));
-  }, [podId, prevPodId, dispatch]);
-
-  usePollingEffect(() => {
-    podId && dispatch(getPod(podId));
-  }, [podId, dispatch], 5000);
 
   useBeforeUnload(() => {
     if (isSyncing) {
@@ -61,24 +58,20 @@ const Pod = ({ view }: PodProps) => {
     dispatch(disconnectFromPod(podId));
   });
 
-  useEffect(() => {
-    userId && dispatch(getMyPlaylists(userId));
-  }, [userId, dispatch]);
-
   return (
     <>
       <Header isMinimal />
       <div className={styles.pod} style={{ height: podHeight }}>
         <PodHeader
           podId={podId}
-          userId={userId}
+          userId={userId ?? undefined}
           view={view}
         />
         <div className={styles.content}>
           {view === SEARCH ? <SongSelection /> : null}
-          <Player height={podHeight} isVisible={view === NOW_PLAYING} />
-          {view === PLAY_QUEUE ? <PlayQueue height={podHeight} /> : null}
-          {view === PLAY_HISTORY ? <PlayHistory height={podHeight} /> : null}
+          <Player height={podHeight} isVisible={view === NOW_PLAYING} isPodOwner={isPodOwner} podId={podId} />
+          {view === PLAY_QUEUE ? <PlayQueue height={podHeight} podId={podId} /> : null}
+          {view === PLAY_HISTORY ? <PlayHistory height={podHeight} podId={podId} /> : null}
         </div>
       </div>
     </>

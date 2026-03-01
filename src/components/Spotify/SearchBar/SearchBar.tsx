@@ -1,25 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import type { AppDispatch } from '../../../store/configureStore';
-import { search } from '../../../slices/spotify';
-import useDebounce from '../../../hooks/useDebounce';
+import React from 'react';
 import styles from './SearchBar.module.scss';
 import TextInput from '../../common/TextInput/TextInput';
 
-const SearchBar = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const [searchText, setSearchText] = useState('');
-  const debouncedSearchText = useDebounce(searchText, 500);
+interface SearchBarProps {
+  searchText: string;
+  onSearchTextChange: (text: string) => void;
+}
 
-  useEffect(() => {
-    dispatch(search(searchText));
-  }, [debouncedSearchText, dispatch]) // eslint-disable-line
-
+const SearchBar = ({ searchText, onSearchTextChange }: SearchBarProps) => {
   return (
     <div className={styles.searchBar}>
       <TextInput
         placeholder={'Search for a song'}
-        onChange={setSearchText}
+        onChange={onSearchTextChange}
         value={searchText}
         inputClassName={styles.searchInput}
       />

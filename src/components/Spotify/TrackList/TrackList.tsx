@@ -1,31 +1,37 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { getAccessToken, getIsLoadingTracks, getTracks } from '../../../slices/spotify';
+import { getAccessToken } from '../../../slices/spotify';
+import { useSearch } from '../../../queries/spotify';
+import useDebounce from '../../../hooks/useDebounce';
 import type { SpotifyTrack } from '../../../types';
 import Modal from '../../common/Modal/Modal';
 import Controls from '../Player/Controls/Controls';
 import Track from '../Track/Track';
 import styles from './TrackList.module.scss';
 
-const TrackList = () => {
-  const hasAuth = !!useSelector(getAccessToken);
-  const isLoading = useSelector(getIsLoadingTracks);
-  const tracks = useSelector(getTracks) as SpotifyTrack[];
+interface TrackListProps {
+  searchText?: string;
+}
+
+const TrackList = ({ searchText = '' }: TrackListProps) => {
+  const accessToken = useSelector(getAccessToken);
+  const debouncedSearchText = useDebounce(searchText, 500);
+  const { data: tracks = [], isLoading } = useSearch(accessToken, debouncedSearchText);
   const [selectedTrack, setSelectedTrack] = useState<SpotifyTrack | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPlayingPreview, setIsPlayingPreview] = useState(false);
 
   !!selectedTrack && console.log(selectedTrack);
 
-  return isLoading || !hasAuth ?
+  return isLoading || !accessToken ?
     <div className={styles.loading}>Loading Tracks...</div> :
     <>
       <div className={styles.trackList}>
-        {tracks?.length > 0 &&
+        {(tracks as SpotifyTrack[])?.length > 0 &&
           <>
             <div className={styles.list}>
               <div className={styles.tracks}>
-                {[...new Map(tracks.map((t: SpotifyTrack) => [t.name, t])).values()]
+                {[...new Map((tracks as SpotifyTrack[]).map((t: SpotifyTrack) => [t.name, t])).values()]
                   .map((track, t) =>
                     <Track
                       key={t}

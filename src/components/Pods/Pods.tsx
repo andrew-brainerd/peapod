@@ -1,12 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { getIsLoadingPods } from '../../slices/pods';
+import { usePods } from '../../queries/pods';
 import Header from '../common/Header/Header';
 import CreateNewButton from './CreateNewButton/CreateNewButton';
 import styles from './Pods.module.scss';
 
 const Pods = () => {
-  const isLoading = useSelector(getIsLoadingPods);
+  const { isLoading } = usePods();
   const height = window.innerHeight;
 
   return (

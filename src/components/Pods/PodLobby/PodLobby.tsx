@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../../store/configureStore';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from '@tanstack/react-router';
 import { isDefined } from '../../../utils/validation';
 import { MEMBER_ADDED, LAUNCH_GAME } from '../../../constants/sync';
-import { POD_SEARCH_ROUTE } from '../../../constants/routes';
-import { getCurrentPodMembers, getShouldUpdatePod, getCurrentPodCreatorId, triggerUpdate, getPod, addMemberToPod, launchPod } from '../../../slices/pods';
-import { getProfileId } from '../../../slices/spotify';
-import { connectToPusher } from '../../../slices/sync';
+import { getAccessToken } from '../../../slices/spotify';
+import { connectToPusher, triggerUpdate } from '../../../slices/sync';
+import { useProfile } from '../../../queries/spotify';
+import { usePod, useAddMemberMutation, useLaunchPodMutation } from '../../../queries/pods';
 import Header from '../../common/Header/Header';
 import Button from '../../common/Button/Button';
 import Icon from '../../common/Icon/Icon';
@@ -16,36 +16,38 @@ import styles from './PodLobby.module.scss';
 
 const PodLobby = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const podMembers = useSelector(getCurrentPodMembers);
-  const shouldUpdate = useSelector(getShouldUpdatePod);
-  const userId = useSelector(getProfileId);
-  const podCreatorId = useSelector(getCurrentPodCreatorId);
-  const { podId } = useParams();
+  const { podId } = useParams({ strict: false }) as { podId: string };
   const navigate = useNavigate();
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const accessToken = useSelector(getAccessToken);
+  const { data: profile } = useProfile(accessToken);
+  const userId = profile?.id;
+  const { data: pod } = usePod(podId);
+  const addMember = useAddMemberMutation();
+  const launchPod = useLaunchPodMutation();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const podMembers = pod?.members ?? [];
+  const podCreatorId = pod?.createdBy?.id;
 
   useEffect(() => {
     if (isDefined(podId) && !!userId) {
       dispatch(connectToPusher(podId!, MEMBER_ADDED, triggerUpdate));
-      dispatch(addMemberToPod(podId!));
     }
   }, [podId, userId, dispatch]);
 
   useEffect(() => {
     if (isDefined(podId) && !!userId) {
       dispatch(connectToPusher(podId!, LAUNCH_GAME, () =>
-        navigate(POD_SEARCH_ROUTE.replace(':podId', podId!))
+        navigate({ to: '/pods/$podId/search', params: { podId: podId! } })
       ));
     }
   }, [podId, userId, dispatch, navigate]);
 
   useEffect(() => {
-    if (isDefined(podId) && (isInitialLoad || shouldUpdate)) {
-      dispatch(getPod(podId!));
-      setIsInitialLoad(false);
+    if (isDefined(podId) && !!userId && profile) {
+      addMember.mutate({ podId: podId!, user: profile });
     }
-  }, [podId, isInitialLoad, shouldUpdate, dispatch]);
+  }, [podId, userId]);
 
   return (
     <>
@@ -59,7 +61,7 @@ const PodLobby = () => {
       </Button>
       <div className={styles.podLobby}>
         <div className={styles.podMembers}>
-          {podMembers.map(({ display_name: name }, p) =>
+          {podMembers.map(({ display_name: name }: { display_name: string }, p: number) =>
             <div key={p} className={styles.podMember}>{name}</div>
           )}
         </div>
@@ -67,7 +69,7 @@ const PodLobby = () => {
           <Button
             className={styles.launchButton}
             text={'Launch Pod'}
-            onClick={() => dispatch(launchPod(podId))}
+            onClick={() => launchPod.mutate(podId!)}
             disabled={podMembers.length < 2}
           />
         )}

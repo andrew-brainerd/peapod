@@ -1,29 +1,33 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../../store/configureStore';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useSearch } from '@tanstack/react-router';
 import { setAuth } from '../../../slices/spotify';
 import { setLocalAuth, calculateExpireTime, getLocalReturnUri } from '../../../utils/spotify';
-import { HOME_ROUTE } from '../../../constants/routes';
 import Loading from '../../common/Loading/Loading';
 import styles from './SpotifyAuth.module.scss';
 
 const SpotifyAuth = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const [searchParams] = useSearchParams();
+  const search = useSearch({ strict: false }) as {
+    access_token?: string;
+    refresh_token?: string;
+    expires_in?: string;
+  };
   const navigate = useNavigate();
 
   useEffect(() => {
     const auth = {
-      accessToken: searchParams.get('access_token'),
-      refreshToken: searchParams.get('refresh_token'),
-      expireTime: calculateExpireTime(searchParams.get('expires_in')!)
+      accessToken: search.access_token ?? null,
+      refreshToken: search.refresh_token ?? null,
+      expireTime: calculateExpireTime(search.expires_in!)
     };
 
     setLocalAuth(auth);
     dispatch(setAuth(auth));
 
-    navigate(getLocalReturnUri() || HOME_ROUTE);
+    const returnUri = getLocalReturnUri() || '/';
+    navigate({ to: returnUri });
   });
 
   return (

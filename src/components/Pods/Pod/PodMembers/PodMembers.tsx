@@ -1,11 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { getProfileId } from '../../../../slices/spotify';
-import {
-  getCurrentPodMembers,
-  getCurrentPodActiveMembers,
-  getCurrentPodCreatorId
-} from '../../../../slices/pods';
+import { useParams } from '@tanstack/react-router';
+import { getAccessToken } from '../../../../slices/spotify';
+import { useProfile } from '../../../../queries/spotify';
+import { usePod } from '../../../../queries/pods';
 import type { PodMember } from '../../../../types';
 import styles from './PodMembers.module.scss';
 
@@ -14,10 +12,15 @@ const getIsActiveMember = (member: PodMember, activeList: string[]) => activeLis
 );
 
 const PodMembers = () => {
-  const userId = useSelector(getProfileId);
-  const memberList = useSelector(getCurrentPodMembers);
-  const activeMemberList = useSelector(getCurrentPodActiveMembers);
-  const podCreatorId = useSelector(getCurrentPodCreatorId);
+  const { podId } = useParams({ strict: false }) as { podId: string };
+  const accessToken = useSelector(getAccessToken);
+  const { data: profile } = useProfile(accessToken);
+  const userId = profile?.id;
+  const { data: pod } = usePod(podId);
+
+  const memberList = pod?.members ?? [];
+  const activeMemberList = pod?.activeMembers ?? [];
+  const podCreatorId = pod?.createdBy?.id;
 
   return (
     <div className={styles.podMembers}>

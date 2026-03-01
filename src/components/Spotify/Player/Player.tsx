@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../../store/configureStore';
-import usePrevious from '../../../hooks/usePrevious';
-import usePollingEffect from '../../../hooks/usePollingEffect';
-import { getAccessToken, getIsLoadingNowPlaying, getNowPlaying, getMyNowPlaying } from '../../../slices/spotify';
-import { getIsPodOwner, addTrackToPlayHistory } from '../../../slices/pods';
+import { getAccessToken } from '../../../slices/spotify';
+import { updateClients } from '../../../slices/sync';
+import { useNowPlaying } from '../../../queries/spotify';
+import { useAddToHistoryMutation } from '../../../queries/pods';
 import {
   getIsPlaying,
   getNowPlayingItem,
@@ -13,35 +13,39 @@ import {
 import styles from './Player.module.scss';
 import OwnerPlayer from './OwnerPlayer/OwnerPlayer';
 import ClientPlayer from './ClientPlayer/ClientPlayer';
+import type { NowPlaying } from '../../../types';
 
 interface PlayerProps {
   isVisible?: boolean;
   height?: number;
+  isPodOwner: boolean;
+  podId?: string;
 }
 
-const Player = ({ isVisible = false, height = 0 }: PlayerProps) => {
+const Player = ({ isVisible = false, height = 0, isPodOwner, podId }: PlayerProps) => {
   const dispatch = useDispatch<AppDispatch>();
-  const hasAuth = !!useSelector(getAccessToken);
-  const isLoading = useSelector(getIsLoadingNowPlaying);
-  const nowPlaying = useSelector(getNowPlaying);
-  const isPodOwner = useSelector(getIsPodOwner);
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const accessToken = useSelector(getAccessToken);
+  const { data: nowPlaying = {} as NowPlaying, isLoading } = useNowPlaying(accessToken, isPodOwner);
+  const addToHistory = useAddToHistoryMutation(podId);
+
   const isPlaying = getIsPlaying(nowPlaying);
   const nowPlayingItem = getNowPlayingItem(nowPlaying);
   const { name } = nowPlayingItem;
   const albumArt = (getTrackImages(nowPlaying)[1] || {} as { url?: string }).url;
-  const prevName = usePrevious(name);
+  const prevNameRef = useRef<string | undefined>(undefined);
 
-  if (prevName !== name) {
-    isPodOwner && name && dispatch(addTrackToPlayHistory(nowPlayingItem));
-  }
-
-  usePollingEffect(() => {
-    if (hasAuth) {
-      setIsInitialLoad(false);
-      isPodOwner && dispatch(getMyNowPlaying());
+  useEffect(() => {
+    if (prevNameRef.current !== undefined && prevNameRef.current !== name && isPodOwner && name) {
+      addToHistory.mutate(nowPlayingItem);
     }
-  }, [hasAuth, isPodOwner, dispatch], isPodOwner ? 5000 : null);
+    prevNameRef.current = name;
+  }, [name]);
+
+  useEffect(() => {
+    if (isPodOwner && nowPlaying && Object.keys(nowPlaying).length > 0) {
+      dispatch(updateClients(nowPlaying));
+    }
+  }, [nowPlaying, isPodOwner, dispatch]);
 
   const PLAYER_PADDING = 200;
   const playerHeight = height - PLAYER_PADDING;
@@ -51,7 +55,7 @@ const Player = ({ isVisible = false, height = 0 }: PlayerProps) => {
       styles.player,
       !isVisible ? styles.hidden : ''
     ].join(' ')}>
-      {(isInitialLoad && isLoading) || !hasAuth ?
+      {(isLoading && !nowPlaying?.item) || !accessToken ?
         <div className={styles.loading}>Loading Player...</div> :
         isPodOwner ?
           <OwnerPlayer

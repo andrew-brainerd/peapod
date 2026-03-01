@@ -1,8 +1,15 @@
 import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { podViews, NOW_PLAYING } from '../../../../constants/pods';
+import { useNavigate } from '@tanstack/react-router';
+import { NOW_PLAYING } from '../../../../constants/pods';
 import Icon from '../../../common/Icon/Icon';
 import styles from './PodViewSelector.module.scss';
+
+const podViewItems = [
+  { key: 'search', name: 'Search', path: '/search' },
+  { key: 'nowPlaying', name: 'Now Playing', path: '/player' },
+  { key: 'queue', name: 'Queue', path: '/queue' },
+  { key: 'history', name: 'History', path: '/history' }
+] as const;
 
 interface PodViewSelectorProps {
   className?: string;
@@ -27,22 +34,22 @@ const PodViewSelector = ({ className, podId, selectedView }: PodViewSelectorProp
         styles.viewSelector,
         className || ''
       ].join(' ')}>
-        {Object.keys(podViews).map(view => {
-          const { name, path } = podViews[view as keyof typeof podViews];
-          return (
-            <div
-              key={name}
-              className={[
-                styles.view,
-                view === NOW_PLAYING ? styles.nowPlaying : '',
-                selectedView === view ? styles.selected : ''
-              ].join(' ')}
-              onClick={() => navigate(path.replace(':podId', podId || ''))}
-            >
-              {name}
-            </div>
-          );
-        })}
+        {podViewItems.map(({ key, name, path }) => (
+          <div
+            key={name}
+            className={[
+              styles.view,
+              key === NOW_PLAYING ? styles.nowPlaying : '',
+              selectedView === key ? styles.selected : ''
+            ].join(' ')}
+            onClick={() => navigate({
+              to: `/pods/$podId${path}`,
+              params: { podId: podId || '' }
+            })}
+          >
+            {name}
+          </div>
+        ))}
       </div>
     </div>
   );

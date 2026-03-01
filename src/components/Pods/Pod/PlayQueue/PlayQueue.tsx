@@ -1,8 +1,9 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import type { AppDispatch } from '../../../../store/configureStore';
-import { getPlayQueue, getIsPodOwner } from '../../../../slices/pods';
-import { play } from '../../../../slices/spotify';
+import { useSelector } from 'react-redux';
+import { getAccessToken } from '../../../../slices/spotify';
+import { useProfile } from '../../../../queries/spotify';
+import { usePod } from '../../../../queries/pods';
+import { usePlayMutation } from '../../../../queries/spotify';
 import type { SpotifyTrack } from '../../../../types';
 import Button from '../../../common/Button/Button';
 import Track from '../../../Spotify/Track/Track';
@@ -11,14 +12,19 @@ import styles from './PlayQueue.module.scss';
 interface PlayQueueProps {
   height?: number;
   currentTrack?: SpotifyTrack;
+  podId?: string;
 }
 
-const PlayQueue = ({ height = 0, currentTrack }: PlayQueueProps) => {
-  const dispatch = useDispatch<AppDispatch>();
-  const queue = useSelector(getPlayQueue);
-  const isPodOwner = useSelector(getIsPodOwner);
+const PlayQueue = ({ height = 0, currentTrack, podId }: PlayQueueProps) => {
+  const accessToken = useSelector(getAccessToken);
+  const { data: profile } = useProfile(accessToken);
+  const userId = profile?.id;
+  const { data: pod } = usePod(podId);
+  const playMutation = usePlayMutation(accessToken);
   const PLAYLIST_PADDING = 200;
 
+  const queue = pod?.queue ?? [];
+  const isPodOwner = !!pod?.createdBy && !!userId && pod.createdBy.id === userId;
   const playUris = queue.map(({ uri }: SpotifyTrack) => uri);
 
   return (
@@ -27,8 +33,8 @@ const PlayQueue = ({ height = 0, currentTrack }: PlayQueueProps) => {
         <Button
           className={styles.startButton}
           text={'Start Playing Queue'}
-          onClick={() => dispatch(play({ uris: playUris }))}
-          disabled={!queue}
+          onClick={() => playMutation.mutate({ uris: playUris })}
+          disabled={!queue.length}
         />
       }
       <div className={styles.trackList}>

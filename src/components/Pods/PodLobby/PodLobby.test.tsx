@@ -1,14 +1,14 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { RouterTestWrapper } from '../../../test/helpers';
 import PodLobby from './PodLobby';
 
 const mockStore = configureStore({
   reducer: () => ({
-    pods: { currentPod: null },
-    spotify: {},
+    pods: { isConnected: false, isConnecting: false, currentPod: null },
+    spotify: { accessToken: null, refreshToken: null, expireTime: null },
     sync: { isSyncing: false },
     notify: { hidden: true, message: '' }
   }),
@@ -27,17 +27,19 @@ afterEach(() => {
 });
 
 describe('PodLobby Component', () => {
-  it('should render', () => {
+  it('should render', async () => {
     render(
       <Provider store={mockStore}>
-        <MemoryRouter initialEntries={['/pods/12345']}>
-          <Routes>
-            <Route path="/pods/:podId" element={<PodLobby />} />
-          </Routes>
-        </MemoryRouter>
+        <RouterTestWrapper
+          component={PodLobby}
+          initialPath="/pods/12345"
+          routePath="/pods/$podId"
+        />
       </Provider>
     );
 
-    expect(screen.getByText('Invite Friends')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('Invite Friends')).toBeInTheDocument();
+    });
   });
 });

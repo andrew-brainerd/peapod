@@ -1,9 +1,10 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import * as syncApi from '../api/sync';
 import { getChannel } from '../utils/pusher';
 import { NOW_PLAYING } from '../constants/pods';
 import { connectToPod } from './pods';
-import { nowPlayingLoaded } from './spotify';
+import { queryClient } from '../queryClient';
+import { spotifyKeys } from '../queries/keys';
+import * as syncApi from '../api/sync';
 import type { AppDispatch, RootState } from '../store/configureStore';
 import type { NowPlaying } from '../types';
 
@@ -30,10 +31,15 @@ export const connectToPusher = (channelId: string, type: string, action: (...arg
   getChannel(channelId).bind(type, action);
 };
 
+export const triggerUpdate = () => {
+  // When a member is added, invalidate the pod detail query
+  queryClient.invalidateQueries({ queryKey: ['pods', 'detail'] });
+};
+
 export const connectClient = (podId: string) => (dispatch: AppDispatch) => {
   dispatch(connectToPod(podId));
   dispatch(connectToPusher(podId, NOW_PLAYING, (track: NowPlaying) => {
-    dispatch(nowPlayingLoaded(track));
+    queryClient.setQueryData(spotifyKeys.nowPlaying(), track);
   }));
   dispatch(setSyncing(true));
 };

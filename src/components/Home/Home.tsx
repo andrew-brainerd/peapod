@@ -1,15 +1,16 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { getProfileId } from '../../slices/spotify';
-import { PODS_ROUTE } from '../../constants/routes';
+import { useNavigate } from '@tanstack/react-router';
+import { getAccessToken } from '../../slices/spotify';
+import { useProfile } from '../../queries/spotify';
 import Button from '../common/Button/Button';
 import logo from '../../img/logo.png';
 import styles from './Home.module.scss';
 
 const Home = () => {
   const navigate = useNavigate();
-  const userId = useSelector(getProfileId);
+  const accessToken = useSelector(getAccessToken);
+  const { data: profile } = useProfile(accessToken);
 
   return (
     <div className={styles.home}>
@@ -20,7 +21,7 @@ const Home = () => {
       <div className={styles.buttonContainer}>
         <Button
           className={styles.button}
-          onClick={() => navigate(PODS_ROUTE.replace(':userId', userId || ''))}
+          onClick={() => navigate({ to: '/pods' })}
         >
           Take a <span className={styles.buttonText}>Pea</span>k
         </Button>

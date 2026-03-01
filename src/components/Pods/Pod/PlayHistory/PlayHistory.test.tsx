@@ -1,23 +1,18 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { createTestQueryClient } from '../../../../test/helpers';
 import type { SpotifyTrack } from '../../../../types';
 import PlayHistory from './PlayHistory';
 
-const mockStore = configureStore({
-  reducer: () => ({
-    pods: { currentPod: { history: [{ name: 'Keanu Reeves', artists: [{ name: 'Logic' }] }] } }
-  }),
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false })
-});
-
 describe('PlayHistory Component', () => {
   it('should render', () => {
+    const queryClient = createTestQueryClient();
+
     const { container } = render(
-      <Provider store={mockStore}>
-        <PlayHistory height={1000} currentTrack={{} as SpotifyTrack} />
-      </Provider>
+      <QueryClientProvider client={queryClient}>
+        <PlayHistory height={1000} currentTrack={{} as SpotifyTrack} podId="12345" />
+      </QueryClientProvider>
     );
 
     expect(container.firstChild).toBeInTheDocument();

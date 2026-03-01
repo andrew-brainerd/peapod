@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SearchBar from '../SearchBar/SearchBar';
 import TrackList from '../TrackList/TrackList';
 import styles from './SongSelection.module.scss';
@@ -8,10 +8,12 @@ interface SongSelectionProps {
 }
 
 const SongSelection = ({ height }: SongSelectionProps) => {
+  const [searchText, setSearchText] = useState('');
+
   return (
     <div className={styles.songSelection} style={{ height }}>
-      <SearchBar />
-      <TrackList />
+      <SearchBar searchText={searchText} onSearchTextChange={setSearchText} />
+      <TrackList searchText={searchText} />
     </div>
   );
 };

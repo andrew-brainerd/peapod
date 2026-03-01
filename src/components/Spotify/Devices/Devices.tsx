@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import type { AppDispatch } from '../../../store/configureStore';
-import { getDevices as getDevicesSelector, getMyDevices, transferPlayback } from '../../../slices/spotify';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { getAccessToken } from '../../../slices/spotify';
+import { useDevices, useTransferPlaybackMutation } from '../../../queries/spotify';
 import type { SpotifyDevice } from '../../../types';
 import Icon from '../../common/Icon/Icon';
 import styles from './Devices.module.scss';
+import { queryClient } from '../../../queryClient';
+import { spotifyKeys } from '../../../queries/keys';
 
 const getDeviceIcon: Record<string, React.ReactNode> = {
   Speaker: <Icon name={'headphones'} />,
@@ -15,17 +17,14 @@ const getDeviceIcon: Record<string, React.ReactNode> = {
 };
 
 const Devices = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const devices = useSelector(getDevicesSelector) as SpotifyDevice[];
-
-  useEffect(() => {
-    dispatch(getMyDevices());
-  }, [dispatch]);
+  const accessToken = useSelector(getAccessToken);
+  const { data: devices = [] } = useDevices(accessToken);
+  const transferPlayback = useTransferPlaybackMutation(accessToken);
 
   return (
     <div className={styles.devices}>
       <div className={styles.title}>Available Devices</div>
-      {Object.values(devices).map((device: SpotifyDevice) => {
+      {Object.values(devices as SpotifyDevice[]).map((device: SpotifyDevice) => {
         const {
           id,
           is_active: isActive,
@@ -43,8 +42,13 @@ const Devices = () => {
             ].join(' ')}
             onClick={() => {
               if (!isActive) {
-                dispatch(transferPlayback([id], true));
-                setTimeout(() => dispatch(getMyDevices()), 1500);
+                transferPlayback.mutate({ devices: [id], shouldPlay: true }, {
+                  onSuccess: () => {
+                    setTimeout(() => {
+                      queryClient.invalidateQueries({ queryKey: spotifyKeys.devices() });
+                    }, 1500);
+                  }
+                });
               }
             }}
           >

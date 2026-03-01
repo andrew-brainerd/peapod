@@ -1,6 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { getPlayHistory } from '../../../../slices/pods';
+import { usePod } from '../../../../queries/pods';
 import type { SpotifyTrack } from '../../../../types';
 import Track from '../../../Spotify/Track/Track';
 import styles from './PlayHistory.module.scss';
@@ -8,10 +7,12 @@ import styles from './PlayHistory.module.scss';
 interface PlayHistoryProps {
   height?: number;
   currentTrack?: SpotifyTrack;
+  podId?: string;
 }
 
-const PlayHistory = ({ height = 0, currentTrack }: PlayHistoryProps) => {
-  const history = useSelector(getPlayHistory);
+const PlayHistory = ({ height = 0, currentTrack, podId }: PlayHistoryProps) => {
+  const { data: pod } = usePod(podId);
+  const history = pod?.history ?? [];
   const PLAYLIST_PADDING = 200;
 
   return (

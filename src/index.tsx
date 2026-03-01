@@ -1,9 +1,11 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { RouterProvider } from '@tanstack/react-router';
+import { QueryClientProvider } from '@tanstack/react-query';
 import configureStore from './store/configureStore';
-import App from './components/App/App';
+import { router } from './router';
+import { queryClient } from './queryClient';
 import ReactModal from 'react-modal';
 import './index.scss';
 
@@ -20,8 +22,8 @@ ReactModal.setAppElement(container);
 const root = createRoot(container);
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </Provider>
 );
