@@ -51,6 +51,48 @@
     }
   }
 
+  .nowPlaying {
+    margin-top: 20px;
+    width: 100%;
+
+    .nowPlayingTitle {
+      color: $peapod;
+      font-size: 1.1em;
+      margin-bottom: 10px;
+    }
+
+    .trackList {
+      .track {
+        align-items: center;
+        background: $gray-80;
+        border-radius: 4px;
+        display: flex;
+        margin-bottom: 6px;
+        padding: 8px 12px;
+
+        .trackImage {
+          border-radius: 3px;
+          height: 40px;
+          margin-right: 12px;
+          width: 40px;
+        }
+
+        .trackInfo {
+          .trackName {
+            color: $gray-5;
+            font-size: 0.95em;
+          }
+
+          .trackArtist {
+            color: $gray-40;
+            font-size: 0.8em;
+            margin-top: 2px;
+          }
+        }
+      }
+    }
+  }
+
   .launchButton {
     align-self: flex-end;
     bottom: 50px;

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../../store/configureStore';
 import { useParams, useNavigate } from '@tanstack/react-router';
 import { isDefined } from '../../../utils/validation';
+import type { SpotifyTrack, Artist } from '../../../types';
 import { MEMBER_ADDED, LAUNCH_GAME } from '../../../constants/sync';
 import { getAccessToken } from '../../../slices/spotify';
 import { connectToPusher, triggerUpdate } from '../../../slices/sync';
@@ -51,6 +52,8 @@ const PodLobby = () => {
     }
   }, [podId, userId]);
 
+  const podQueue = pod?.queue ?? [];
+
   return (
     <>
       <Header />
@@ -66,6 +69,30 @@ const PodLobby = () => {
             </div>
           ))}
         </div>
+        {podQueue.length > 0 && (
+          <div className={styles.nowPlaying}>
+            <h3 className={styles.nowPlayingTitle}>Up Next</h3>
+            <div className={styles.trackList}>
+              {podQueue.map((track: SpotifyTrack) => (
+                <div key={track.uri} className={styles.track}>
+                  {track.album.images?.[0] && (
+                    <img
+                      className={styles.trackImage}
+                      src={track.album.images[0].url}
+                      alt={track.album.name ?? track.name}
+                    />
+                  )}
+                  <div className={styles.trackInfo}>
+                    <div className={styles.trackName}>{track.name}</div>
+                    <div className={styles.trackArtist}>
+                      {track.artists.map((a: Artist) => a.name).join(', ')}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
         {userId === podCreatorId && (
           <Button
             className={styles.launchButton}

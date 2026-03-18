@@ -26,7 +26,7 @@ const SpotifyAuth = () => {
     setLocalAuth(auth);
     dispatch(setAuth(auth));
 
-    const returnUri = getLocalReturnUri() || '/';
+    const returnUri = getLocalReturnUri() || '/pods';
     navigate({ to: returnUri });
   });
 

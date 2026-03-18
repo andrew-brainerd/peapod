@@ -1,7 +1,10 @@
 @use '../../styles/colors.scss' as *;
+@use '../../styles/mixins.scss' as *;
 @use '../../styles/sizing.scss' as *;
 
 .pods {
+  padding: 20px;
+
   .podList {
     align-content: flex-start;
     display: flex;
@@ -10,11 +13,54 @@
     margin: auto;
     overflow-y: auto;
     width: 98%;
+
+    .loading {
+      color: $primaryTextColor;
+      font-size: 1.2em;
+      margin: 40px auto;
+      text-align: center;
+    }
+
+    .podCard {
+      @include boxShadow();
+
+      align-items: center;
+      background: $gray-80;
+      border-color: $gray-70;
+      display: flex;
+      flex-direction: column;
+      height: 125px;
+      justify-content: center;
+      margin: 20px;
+      transition: 0.2s background;
+      width: 200px;
+
+      &:hover {
+        background: $gray-70;
+        border-color: $peapod-5;
+      }
+
+      .podName {
+        color: $primaryTextColor;
+        font-size: 1.1em;
+        margin-bottom: 8px;
+      }
+
+      .podMeta {
+        color: $gray-40;
+        font-size: 0.85em;
+      }
+    }
   }
 }
 
 @media screen and (max-width: $mobileWidth) {
-  .podsModal {
-    width: 90%;
+  .pods {
+    .podList {
+      .podCard {
+        width: 100%;
+        margin: 10px 0;
+      }
+    }
   }
 }

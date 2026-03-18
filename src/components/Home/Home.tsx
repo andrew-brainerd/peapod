@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from '@tanstack/react-router';
 import { getAccessToken } from '../../slices/spotify';
-import { useProfile } from '../../queries/spotify';
+import { getAuth } from '../../api/spotify';
+import { PODS_ROUTE } from '../../constants/routes';
 import Button from '../common/Button/Button';
+import Icon from '../common/Icon/Icon';
 import logo from '../../img/logo.png';
 import styles from './Home.module.scss';
 
 const Home = () => {
   const navigate = useNavigate();
   const accessToken = useSelector(getAccessToken);
-  const { data: profile } = useProfile(accessToken);
+
+  useEffect(() => {
+    if (accessToken) {
+      navigate({ to: PODS_ROUTE });
+    }
+  }, [accessToken, navigate]);
 
   return (
     <div className={styles.home}>
@@ -19,8 +26,9 @@ const Home = () => {
         <img src={logo} alt="Peapod Logo" />
       </div>
       <div className={styles.buttonContainer}>
-        <Button className={styles.button} onClick={() => navigate({ to: '/pods' })}>
-          Take a <span className={styles.buttonText}>Pea</span>k
+        <Button className={styles.loginButton} onClick={() => getAuth(PODS_ROUTE)}>
+          <Icon name={'spotify'} title={'Spotify Logo'} />
+          <div className={styles.loginButtonText}>Login with Spotify</div>
         </Button>
       </div>
     </div>

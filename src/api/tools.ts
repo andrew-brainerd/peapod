@@ -2,12 +2,13 @@ export const printResponse = (response: Response): void => console.log('Response
 
 export const basicJsonHeader = { 'Content-Type': 'application/json' };
 
-export const handleResponse = async (response: Response, expected?: number): Promise<void> => {
+export const handleResponse = (response: Response, expected?: number): void => {
   if (response.status !== 200 && response.status !== expected) {
     console.error(`${response.status} [Peapod] Fetch Failed %o`, response);
     if (response.status === 401) {
       console.log('Need to fetch new auth token');
     }
+    throw new Error(`Request failed with status ${response.status}`);
   }
 };
 
