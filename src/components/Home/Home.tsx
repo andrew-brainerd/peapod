@@ -21,16 +21,14 @@ const Home = () => {
 
   return (
     <div className={styles.home}>
-      <h1>Peapod</h1>
-      <div className={styles.logo}>
-        <img src={logo} alt="Peapod Logo" />
+      <div className={styles.branding}>
+        <img className={styles.logo} src={logo} alt="Peapod Logo" />
+        <h1 className={styles.title}>Peapod</h1>
       </div>
-      <div className={styles.buttonContainer}>
-        <Button className={styles.loginButton} onClick={() => getAuth(PODS_ROUTE)}>
-          <Icon name={'spotify'} title={'Spotify Logo'} />
-          <div className={styles.loginButtonText}>Login with Spotify</div>
-        </Button>
-      </div>
+      <Button className={styles.loginButton} onClick={() => getAuth(PODS_ROUTE)}>
+        <Icon name={'spotify'} title={'Spotify Logo'} />
+        <span className={styles.loginButtonText}>Login with Spotify</span>
+      </Button>
     </div>
   );
 };

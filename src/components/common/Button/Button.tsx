@@ -1,5 +1,4 @@
 import React from 'react';
-import { isMobile } from 'react-device-detect';
 import noop from '../../../utils/noop';
 import styles from './Button.module.scss';
 
@@ -13,12 +12,7 @@ interface ButtonProps {
 
 const Button = ({ children, className, disabled, onClick, text }: ButtonProps) => (
   <div
-    className={[
-      styles.button,
-      isMobile ? styles.mobile : '',
-      disabled ? styles.disabled : '',
-      className
-    ].join(' ')}
+    className={[styles.button, disabled ? styles.disabled : '', className].join(' ')}
     onClick={!disabled ? onClick : noop}
   >
     {children || text}

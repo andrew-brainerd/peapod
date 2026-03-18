@@ -1,4 +1,5 @@
 @use '../../../styles/colors.scss' as *;
+@use '../../../styles/fonts.scss' as *;
 @use '../../../styles/sizing.scss' as *;
 
 .header {
@@ -8,86 +9,78 @@
   position: relative;
   z-index: 3;
 
-  &.minimal {
-    height: 55px;
-
-    .headerContent {
-      align-items: center;
-      display: flex;
-      padding: 0 20px;
-
-      .headerTitle {
-        margin-bottom: 0;
-      }
-    }
-
-    img {
-      width: 30px;
-    }
-  }
-
   .headerContent {
+    align-items: center;
     display: flex;
-    padding: 5px 20px;
+    padding: 10px 20px;
     z-index: 4;
 
     .homeLink {
+      align-items: center;
+      cursor: pointer;
+      display: flex;
       flex: 1;
-      margin-right: 20px;
+      gap: 12px;
+    }
+
+    .logo {
+      height: 40px;
+      pointer-events: none;
+      width: 40px;
     }
 
     .headerTitle {
-      cursor: pointer;
-      display: inline-block;
-      font-family: 'Chilanka', sans-serif;
-      font-size: 2em;
-      margin-left: 20px;
-      margin-bottom: 5px;
-      position: relative;
-      top: 5px;
-      transition: 0.5s all;
+      color: $peapod;
+      font-family: $mainFontStyle;
+      font-size: 1.8em;
     }
 
     .nav {
-      align-self: center;
+      align-items: center;
       display: flex;
+      gap: 12px;
       position: relative;
     }
 
-    .appVersion {
-      font-size: 10px;
-      position: absolute;
-      right: 5px;
-      top: 1px;
+    .logoutButton {
+      background: transparent;
+      border: 1px solid $gray-50;
+      color: $gray-20;
+      font-size: 0.85em;
+      padding: 6px 16px;
+      width: auto;
+
+      &:hover {
+        border-color: $primaryTextColor;
+        color: $primaryTextColor;
+      }
     }
   }
 
-  .logo {
-    width: 70px;
-    pointer-events: none;
-    position: relative;
-    left: 5px;
-    top: 10px;
-    animation: fadeIn 2s;
-    -webkit-animation: fadeIn 2s;
+  &.minimal {
+    .headerContent {
+      .logo {
+        height: 30px;
+        width: 30px;
+      }
+
+      .headerTitle {
+        font-size: 1.4em;
+      }
+    }
   }
 }
 
 @media screen and (max-width: $mobileWidth) {
   .header {
     .headerContent {
-      .logo {
-        top: 2px;
-      }
-
       .headerTitle {
         display: none;
       }
 
-      .nav {
-        .button {
-          width: 75px;
-        }
+      .logoutButton {
+        font-size: 0.8em;
+        padding: 5px 12px;
       }
     }
   }
