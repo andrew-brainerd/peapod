@@ -12,11 +12,7 @@ interface PodHeaderProps {
 const PodHeader = ({ podId, view }: PodHeaderProps) => {
   return (
     <div className={styles.podHeader}>
-      <PodViewSelector
-        className={styles.viewSelector}
-        podId={podId}
-        selectedView={view!}
-      />
+      <PodViewSelector className={styles.viewSelector} podId={podId} selectedView={view!} />
     </div>
   );
 };

@@ -19,8 +19,11 @@ const PlayHistory = ({ height = 0, currentTrack, podId }: PlayHistoryProps) => {
     <div className={styles.playHistory} style={{ height: height - PLAYLIST_PADDING }}>
       <div className={styles.trackList}>
         {[...history].reverse().map((track: SpotifyTrack, t: number) => {
-          return (currentTrack || {} as SpotifyTrack).name !== track.name &&
-            <Track key={t} className={styles.track} {...track} />;
+          return (
+            (currentTrack || ({} as SpotifyTrack)).name !== track.name && (
+              <Track key={t} className={styles.track} {...track} />
+            )
+          );
         })}
       </div>
     </div>

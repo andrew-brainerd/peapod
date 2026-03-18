@@ -1,4 +1,3 @@
-
 export const HOME_ROUTE = '/';
 export const PODS_ROUTE = '/pods';
 export const CREATE_POD_ROUTE = '/pods/create';

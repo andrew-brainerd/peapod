@@ -33,7 +33,7 @@ const SpotifyAuth = () => {
   return (
     <div className={styles.spotifyAuth}>
       Authenticating with Spotify...
-      <Loading altText='Authenticating with Spotify...' />
+      <Loading altText="Authenticating with Spotify..." />
     </div>
   );
 };

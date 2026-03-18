@@ -11,7 +11,7 @@ const mockStore = configureStore({
     pods: () => ({ isConnected: false, isConnecting: false, currentPod: null }),
     notify: () => ({ hidden: true, message: '' })
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false })
+  middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false })
 });
 
 describe('CreateNewButton Component', () => {

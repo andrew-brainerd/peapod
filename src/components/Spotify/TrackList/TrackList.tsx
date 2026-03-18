@@ -23,16 +23,17 @@ const TrackList = ({ searchText = '' }: TrackListProps) => {
 
   !!selectedTrack && console.log(selectedTrack);
 
-  return isLoading || !accessToken ?
-    <div className={styles.loading}>Loading Tracks...</div> :
+  return isLoading || !accessToken ? (
+    <div className={styles.loading}>Loading Tracks...</div>
+  ) : (
     <>
       <div className={styles.trackList}>
-        {(tracks as SpotifyTrack[])?.length > 0 &&
+        {(tracks as SpotifyTrack[])?.length > 0 && (
           <>
             <div className={styles.list}>
               <div className={styles.tracks}>
-                {[...new Map((tracks as SpotifyTrack[]).map((t: SpotifyTrack) => [t.name, t])).values()]
-                  .map((track, t) =>
+                {[...new Map((tracks as SpotifyTrack[]).map((t: SpotifyTrack) => [t.name, t])).values()].map(
+                  (track, t) => (
                     <Track
                       key={t}
                       className={styles.track}
@@ -42,11 +43,12 @@ const TrackList = ({ searchText = '' }: TrackListProps) => {
                       }}
                       {...track}
                     />
-                  )}
+                  )
+                )}
               </div>
             </div>
           </>
-        }
+        )}
       </div>
       <Modal
         className={styles.trackModal}
@@ -58,14 +60,12 @@ const TrackList = ({ searchText = '' }: TrackListProps) => {
         contentClassName={styles.trackModalContent}
       >
         <div className={styles.viewTrack}>
-          <div className={styles.songName}>
-            {(selectedTrack || {} as SpotifyTrack).name}
-          </div>
-          {isPlayingPreview &&
+          <div className={styles.songName}>{(selectedTrack || ({} as SpotifyTrack)).name}</div>
+          {isPlayingPreview && (
             <div className={styles.preview}>
-              <audio autoPlay src={(selectedTrack || {} as SpotifyTrack).preview_url || undefined} />
+              <audio autoPlay src={(selectedTrack || ({} as SpotifyTrack)).preview_url || undefined} />
             </div>
-          }
+          )}
           <Controls
             className={styles.previewControls}
             isPlaying={isPlayingPreview}
@@ -77,7 +77,8 @@ const TrackList = ({ searchText = '' }: TrackListProps) => {
           />
         </div>
       </Modal>
-    </>;
+    </>
+  );
 };
 
 export default TrackList;

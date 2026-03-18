@@ -57,10 +57,7 @@ const TextInput = ({
     <div className={styles.textInputContainer}>
       <input
         type={'text'}
-        className={[
-          styles.textInput,
-          inputClassName || ''
-        ].join(' ')}
+        className={[styles.textInput, inputClassName || ''].join(' ')}
         placeholder={placeholder || ''}
         ref={inputRef}
         value={val}
@@ -70,11 +67,7 @@ const TextInput = ({
         onFocus={onFocus || noop}
         onBlur={onBlur || noop}
       />
-      {inputError && (
-        <div className={styles.inputError}>
-          {inputError}
-        </div>
-      )}
+      {inputError && <div className={styles.inputError}>{inputError}</div>}
     </div>
   );
 };

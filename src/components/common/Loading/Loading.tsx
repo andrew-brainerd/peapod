@@ -9,10 +9,12 @@ interface LoadingProps {
 }
 
 const Loading = ({ isActive = true, title = 'Loading...' }: LoadingProps) => {
-  return isActive && (
-    <div className={styles.loading}>
-      <Icon name={'ripple-purple'} title={title} />
-    </div>
+  return (
+    isActive && (
+      <div className={styles.loading}>
+        <Icon name={'ripple-purple'} title={title} />
+      </div>
+    )
   );
 };
 

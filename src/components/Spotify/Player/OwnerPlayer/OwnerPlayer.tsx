@@ -17,22 +17,22 @@ interface OwnerPlayerProps {
 const OwnerPlayer = ({ height, isPlaying, trackName, nowPlaying, albumArt }: OwnerPlayerProps) => {
   return (
     <div className={styles.ownerPlayer} style={{ height }}>
-      {isPlaying ?
+      {isPlaying ? (
         <div className={styles.nowPlaying}>
           <div className={styles.trackInfo}>
-            <div className={styles.trackName}>
-              {trackName}
-            </div>
+            <div className={styles.trackName}>{trackName}</div>
             <TrackProgress nowPlaying={nowPlaying} />
           </div>
           <Controls className={styles.activeControls} isPlaying={isPlaying} />
           <div className={styles.albumArt}>
             <img src={albumArt} alt={'Album Art'} />
           </div>
-        </div> :
+        </div>
+      ) : (
         <div className={styles.emptyPlayer}>
           <Controls isPlaying={isPlaying} />
-        </div>}
+        </div>
+      )}
       <div className={styles.details}>
         <Devices />
         <PodMembers />

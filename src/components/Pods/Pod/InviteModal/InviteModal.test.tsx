@@ -10,12 +10,7 @@ describe('InviteModal Component', () => {
 
     render(
       <QueryClientProvider client={queryClient}>
-        <InviteModal
-          isOpen={true}
-          podId="12345"
-          podName="Pod"
-          closeModal={vi.fn()}
-        />
+        <InviteModal isOpen={true} podId="12345" podName="Pod" closeModal={vi.fn()} />
       </QueryClientProvider>
     );
 

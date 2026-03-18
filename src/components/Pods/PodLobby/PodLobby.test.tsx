@@ -12,7 +12,7 @@ const mockStore = configureStore({
     sync: { isSyncing: false },
     notify: { hidden: true, message: '' }
   }),
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false })
+  middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false })
 });
 
 beforeEach(() => {
@@ -30,11 +30,7 @@ describe('PodLobby Component', () => {
   it('should render', async () => {
     render(
       <Provider store={mockStore}>
-        <RouterTestWrapper
-          component={PodLobby}
-          initialPath="/pods/12345"
-          routePath="/pods/$podId"
-        />
+        <RouterTestWrapper component={PodLobby} initialPath="/pods/12345" routePath="/pods/$podId" />
       </Provider>
     );
 

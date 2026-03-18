@@ -62,11 +62,7 @@ const Pod = ({ view }: PodProps) => {
     <>
       <Header isMinimal />
       <div className={styles.pod} style={{ height: podHeight }}>
-        <PodHeader
-          podId={podId}
-          userId={userId ?? undefined}
-          view={view}
-        />
+        <PodHeader podId={podId} userId={userId ?? undefined} view={view} />
         <div className={styles.content}>
           {view === SEARCH ? <SongSelection /> : null}
           <Player height={podHeight} isVisible={view === NOW_PLAYING} isPodOwner={isPodOwner} podId={podId} />

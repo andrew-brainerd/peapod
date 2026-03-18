@@ -5,11 +5,7 @@ import { getAccessToken } from '../../../slices/spotify';
 import { updateClients } from '../../../slices/sync';
 import { useNowPlaying } from '../../../queries/spotify';
 import { useAddToHistoryMutation } from '../../../queries/pods';
-import {
-  getIsPlaying,
-  getNowPlayingItem,
-  getTrackImages
-} from '../../../selectors/player';
+import { getIsPlaying, getNowPlayingItem, getTrackImages } from '../../../selectors/player';
 import styles from './Player.module.scss';
 import OwnerPlayer from './OwnerPlayer/OwnerPlayer';
 import ClientPlayer from './ClientPlayer/ClientPlayer';
@@ -31,7 +27,7 @@ const Player = ({ isVisible = false, height = 0, isPodOwner, podId }: PlayerProp
   const isPlaying = getIsPlaying(nowPlaying);
   const nowPlayingItem = getNowPlayingItem(nowPlaying);
   const { name } = nowPlayingItem;
-  const albumArt = (getTrackImages(nowPlaying)[1] || {} as { url?: string }).url;
+  const albumArt = (getTrackImages(nowPlaying)[1] || ({} as { url?: string })).url;
   const prevNameRef = useRef<string | undefined>(undefined);
 
   useEffect(() => {
@@ -51,27 +47,20 @@ const Player = ({ isVisible = false, height = 0, isPodOwner, podId }: PlayerProp
   const playerHeight = height - PLAYER_PADDING;
 
   return (
-    <div className={[
-      styles.player,
-      !isVisible ? styles.hidden : ''
-    ].join(' ')}>
-      {(isLoading && !nowPlaying?.item) || !accessToken ?
-        <div className={styles.loading}>Loading Player...</div> :
-        isPodOwner ?
-          <OwnerPlayer
-            height={playerHeight}
-            isPlaying={isPlaying}
-            trackName={name}
-            nowPlaying={nowPlaying}
-            albumArt={albumArt}
-          /> :
-          <ClientPlayer
-            isPlaying={isPlaying}
-            trackName={name}
-            nowPlaying={nowPlaying}
-            albumArt={albumArt}
-          />
-      }
+    <div className={[styles.player, !isVisible ? styles.hidden : ''].join(' ')}>
+      {(isLoading && !nowPlaying?.item) || !accessToken ? (
+        <div className={styles.loading}>Loading Player...</div>
+      ) : isPodOwner ? (
+        <OwnerPlayer
+          height={playerHeight}
+          isPlaying={isPlaying}
+          trackName={name}
+          nowPlaying={nowPlaying}
+          albumArt={albumArt}
+        />
+      ) : (
+        <ClientPlayer isPlaying={isPlaying} trackName={name} nowPlaying={nowPlaying} albumArt={albumArt} />
+      )}
     </div>
   );
 };

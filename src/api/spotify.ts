@@ -115,7 +115,12 @@ export const pause = async (accessToken: string | null) => {
   return json;
 };
 
-export const search = async (accessToken: string | null, searchText: string, types: string[], options?: unknown) => {
+export const search = async (
+  accessToken: string | null,
+  searchText: string,
+  types: string[],
+  options?: unknown
+) => {
   const url = `${PEAPOD_API_URL}/api/spotify/search?accessToken=${accessToken}`;
 
   const response = await fetch(url, {

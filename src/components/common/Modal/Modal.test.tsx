@@ -5,11 +5,7 @@ import Modal from './Modal';
 describe('Modal Component', () => {
   it('should render when open', () => {
     render(
-      <Modal
-        isOpen={true}
-        headerText="Modal Header"
-        closeModal={vi.fn()}
-      >
+      <Modal isOpen={true} headerText="Modal Header" closeModal={vi.fn()}>
         <div>Child Component</div>
       </Modal>
     );

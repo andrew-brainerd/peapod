@@ -7,15 +7,16 @@ import { RouterProvider } from '@tanstack/react-router';
 import { createTestQueryClient } from '../../test/helpers';
 import { router } from '../../router';
 
-const createStore = (overrides = {}) => configureStore({
-  reducer: {
-    spotify: () => ({ accessToken: null, refreshToken: null, expireTime: null, ...overrides }),
-    notify: () => ({ hidden: true, message: '' }),
-    pods: () => ({ isConnected: false, isConnecting: false, currentPod: null }),
-    sync: () => ({ isSyncing: false })
-  },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false })
-});
+const createStore = (overrides = {}) =>
+  configureStore({
+    reducer: {
+      spotify: () => ({ accessToken: null, refreshToken: null, expireTime: null, ...overrides }),
+      notify: () => ({ hidden: true, message: '' }),
+      pods: () => ({ isConnected: false, isConnecting: false, currentPod: null }),
+      sync: () => ({ isSyncing: false })
+    },
+    middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false })
+  });
 
 describe('Auth Guard (AuthenticatedLayout)', () => {
   it('should render the app', async () => {

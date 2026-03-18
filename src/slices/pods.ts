@@ -21,22 +21,22 @@ const podsSlice = createSlice({
   name: 'pods',
   initialState,
   reducers: {
-    connectingClient (state) {
+    connectingClient(state) {
       state.isConnecting = true;
       state.isConnected = false;
     },
-    clientConnected (state) {
+    clientConnected(state) {
       state.isConnecting = false;
       state.isConnected = true;
     },
-    disconnectingClient (state) {
+    disconnectingClient(state) {
       state.isConnecting = false;
     },
-    clientDisconnected (state) {
+    clientDisconnected(state) {
       state.isConnected = false;
     },
-    setCurrentPodId (state, action) {
-      state.currentPod = action.payload ? { _id: action.payload } as Pod : null;
+    setCurrentPodId(state, action) {
+      state.currentPod = action.payload ? ({ _id: action.payload } as Pod) : null;
     }
   }
 });
@@ -54,18 +54,16 @@ export const connectToPod = (podId: string) => (dispatch: AppDispatch) => {
   dispatch(podsSlice.actions.setCurrentPodId(podId));
   const user = getProfileFromCache();
   if (!user) return;
-  podsApi.addActiveMemberToPod(podId, user).then(() =>
-    dispatch(podsSlice.actions.clientConnected())
-  );
+  podsApi.addActiveMemberToPod(podId, user).then(() => dispatch(podsSlice.actions.clientConnected()));
 };
 
 export const disconnectFromPod = (podId: string | undefined) => (dispatch: AppDispatch) => {
   dispatch(podsSlice.actions.disconnectingClient());
   const user = getProfileFromCache();
   if (!user) return;
-  podsApi.removeActiveMemberFromPod(podId!, user).then(() =>
-    dispatch(podsSlice.actions.clientDisconnected())
-  );
+  podsApi
+    .removeActiveMemberFromPod(podId!, user)
+    .then(() => dispatch(podsSlice.actions.clientDisconnected()));
 };
 
 export default podsSlice.reducer;

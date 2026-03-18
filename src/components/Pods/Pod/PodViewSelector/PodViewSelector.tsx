@@ -22,18 +22,11 @@ const PodViewSelector = ({ className, podId, selectedView }: PodViewSelectorProp
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const buttonRef = useRef<HTMLDivElement>(null);
   return (
-    <div
-      ref={buttonRef}
-      className={styles.podViewSelector}
-      onClick={() => setIsMenuOpen(!isMenuOpen)}
-    >
+    <div ref={buttonRef} className={styles.podViewSelector} onClick={() => setIsMenuOpen(!isMenuOpen)}>
       <div className={styles.menuButton}>
         <Icon name={'hamburger'} title={'Menu'} />
       </div>
-      <div className={[
-        styles.viewSelector,
-        className || ''
-      ].join(' ')}>
+      <div className={[styles.viewSelector, className || ''].join(' ')}>
         {podViewItems.map(({ key, name, path }) => (
           <div
             key={name}
@@ -42,10 +35,12 @@ const PodViewSelector = ({ className, podId, selectedView }: PodViewSelectorProp
               key === NOW_PLAYING ? styles.nowPlaying : '',
               selectedView === key ? styles.selected : ''
             ].join(' ')}
-            onClick={() => navigate({
-              to: `/pods/$podId${path}`,
-              params: { podId: podId || '' }
-            })}
+            onClick={() =>
+              navigate({
+                to: `/pods/$podId${path}`,
+                params: { podId: podId || '' }
+              })
+            }
           >
             {name}
           </div>

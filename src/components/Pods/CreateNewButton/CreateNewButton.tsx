@@ -20,7 +20,7 @@ const CreateNewButton = () => {
       onClick={() => {
         if (profile) {
           createPod.mutate(profile, {
-            onSuccess: (pod) => {
+            onSuccess: pod => {
               navigate({ to: '/pods/$podId', params: { podId: pod._id } });
             }
           });

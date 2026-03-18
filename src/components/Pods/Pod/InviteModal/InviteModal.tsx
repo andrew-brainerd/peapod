@@ -40,11 +40,7 @@ const InviteModal = ({ isOpen = false, podId = '', podName, closeModal }: Invite
           onChange={setPhoneNumber}
           onPressEnter={handleInvite}
         />
-        <Button
-          className={styles.inviteButton}
-          text={'Invite'}
-          onClick={handleInvite}
-        />
+        <Button className={styles.inviteButton} text={'Invite'} onClick={handleInvite} />
       </div>
     </Modal>
   );

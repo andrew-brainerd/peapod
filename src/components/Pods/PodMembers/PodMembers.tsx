@@ -14,9 +14,9 @@ const PodMembers = ({ members = [] }: PodMembersProps) => {
     <>
       <div className={styles.header}>Members</div>
       <div className={styles.podMembers}>
-        {members.map(({ name }, m) =>
+        {members.map(({ name }, m) => (
           <div key={m}>{name}</div>
-        )}
+        ))}
       </div>
     </>
   );

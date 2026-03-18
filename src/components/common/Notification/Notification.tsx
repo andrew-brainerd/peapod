@@ -11,10 +11,7 @@ const Notification = () => {
 
   return (
     <div
-      className={[
-        styles.notification,
-        isHidden ? styles.hidden : ''
-      ].join(' ')}
+      className={[styles.notification, isHidden ? styles.hidden : ''].join(' ')}
       onClick={() => dispatch(closeNotification())}
     >
       {message}

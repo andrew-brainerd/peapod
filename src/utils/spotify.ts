@@ -9,7 +9,8 @@ const REFRESH_THRESHOLD_MIN = 1;
 export const calculateExpireTime = (expiresIn: number | string): string =>
   new Date(Date.now() + Number(expiresIn) * 1000).toISOString();
 
-export const setLocalReturnUri = (returnUri: string): void => localStorage.setItem(SPOTIFY_RETURN_URI, returnUri);
+export const setLocalReturnUri = (returnUri: string): void =>
+  localStorage.setItem(SPOTIFY_RETURN_URI, returnUri);
 
 export const setLocalAuth = ({ accessToken, refreshToken, expireTime }: SpotifyAuth): void => {
   localStorage.setItem(SPOTIFY_ACCESS_TOKEN, accessToken!);

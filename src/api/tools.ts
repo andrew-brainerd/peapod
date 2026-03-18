@@ -13,7 +13,7 @@ export const handleResponse = async (response: Response, expected?: number): Pro
 
 export const parseOptions = (options?: Record<string, string | number>): string => {
   if (!options || Object.keys(options).length === 0) return '';
-  return `?${Object.keys(options).map(key =>
-    `${key}=${options[key]}`
-  ).join('&')}`;
+  return `?${Object.keys(options)
+    .map(key => `${key}=${options[key]}`)
+    .join('&')}`;
 };

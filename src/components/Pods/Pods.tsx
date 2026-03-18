@@ -13,10 +13,7 @@ const Pods = () => {
       <Header />
       <div className={styles.pods} style={{ height: height - 100 }}>
         <div className={styles.podList} style={{ height: height - 150 }}>
-          {isLoading ?
-            <div className={styles.loading}>Loading Pods...</div> :
-            <CreateNewButton />
-          }
+          {isLoading ? <div className={styles.loading}>Loading Pods...</div> : <CreateNewButton />}
         </div>
       </div>
     </>

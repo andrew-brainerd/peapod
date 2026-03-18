@@ -11,9 +11,7 @@ interface PageHeaderProps {
 const PageHeader = ({ children, subtitle, title }: PageHeaderProps) => (
   <div className={styles.pageHeader}>
     <PageTitle text={title} subText={subtitle} />
-    <div className={styles.aside}>
-      {children}
-    </div>
+    <div className={styles.aside}>{children}</div>
   </div>
 );
 

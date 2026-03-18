@@ -29,18 +29,21 @@ const PlayQueue = ({ height = 0, currentTrack, podId }: PlayQueueProps) => {
 
   return (
     <div className={styles.playQueue} style={{ height: height - PLAYLIST_PADDING }}>
-      {isPodOwner &&
+      {isPodOwner && (
         <Button
           className={styles.startButton}
           text={'Start Playing Queue'}
           onClick={() => playMutation.mutate({ uris: playUris })}
           disabled={!queue.length}
         />
-      }
+      )}
       <div className={styles.trackList}>
         {[...queue].reverse().map((track: SpotifyTrack, t: number) => {
-          return (currentTrack || {} as SpotifyTrack).name !== track.name &&
-            <Track key={t} className={styles.track} {...track} />;
+          return (
+            (currentTrack || ({} as SpotifyTrack)).name !== track.name && (
+              <Track key={t} className={styles.track} {...track} />
+            )
+          );
         })}
       </div>
     </div>

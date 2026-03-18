@@ -34,15 +34,9 @@ const Modal = ({
   >
     <div className={styles.header}>
       <div className={styles.headerText}>{headerText}</div>
-      <Button
-        className={styles.closeButton}
-        text={'X'}
-        onClick={closeModal}
-      />
+      <Button className={styles.closeButton} text={'X'} onClick={closeModal} />
     </div>
-    <div className={[styles.content, contentClassName].join(' ')}>
-      {children}
-    </div>
+    <div className={[styles.content, contentClassName].join(' ')}>{children}</div>
   </ReactModal>
 );
 

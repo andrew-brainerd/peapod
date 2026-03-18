@@ -6,11 +6,7 @@ interface AlbumProps {
 }
 
 const Album = ({ name }: AlbumProps) => {
-  return (
-    <div className={styles.album}>
-      {name}
-    </div>
-  );
+  return <div className={styles.album}>{name}</div>;
 };
 
 export default Album;

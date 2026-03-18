@@ -9,7 +9,7 @@ const mockStore = configureStore({
   reducer: {
     spotify: () => ({ accessToken: null, refreshToken: null, expireTime: null })
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false })
+  middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false })
 });
 
 describe('Home Component', () => {

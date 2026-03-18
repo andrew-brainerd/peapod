@@ -25,38 +25,32 @@ const Devices = () => {
     <div className={styles.devices}>
       <div className={styles.title}>Available Devices</div>
       {Object.values(devices as SpotifyDevice[]).map((device: SpotifyDevice) => {
-        const {
-          id,
-          is_active: isActive,
-          is_restricted: isRestricted,
-          name,
-          type
-        } = device;
+        const { id, is_active: isActive, is_restricted: isRestricted, name, type } = device;
 
-        return !isRestricted && (
-          <div
-            key={id}
-            className={[
-              styles.device,
-              isActive ? styles.active : ''
-            ].join(' ')}
-            onClick={() => {
-              if (!isActive) {
-                transferPlayback.mutate({ devices: [id], shouldPlay: true }, {
-                  onSuccess: () => {
-                    setTimeout(() => {
-                      queryClient.invalidateQueries({ queryKey: spotifyKeys.devices() });
-                    }, 1500);
-                  }
-                });
-              }
-            }}
-          >
-            <div className={styles.deviceType}>
-              {getDeviceIcon[type] || <Icon name={'headphones'} />}
+        return (
+          !isRestricted && (
+            <div
+              key={id}
+              className={[styles.device, isActive ? styles.active : ''].join(' ')}
+              onClick={() => {
+                if (!isActive) {
+                  transferPlayback.mutate(
+                    { devices: [id], shouldPlay: true },
+                    {
+                      onSuccess: () => {
+                        setTimeout(() => {
+                          queryClient.invalidateQueries({ queryKey: spotifyKeys.devices() });
+                        }, 1500);
+                      }
+                    }
+                  );
+                }
+              }}
+            >
+              <div className={styles.deviceType}>{getDeviceIcon[type] || <Icon name={'headphones'} />}</div>
+              {name}
             </div>
-            {name}
-          </div>
+          )
         );
       })}
     </div>

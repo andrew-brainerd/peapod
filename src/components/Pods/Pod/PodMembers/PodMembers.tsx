@@ -7,9 +7,8 @@ import { usePod } from '../../../../queries/pods';
 import type { PodMember } from '../../../../types';
 import styles from './PodMembers.module.scss';
 
-const getIsActiveMember = (member: PodMember, activeList: string[]) => activeList.find(
-  activeMember => activeMember === member.id
-);
+const getIsActiveMember = (member: PodMember, activeList: string[]) =>
+  activeList.find(activeMember => activeMember === member.id);
 
 const PodMembers = () => {
   const { podId } = useParams({ strict: false }) as { podId: string };
@@ -36,7 +35,8 @@ const PodMembers = () => {
               styles.member,
               isActiveMember || isCurrentUser ? styles.isActive : '',
               member.id === podCreatorId ? styles.isCreator : ''
-            ].join(' ')}>
+            ].join(' ')}
+          >
             {member.display_name}
           </div>
         );

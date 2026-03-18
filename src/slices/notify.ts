@@ -10,14 +10,15 @@ const notifySlice = createSlice({
   name: 'notify',
   initialState: {
     hidden: true,
-    message: 'The platypus is only found in eastern Australia in small rivers and streams within the states of Queensland, New South Wales, Victoria and Tasmania.'
+    message:
+      'The platypus is only found in eastern Australia in small rivers and streams within the states of Queensland, New South Wales, Victoria and Tasmania.'
   } as NotifyState,
   reducers: {
-    showNotification (state, action: PayloadAction<string>) {
+    showNotification(state, action: PayloadAction<string>) {
       state.hidden = false;
       state.message = action.payload;
     },
-    hideNotification (state) {
+    hideNotification(state) {
       state.hidden = true;
     }
   }

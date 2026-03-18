@@ -14,7 +14,7 @@ const syncSlice = createSlice({
     isSyncing: false
   },
   reducers: {
-    setSyncing (state, action: PayloadAction<boolean>) {
+    setSyncing(state, action: PayloadAction<boolean>) {
       state.isSyncing = action.payload;
     }
   }
@@ -38,15 +38,19 @@ export const triggerUpdate = () => {
 
 export const connectClient = (podId: string) => (dispatch: AppDispatch) => {
   dispatch(connectToPod(podId));
-  dispatch(connectToPusher(podId, NOW_PLAYING, (track: NowPlaying) => {
-    queryClient.setQueryData(spotifyKeys.nowPlaying(), track);
-  }));
+  dispatch(
+    connectToPusher(podId, NOW_PLAYING, (track: NowPlaying) => {
+      queryClient.setQueryData(spotifyKeys.nowPlaying(), track);
+    })
+  );
   dispatch(setSyncing(true));
 };
 
-export const updateClients = (nowPlaying: NowPlaying = {}) => (_dispatch: AppDispatch, getState: () => RootState) => {
-  const podId = getState().pods?.currentPod?._id;
-  syncApi.pushNowPlayingToClients(podId, nowPlaying);
-};
+export const updateClients =
+  (nowPlaying: NowPlaying = {}) =>
+  (_dispatch: AppDispatch, getState: () => RootState) => {
+    const podId = getState().pods?.currentPod?._id;
+    syncApi.pushNowPlayingToClients(podId, nowPlaying);
+  };
 
 export default syncSlice.reducer;

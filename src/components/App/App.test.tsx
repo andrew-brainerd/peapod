@@ -14,7 +14,7 @@ const mockStore = configureStore({
     pods: () => ({ isConnected: false, isConnecting: false, currentPod: null }),
     sync: () => ({ isSyncing: false })
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false })
+  middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false })
 });
 
 describe('App (Router)', () => {

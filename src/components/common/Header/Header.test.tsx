@@ -10,7 +10,7 @@ const mockStore = configureStore({
     spotify: { accessToken: null, refreshToken: null, expireTime: null },
     notify: { hidden: true, message: '' }
   }),
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false })
+  middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false })
 });
 
 const HeaderWrapper = () => <Header isMinimal={false} />;

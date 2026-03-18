@@ -37,9 +37,11 @@ const PodLobby = () => {
 
   useEffect(() => {
     if (isDefined(podId) && !!userId) {
-      dispatch(connectToPusher(podId!, LAUNCH_GAME, () =>
-        navigate({ to: '/pods/$podId/search', params: { podId: podId! } })
-      ));
+      dispatch(
+        connectToPusher(podId!, LAUNCH_GAME, () =>
+          navigate({ to: '/pods/$podId/search', params: { podId: podId! } })
+        )
+      );
     }
   }, [podId, userId, dispatch, navigate]);
 
@@ -52,18 +54,17 @@ const PodLobby = () => {
   return (
     <>
       <Header />
-      <Button
-        className={styles.inviteIconContainer}
-        onClick={() => setIsModalOpen(true)}
-      >
+      <Button className={styles.inviteIconContainer} onClick={() => setIsModalOpen(true)}>
         <span className={styles.inviteText}>Invite Friends</span>
         <Icon className={styles.inviteIcon} name={'invite'} title={'Invite People'} />
       </Button>
       <div className={styles.podLobby}>
         <div className={styles.podMembers}>
-          {podMembers.map(({ display_name: name }: { display_name: string }, p: number) =>
-            <div key={p} className={styles.podMember}>{name}</div>
-          )}
+          {podMembers.map(({ display_name: name }: { display_name: string }, p: number) => (
+            <div key={p} className={styles.podMember}>
+              {name}
+            </div>
+          ))}
         </div>
         {userId === podCreatorId && (
           <Button
@@ -74,11 +75,7 @@ const PodLobby = () => {
           />
         )}
       </div>
-      <InviteModal
-        isOpen={isModalOpen}
-        podId={podId}
-        closeModal={() => setIsModalOpen(false)}
-      />
+      <InviteModal isOpen={isModalOpen} podId={podId} closeModal={() => setIsModalOpen(false)} />
     </>
   );
 };

@@ -13,10 +13,7 @@ const Header = ({ isMinimal }: HeaderProps) => {
   const navigate = useNavigate();
 
   return (
-    <div className={[
-      styles.header,
-      isMinimal ? styles.minimal : ''
-    ].join(' ')}>
+    <div className={[styles.header, isMinimal ? styles.minimal : ''].join(' ')}>
       <div className={styles.headerContent}>
         <div className={styles.homeLink} onClick={() => navigate({ to: '/' })}>
           <img src={logo} className={styles.logo} alt="logo" />

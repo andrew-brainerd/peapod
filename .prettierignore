@@ -1,0 +1,8 @@
+.cache
+.github
+.next
+build
+dist
+node_modules
+.eslint*
+*.json

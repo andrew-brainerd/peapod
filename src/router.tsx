@@ -1,11 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  createRootRoute,
-  createRoute,
-  createRouter,
-  Outlet,
-  useLocation
-} from '@tanstack/react-router';
+import { createRootRoute, createRoute, createRouter, Outlet, useLocation } from '@tanstack/react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import type { AppDispatch } from './store/configureStore';
 import { getAccessToken, loadLocalAuth } from './slices/spotify';
@@ -42,10 +36,7 @@ const AuthenticatedLayout = () => {
 
   if (!hasAuth && pathname !== '/') {
     return (
-      <Button
-        className={spotifyStyles.authButton}
-        onClick={() => getAuth(pathname)}
-      >
+      <Button className={spotifyStyles.authButton} onClick={() => getAuth(pathname)}>
         <Icon name={'spotify'} title={'Spotify Logo'} />
         <div className={spotifyStyles.authButtonText}>Spotify Login</div>
       </Button>

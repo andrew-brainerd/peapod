@@ -37,11 +37,10 @@ const Controls = ({
 
   return (
     <div className={[styles.controls, className].join(' ')}>
-      {isPlaying ?
-        canPause && <Icon name={'pause'} onClick={onPause || (() => pauseMutation.mutate())} /> :
-        canPlay && <Icon name={'play'} onClick={onPlay || (() => playMutation.mutate(undefined))} />
-      }
-      {canQueue && !!selectedTrack &&
+      {isPlaying
+        ? canPause && <Icon name={'pause'} onClick={onPause || (() => pauseMutation.mutate())} />
+        : canPlay && <Icon name={'play'} onClick={onPlay || (() => playMutation.mutate(undefined))} />}
+      {canQueue && !!selectedTrack && (
         <Icon
           name={'add'}
           title={'Add Track to Queue'}
@@ -50,7 +49,7 @@ const Controls = ({
             onAddToQueue ? onAddToQueue() : noop();
           }}
         />
-      }
+      )}
     </div>
   );
 };

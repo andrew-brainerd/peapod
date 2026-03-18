@@ -11,7 +11,7 @@ import styles from './Profile.module.scss';
 
 const getProfilePic = (images?: SpotifyImage[]) => {
   const imageUrl = images?.[0]?.url;
-  return imageUrl && <img src={imageUrl} alt='My Profile' />;
+  return imageUrl && <img src={imageUrl} alt="My Profile" />;
 };
 
 interface ProfileProps {
@@ -31,20 +31,14 @@ const Profile = ({ isMinimal }: ProfileProps) => {
   useOnClickOutside(menuRef, () => setIsMenuOpen(false));
 
   return isSignedIn ? (
-    <div className={[
-      styles.profile,
-      isMinimal ? styles.minimal : ''
-    ].join(' ')}>
+    <div className={[styles.profile, isMinimal ? styles.minimal : ''].join(' ')}>
       <Button
-        className={[
-          styles.profileButton,
-          isMenuOpen ? styles.menuOpen : ''
-        ].join(' ')}
+        className={[styles.profileButton, isMenuOpen ? styles.menuOpen : ''].join(' ')}
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
         {getProfilePic(images) || name || 'My Profile'}
       </Button>
-      {isMenuOpen &&
+      {isMenuOpen && (
         <div ref={menuRef} className={styles.menu}>
           <Button
             className={styles.menuItem}
@@ -64,7 +58,7 @@ const Profile = ({ isMinimal }: ProfileProps) => {
             }}
           />
         </div>
-      }
+      )}
     </div>
   ) : null;
 };

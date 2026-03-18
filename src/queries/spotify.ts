@@ -39,9 +39,9 @@ export const useSearch = (token: string | null, debouncedText: string) =>
       if (debouncedText === '') {
         return spotifyApi.getMyTopTracks(token);
       }
-      return spotifyApi.search(token, debouncedText, ['track']).then(
-        ({ tracks }: { tracks?: unknown }) => tracks
-      );
+      return spotifyApi
+        .search(token, debouncedText, ['track'])
+        .then(({ tracks }: { tracks?: unknown }) => tracks);
     },
     enabled: !!token
   });

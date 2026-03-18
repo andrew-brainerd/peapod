@@ -9,10 +9,7 @@ import { queryClient } from './queryClient';
 import ReactModal from 'react-modal';
 import './index.scss';
 
-console.log(
-  `%cPeapod App v${APP_VERSION}`,
-  'color: rgba(139, 196, 72, 1); font-size: 20px;'
-);
+console.log(`%cPeapod App v${APP_VERSION}`, 'color: rgba(139, 196, 72, 1); font-size: 20px;');
 
 const store = configureStore();
 const container = document.getElementById('root')!;

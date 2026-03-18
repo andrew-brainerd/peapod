@@ -4,7 +4,7 @@ import pods from '../slices/pods';
 import spotify from '../slices/spotify';
 import sync from '../slices/sync';
 
-export default function createStore () {
+export default function createStore() {
   return configureStore({
     reducer: {
       notify,
@@ -12,7 +12,7 @@ export default function createStore () {
       spotify,
       sync
     },
-    middleware: (getDefaultMiddleware) =>
+    middleware: getDefaultMiddleware =>
       getDefaultMiddleware({
         serializableCheck: false
       })

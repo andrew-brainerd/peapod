@@ -16,13 +16,10 @@ const Home = () => {
     <div className={styles.home}>
       <h1>Peapod</h1>
       <div className={styles.logo}>
-        <img src={logo} alt='Peapod Logo' />
+        <img src={logo} alt="Peapod Logo" />
       </div>
       <div className={styles.buttonContainer}>
-        <Button
-          className={styles.button}
-          onClick={() => navigate({ to: '/pods' })}
-        >
+        <Button className={styles.button} onClick={() => navigate({ to: '/pods' })}>
           Take a <span className={styles.buttonText}>Pea</span>k
         </Button>
       </div>

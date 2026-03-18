@@ -5,7 +5,7 @@ let pusher: Pusher;
 const getPusher = () => {
   if (!pusher) {
     pusher = new Pusher(import.meta.env.VITE_PUSHER_APP_KEY || '', {
-      cluster: 'us2',
+      cluster: 'us2'
     });
   }
   return pusher;

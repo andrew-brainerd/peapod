@@ -13,7 +13,7 @@ interface TestWrapperOptions {
   routePath?: string;
 }
 
-export function createTestRouter (
+export function createTestRouter(
   Component: React.FC,
   { initialPath = '/', routePath }: TestWrapperOptions = {}
 ) {
@@ -44,7 +44,7 @@ export function createTestRouter (
   });
 }
 
-export function createTestQueryClient () {
+export function createTestQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
@@ -55,7 +55,7 @@ export function createTestQueryClient () {
   });
 }
 
-export function RouterTestWrapper ({
+export function RouterTestWrapper({
   component: Component,
   initialPath = '/',
   routePath,

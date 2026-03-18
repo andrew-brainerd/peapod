@@ -8,7 +8,7 @@ const mockStore = configureStore({
   reducer: {
     notify: () => ({ hidden: false, message: 'Test message' })
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false })
+  middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false })
 });
 
 describe('Notification Component', () => {
