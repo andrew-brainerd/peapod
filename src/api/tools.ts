@@ -1,6 +1,16 @@
+import { getLocalAccessToken } from '../utils/spotify';
+
 export const printResponse = (response: Response): void => console.log('Response: %o', response);
 
 export const basicJsonHeader = { 'Content-Type': 'application/json' };
+
+export const authHeaders = (): Record<string, string> => {
+  const token = getLocalAccessToken();
+  return {
+    'Content-Type': 'application/json',
+    ...(token ? { Authorization: `Bearer ${token}` } : {})
+  };
+};
 
 export const handleResponse = (response: Response, expected?: number): void => {
   if (response.status !== 200 && response.status !== expected) {

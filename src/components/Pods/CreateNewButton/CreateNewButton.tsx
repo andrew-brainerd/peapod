@@ -35,6 +35,7 @@ const CreateNewButton = () => {
       }}
     >
       <Icon name={'add'} title={'Create New Pod'} />
+      <span className={styles.label}>Create a Pod</span>
     </Button>
   );
 };

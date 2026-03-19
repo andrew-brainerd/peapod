@@ -1,4 +1,4 @@
-import { basicJsonHeader, handleResponse } from './tools';
+import { basicJsonHeader, authHeaders, handleResponse } from './tools';
 import { setLocalReturnUri } from '../utils/spotify';
 
 const PEAPOD_API_URL = import.meta.env.VITE_PEAPOD_API_URL || '';
@@ -27,21 +27,10 @@ export const refreshAuth = async (accessToken: string | null, refreshToken: stri
   return { ...body } as { access_token: string; expires_in: number };
 };
 
-export const getProfile = async (accessToken: string | null) => {
-  const url = `${PEAPOD_API_URL}/api/spotify/profile?accessToken=${accessToken}`;
-
-  const response = await fetch(url);
-
-  handleResponse(response);
-  const json = await response.json();
-
-  return json;
-};
-
-export const getMyTopTracks = async (accessToken: string | null) => {
-  const url = `${PEAPOD_API_URL}/api/spotify/myTopTracks?accessToken=${accessToken}`;
-
-  const response = await fetch(url);
+export const getProfile = async () => {
+  const response = await fetch(`${PEAPOD_API_URL}/api/spotify/profile`, {
+    headers: authHeaders()
+  });
 
   handleResponse(response);
   const json = await response.json();
@@ -49,10 +38,21 @@ export const getMyTopTracks = async (accessToken: string | null) => {
   return json;
 };
 
-export const getMyDevices = async (accessToken: string | null) => {
-  const url = `${PEAPOD_API_URL}/api/spotify/myDevices?accessToken=${accessToken}`;
+export const getMyTopTracks = async () => {
+  const response = await fetch(`${PEAPOD_API_URL}/api/spotify/myTopTracks`, {
+    headers: authHeaders()
+  });
 
-  const response = await fetch(url);
+  handleResponse(response);
+  const json = await response.json();
+
+  return json;
+};
+
+export const getMyDevices = async () => {
+  const response = await fetch(`${PEAPOD_API_URL}/api/spotify/myDevices`, {
+    headers: authHeaders()
+  });
 
   handleResponse(response);
   const { devices } = await response.json();
@@ -60,10 +60,10 @@ export const getMyDevices = async (accessToken: string | null) => {
   return devices;
 };
 
-export const getMyNowPlaying = async (accessToken: string | null) => {
-  const url = `${PEAPOD_API_URL}/api/spotify/myNowPlaying?accessToken=${accessToken}`;
-
-  const response = await fetch(url);
+export const getMyNowPlaying = async () => {
+  const response = await fetch(`${PEAPOD_API_URL}/api/spotify/myNowPlaying`, {
+    headers: authHeaders()
+  });
 
   handleResponse(response);
   const json = await response.json();
@@ -71,12 +71,10 @@ export const getMyNowPlaying = async (accessToken: string | null) => {
   return json;
 };
 
-export const transferPlayback = async (accessToken: string | null, devices: string[], shouldPlay = false) => {
-  const url = `${PEAPOD_API_URL}/api/spotify/transferPlayback?accessToken=${accessToken}`;
-
-  const response = await fetch(url, {
+export const transferPlayback = async (devices: string[], shouldPlay = false) => {
+  const response = await fetch(`${PEAPOD_API_URL}/api/spotify/transferPlayback`, {
     method: 'PUT',
-    headers: basicJsonHeader,
+    headers: authHeaders(),
     body: JSON.stringify({ devices, shouldPlay })
   });
 
@@ -86,12 +84,10 @@ export const transferPlayback = async (accessToken: string | null, devices: stri
   return json;
 };
 
-export const play = async (accessToken: string | null, options?: { uris?: string[] }) => {
-  const url = `${PEAPOD_API_URL}/api/spotify/play?accessToken=${accessToken}`;
-
-  const response = await fetch(url, {
+export const play = async (options?: { uris?: string[] }) => {
+  const response = await fetch(`${PEAPOD_API_URL}/api/spotify/play`, {
     method: 'PUT',
-    headers: basicJsonHeader,
+    headers: authHeaders(),
     body: JSON.stringify(options)
   });
 
@@ -101,12 +97,10 @@ export const play = async (accessToken: string | null, options?: { uris?: string
   return json;
 };
 
-export const pause = async (accessToken: string | null) => {
-  const url = `${PEAPOD_API_URL}/api/spotify/pause?accessToken=${accessToken}`;
-
-  const response = await fetch(url, {
+export const pause = async () => {
+  const response = await fetch(`${PEAPOD_API_URL}/api/spotify/pause`, {
     method: 'PUT',
-    headers: basicJsonHeader
+    headers: authHeaders()
   });
 
   handleResponse(response, 204);
@@ -115,17 +109,10 @@ export const pause = async (accessToken: string | null) => {
   return json;
 };
 
-export const search = async (
-  accessToken: string | null,
-  searchText: string,
-  types: string[],
-  options?: unknown
-) => {
-  const url = `${PEAPOD_API_URL}/api/spotify/search?accessToken=${accessToken}`;
-
-  const response = await fetch(url, {
+export const search = async (searchText: string, types: string[], options?: unknown) => {
+  const response = await fetch(`${PEAPOD_API_URL}/api/spotify/search`, {
     method: 'POST',
-    headers: basicJsonHeader,
+    headers: authHeaders(),
     body: JSON.stringify({ searchText, types, options })
   });
 
@@ -135,10 +122,10 @@ export const search = async (
   return json;
 };
 
-export const getMyPlaylists = async (accessToken: string | null, userId: string) => {
-  const url = `${PEAPOD_API_URL}/api/spotify/playlists/${userId}?accessToken=${accessToken}`;
-
-  const response = await fetch(url);
+export const getMyPlaylists = async (userId: string) => {
+  const response = await fetch(`${PEAPOD_API_URL}/api/spotify/playlists/${userId}`, {
+    headers: authHeaders()
+  });
 
   handleResponse(response);
   const json = await response.json();
@@ -146,10 +133,10 @@ export const getMyPlaylists = async (accessToken: string | null, userId: string)
   return json;
 };
 
-export const getPlaylist = async (accessToken: string | null, playlistId: string) => {
-  const url = `${PEAPOD_API_URL}/api/spotify/playlists/${playlistId}?accessToken=${accessToken}`;
-
-  const response = await fetch(url);
+export const getPlaylist = async (playlistId: string) => {
+  const response = await fetch(`${PEAPOD_API_URL}/api/spotify/playlists/${playlistId}`, {
+    headers: authHeaders()
+  });
 
   handleResponse(response);
   const json = await response.json();

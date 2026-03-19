@@ -20,7 +20,7 @@ const PlayQueue = ({ height = 0, currentTrack, podId }: PlayQueueProps) => {
   const { data: profile } = useProfile(accessToken);
   const userId = profile?.id;
   const { data: pod } = usePod(podId);
-  const playMutation = usePlayMutation(accessToken);
+  const playMutation = usePlayMutation();
   const PLAYLIST_PADDING = 200;
 
   const queue = pod?.queue ?? [];

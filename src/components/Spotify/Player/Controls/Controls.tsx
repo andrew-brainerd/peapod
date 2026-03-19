@@ -1,7 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { useParams } from '@tanstack/react-router';
-import { getAccessToken } from '../../../../slices/spotify';
 import { usePlayMutation, usePauseMutation } from '../../../../queries/spotify';
 import { useAddToQueueMutation } from '../../../../queries/pods';
 import noop from '../../../../utils/noop';
@@ -28,10 +26,9 @@ const Controls = ({
   onPause,
   onAddToQueue
 }: ControlsProps) => {
-  const accessToken = useSelector(getAccessToken);
   const { podId } = useParams({ strict: false }) as { podId?: string };
-  const playMutation = usePlayMutation(accessToken);
-  const pauseMutation = usePauseMutation(accessToken);
+  const playMutation = usePlayMutation();
+  const pauseMutation = usePauseMutation();
   const addToQueue = useAddToQueueMutation(podId);
   const { canPlay = true, canPause = true, canQueue } = options || {};
 

@@ -19,7 +19,7 @@ const getDeviceIcon: Record<string, React.ReactNode> = {
 const Devices = () => {
   const accessToken = useSelector(getAccessToken);
   const { data: devices = [] } = useDevices(accessToken);
-  const transferPlayback = useTransferPlaybackMutation(accessToken);
+  const transferPlayback = useTransferPlaybackMutation();
 
   return (
     <div className={styles.devices}>

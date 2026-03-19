@@ -1,22 +1,53 @@
 @use '../../../styles/colors.scss' as *;
+@use '../../../styles/mixins.scss' as *;
+@use '../../../styles/sizing.scss' as *;
 
 .createNew {
+  @include boxShadow();
+
   align-items: center;
+  background: $gray-80;
+  border: 1px dashed $gray-50;
+  border-color: $gray-50;
   display: flex;
+  flex-direction: column;
+  gap: 10px;
   height: 125px;
   justify-content: center;
   margin: 20px;
+  transition: 0.15s background ease;
+  width: 200px;
 
   svg {
-    fill: white;
-    height: 50px;
-    transition: 0.3s fill;
-    width: 50px;
+    fill: $gray-30;
+    height: 28px;
+    transition: fill 0.15s ease;
+    width: 28px;
+  }
+
+  .label {
+    color: $gray-30;
+    font-size: 0.95em;
+    transition: color 0.15s ease;
   }
 
   &:hover {
+    background: $gray-70;
+    border-color: $peapod-5;
+
     svg {
       fill: $peapod;
     }
+
+    .label {
+      color: $peapod;
+    }
+  }
+}
+
+@media screen and (max-width: $mobileWidth) {
+  .createNew {
+    margin: 10px 0;
+    width: 100%;
   }
 }
