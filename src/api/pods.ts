@@ -66,6 +66,17 @@ export const removeMemberFromPod = async (podId: string, user: SpotifyProfile) =
   return json;
 };
 
+export const getInviteLink = async (podId: string) => {
+  const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/invite`, {
+    headers: authHeaders()
+  });
+
+  handleResponse(response);
+  const json = await response.json();
+
+  return json;
+};
+
 export const sendInvitation = async (podId: string, messageType: string, to: string) => {
   const response = await fetch(`${PEAPOD_API_URL}/api/pods/${podId}/invite`, {
     method: 'POST',

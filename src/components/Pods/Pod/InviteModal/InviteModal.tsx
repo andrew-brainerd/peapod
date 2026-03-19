@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSendInvitationMutation } from '../../../../queries/pods';
+import { useSendInvitationMutation, useInviteLink } from '../../../../queries/pods';
 import Modal from '../../../common/Modal/Modal';
 import TextInput from '../../../common/TextInput/TextInput';
 import Button from '../../../common/Button/Button';
@@ -14,11 +14,23 @@ interface InviteModalProps {
 
 const InviteModal = ({ isOpen = false, podId = '', podName, closeModal }: InviteModalProps) => {
   const sendInvitation = useSendInvitationMutation();
+  const { data: inviteLinkData } = useInviteLink(podId);
+  const inviteLink = inviteLinkData?.inviteLink ?? '';
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [linkCopied, setLinkCopied] = useState(false);
 
-  const handleInvite = () => {
+  const handleSmsInvite = () => {
+    if (!phoneNumber) return;
     sendInvitation.mutate({ podId, messageType: 'sms', to: phoneNumber });
+    setPhoneNumber('');
     closeModal();
+  };
+
+  const handleCopyLink = async () => {
+    if (!inviteLink) return;
+    await navigator.clipboard.writeText(inviteLink);
+    setLinkCopied(true);
+    setTimeout(() => setLinkCopied(false), 2000);
   };
 
   return (
@@ -31,16 +43,34 @@ const InviteModal = ({ isOpen = false, podId = '', podName, closeModal }: Invite
       <div className={styles.inviteModalText}>
         Invite People to the <span className={styles.inviteTitle}>{podName}</span> Pod
       </div>
-      <div className={styles.inputFields}>
-        <TextInput
-          placeholder={'Phone Number'}
-          inputClassName={styles.phoneInput}
-          autofocus
-          value={phoneNumber}
-          onChange={setPhoneNumber}
-          onPressEnter={handleInvite}
-        />
-        <Button className={styles.inviteButton} text={'Invite'} onClick={handleInvite} />
+
+      <div className={styles.section}>
+        <div className={styles.sectionLabel}>Share a link</div>
+        <div className={styles.linkRow}>
+          <div className={styles.linkText}>{inviteLink}</div>
+          <Button
+            className={styles.copyButton}
+            text={linkCopied ? 'Copied!' : 'Copy'}
+            onClick={handleCopyLink}
+          />
+        </div>
+      </div>
+
+      <div className={styles.divider} />
+
+      <div className={styles.section}>
+        <div className={styles.sectionLabel}>Send via SMS</div>
+        <div className={styles.inputFields}>
+          <TextInput
+            placeholder={'Phone Number'}
+            inputClassName={styles.phoneInput}
+            autofocus
+            value={phoneNumber}
+            onChange={setPhoneNumber}
+            onPressEnter={handleSmsInvite}
+          />
+          <Button className={styles.inviteButton} text={'Send'} onClick={handleSmsInvite} />
+        </div>
       </div>
     </Modal>
   );

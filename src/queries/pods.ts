@@ -71,6 +71,13 @@ export const useConnectToPodMutation = () =>
       podsApi.addActiveMemberToPod(podId, user)
   });
 
+export const useInviteLink = (podId: string | undefined) =>
+  useQuery({
+    queryKey: podKeys.inviteLink(podId ?? ''),
+    queryFn: () => podsApi.getInviteLink(podId!),
+    enabled: !!podId
+  });
+
 export const useSendInvitationMutation = () =>
   useMutation({
     mutationFn: ({ podId, messageType, to }: { podId: string; messageType: string; to: string }) =>

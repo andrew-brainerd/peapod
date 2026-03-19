@@ -1,0 +1,12 @@
+@use '../../../styles/colors.scss' as *;
+
+.invite {
+  align-items: center;
+  color: $primaryTextColor;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2em;
+  gap: 20px;
+  justify-content: center;
+  min-height: 50vh;
+}

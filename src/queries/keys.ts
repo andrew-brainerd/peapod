@@ -11,5 +11,6 @@ export const spotifyKeys = {
 export const podKeys = {
   all: ['pods'] as const,
   list: (opts?: Record<string, string | number>) => [...podKeys.all, 'list', opts] as const,
-  detail: (podId: string) => [...podKeys.all, 'detail', podId] as const
+  detail: (podId: string) => [...podKeys.all, 'detail', podId] as const,
+  inviteLink: (podId: string) => [...podKeys.all, 'invite', podId] as const
 };

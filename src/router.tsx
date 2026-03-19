@@ -10,6 +10,7 @@ import SpotifyAuth from './components/Spotify/SpotifyAuth/SpotifyAuth';
 import Pods from './components/Pods/Pods';
 import PodLobby from './components/Pods/PodLobby/PodLobby';
 import Pod from './components/Pods/Pod/Pod';
+import Invite from './components/Pods/Invite/Invite';
 import Button from './components/common/Button/Button';
 import Icon from './components/common/Icon/Icon';
 import styles from './components/App/App.module.scss';
@@ -74,6 +75,12 @@ const authenticatedRoute = createRoute({
   component: AuthenticatedLayout
 });
 
+const inviteRoute = createRoute({
+  getParentRoute: () => authenticatedRoute,
+  path: '/invite/$podId',
+  component: Invite
+});
+
 const podsRoute = createRoute({
   getParentRoute: () => authenticatedRoute,
   path: '/pods',
@@ -121,6 +128,7 @@ const routeTree = rootRoute.addChildren([
   homeRoute,
   spotifyAuthRoute,
   authenticatedRoute.addChildren([
+    inviteRoute,
     podsRoute,
     podLayoutRoute.addChildren([
       podLobbyRoute,

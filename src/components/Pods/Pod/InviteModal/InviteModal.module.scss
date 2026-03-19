@@ -14,22 +14,73 @@
 
     .inviteModalText {
       font-size: 1.5em;
-      margin-bottom: 50px;
+      margin-bottom: 30px;
       user-select: none;
     }
 
-    .inputFields {
-      display: flex;
-      align-items: center;
-      flex-direction: column;
+    .section {
+      width: 100%;
 
-      .phoneInput {
-        @include defaultInput();
-
-        font-size: 1.5em;
-        margin-bottom: 10px;
-        text-align: center;
+      .sectionLabel {
+        color: $gray-30;
+        font-size: 0.9em;
+        margin-bottom: 8px;
+        text-transform: uppercase;
       }
+
+      .linkRow {
+        align-items: center;
+        display: flex;
+        gap: 10px;
+
+        .linkText {
+          background: $gray-85;
+          border: 1px solid $gray-70;
+          border-radius: 5px;
+          color: $gray-20;
+          flex: 1;
+          font-size: 0.9em;
+          overflow: hidden;
+          padding: 8px 12px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .copyButton {
+          background: $peapod;
+          color: $gray-100;
+          font-size: 0.85em;
+          padding: 8px 16px;
+          width: auto;
+
+          &:hover {
+            background: $peapod-8;
+          }
+        }
+      }
+
+      .inputFields {
+        align-items: center;
+        display: flex;
+        gap: 10px;
+
+        .phoneInput {
+          @include defaultInput();
+
+          flex: 1;
+          font-size: 1.1em;
+        }
+
+        .inviteButton {
+          width: auto;
+        }
+      }
+    }
+
+    .divider {
+      border-top: 1px solid $gray-70;
+      margin: 20px 0;
+      width: 100%;
     }
   }
 }

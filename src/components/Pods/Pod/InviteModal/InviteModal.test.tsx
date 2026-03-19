@@ -14,7 +14,8 @@ describe('InviteModal Component', () => {
       </QueryClientProvider>
     );
 
-    expect(screen.getByText('Invite')).toBeInTheDocument();
+    expect(screen.getByText('Share a link')).toBeInTheDocument();
+    expect(screen.getByText('Send via SMS')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Phone Number')).toBeInTheDocument();
   });
 });
