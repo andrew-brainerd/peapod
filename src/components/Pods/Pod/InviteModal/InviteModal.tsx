@@ -17,12 +17,20 @@ const InviteModal = ({ isOpen = false, podId = '', podName, closeModal }: Invite
   const { data: inviteLinkData } = useInviteLink(podId);
   const inviteLink = inviteLinkData?.inviteLink ?? '';
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [email, setEmail] = useState('');
   const [linkCopied, setLinkCopied] = useState(false);
 
   const handleSmsInvite = () => {
     if (!phoneNumber) return;
     sendInvitation.mutate({ podId, messageType: 'sms', to: phoneNumber });
     setPhoneNumber('');
+    closeModal();
+  };
+
+  const handleEmailInvite = () => {
+    if (!email) return;
+    sendInvitation.mutate({ podId, messageType: 'email', to: email });
+    setEmail('');
     closeModal();
   };
 
@@ -63,13 +71,28 @@ const InviteModal = ({ isOpen = false, podId = '', podName, closeModal }: Invite
         <div className={styles.inputFields}>
           <TextInput
             placeholder={'Phone Number'}
-            inputClassName={styles.phoneInput}
-            autofocus
+            inputClassName={styles.contactInput}
             value={phoneNumber}
             onChange={setPhoneNumber}
             onPressEnter={handleSmsInvite}
           />
-          <Button className={styles.inviteButton} text={'Send'} onClick={handleSmsInvite} />
+          <Button className={styles.sendButton} text={'Send'} onClick={handleSmsInvite} />
+        </div>
+      </div>
+
+      <div className={styles.divider} />
+
+      <div className={styles.section}>
+        <div className={styles.sectionLabel}>Send via Email</div>
+        <div className={styles.inputFields}>
+          <TextInput
+            placeholder={'Email Address'}
+            inputClassName={styles.contactInput}
+            value={email}
+            onChange={setEmail}
+            onPressEnter={handleEmailInvite}
+          />
+          <Button className={styles.sendButton} text={'Send'} onClick={handleEmailInvite} />
         </div>
       </div>
     </Modal>

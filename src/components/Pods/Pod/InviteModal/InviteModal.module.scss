@@ -64,14 +64,14 @@
         display: flex;
         gap: 10px;
 
-        .phoneInput {
+        .contactInput {
           @include defaultInput();
 
           flex: 1;
           font-size: 1.1em;
         }
 
-        .inviteButton {
+        .sendButton {
           width: auto;
         }
       }
