@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useSendInvitationMutation, useInviteLink } from '../../../../queries/pods';
 import Modal from '../../../common/Modal/Modal';
 import TextInput from '../../../common/TextInput/TextInput';
 import Button from '../../../common/Button/Button';
+import Icon from '../../../common/Icon/Icon';
 import styles from './InviteModal.module.scss';
+
+type InviteTab = 'link' | 'sms' | 'email';
 
 interface InviteModalProps {
   isOpen?: boolean;
@@ -16,9 +19,11 @@ const InviteModal = ({ isOpen = false, podId = '', podName, closeModal }: Invite
   const sendInvitation = useSendInvitationMutation();
   const { data: inviteLinkData } = useInviteLink(podId);
   const inviteLink = inviteLinkData?.inviteLink ?? '';
+  const [activeTab, setActiveTab] = useState<InviteTab>('link');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [linkCopied, setLinkCopied] = useState(false);
+  const linkInputRef = useRef<HTMLInputElement>(null);
 
   const handleSmsInvite = () => {
     if (!phoneNumber) return;
@@ -49,51 +54,81 @@ const InviteModal = ({ isOpen = false, podId = '', podName, closeModal }: Invite
       contentClassName={styles.inviteModalContent}
     >
       <div className={styles.inviteModalText}>
-        Invite People to the <span className={styles.inviteTitle}>{podName}</span> Pod
+        Invite to <span className={styles.inviteTitle}>{podName || 'Pod'}</span>
       </div>
 
-      <div className={styles.section}>
-        <div className={styles.sectionLabel}>Share a link</div>
-        <div className={styles.linkRow}>
-          <div className={styles.linkText}>{inviteLink}</div>
-          <Button
-            className={styles.copyButton}
-            text={linkCopied ? 'Copied!' : 'Copy'}
-            onClick={handleCopyLink}
-          />
-        </div>
+      <div className={styles.tabs}>
+        <button
+          className={[styles.tab, activeTab === 'link' ? styles.active : ''].join(' ')}
+          onClick={() => setActiveTab('link')}
+        >
+          <Icon className={styles.tabIcon} name={'link'} title={'Share Link'} />
+          <span className={styles.tabLabel}>Link</span>
+        </button>
+        <button
+          className={[styles.tab, activeTab === 'sms' ? styles.active : ''].join(' ')}
+          onClick={() => setActiveTab('sms')}
+        >
+          <Icon className={styles.tabIcon} name={'sms'} title={'SMS'} />
+          <span className={styles.tabLabel}>SMS</span>
+        </button>
+        <button
+          className={[styles.tab, activeTab === 'email' ? styles.active : ''].join(' ')}
+          onClick={() => setActiveTab('email')}
+        >
+          <Icon className={styles.tabIcon} name={'email'} title={'Email'} />
+          <span className={styles.tabLabel}>Email</span>
+        </button>
       </div>
 
-      <div className={styles.divider} />
+      <div className={styles.tabContent}>
+        {activeTab === 'link' && (
+          <div className={styles.linkPanel}>
+            <div className={styles.linkRow}>
+              <input
+                ref={linkInputRef}
+                className={styles.linkInput}
+                type="text"
+                value={inviteLink}
+                readOnly
+                onFocus={() => linkInputRef.current?.select()}
+              />
+              <Button
+                className={styles.copyButton}
+                text={linkCopied ? 'Copied!' : 'Copy'}
+                onClick={handleCopyLink}
+              />
+            </div>
+          </div>
+        )}
 
-      <div className={styles.section}>
-        <div className={styles.sectionLabel}>Send via SMS</div>
-        <div className={styles.inputFields}>
-          <TextInput
-            placeholder={'Phone Number'}
-            inputClassName={styles.contactInput}
-            value={phoneNumber}
-            onChange={setPhoneNumber}
-            onPressEnter={handleSmsInvite}
-          />
-          <Button className={styles.sendButton} text={'Send'} onClick={handleSmsInvite} />
-        </div>
-      </div>
+        {activeTab === 'sms' && (
+          <div className={styles.inputPanel}>
+            <TextInput
+              placeholder={'Phone Number'}
+              inputClassName={styles.contactInput}
+              autofocus
+              value={phoneNumber}
+              onChange={setPhoneNumber}
+              onPressEnter={handleSmsInvite}
+            />
+            <Button className={styles.actionButton} text={'Send SMS'} onClick={handleSmsInvite} />
+          </div>
+        )}
 
-      <div className={styles.divider} />
-
-      <div className={styles.section}>
-        <div className={styles.sectionLabel}>Send via Email</div>
-        <div className={styles.inputFields}>
-          <TextInput
-            placeholder={'Email Address'}
-            inputClassName={styles.contactInput}
-            value={email}
-            onChange={setEmail}
-            onPressEnter={handleEmailInvite}
-          />
-          <Button className={styles.sendButton} text={'Send'} onClick={handleEmailInvite} />
-        </div>
+        {activeTab === 'email' && (
+          <div className={styles.inputPanel}>
+            <TextInput
+              placeholder={'Email Address'}
+              inputClassName={styles.contactInput}
+              autofocus
+              value={email}
+              onChange={setEmail}
+              onPressEnter={handleEmailInvite}
+            />
+            <Button className={styles.actionButton} text={'Send Email'} onClick={handleEmailInvite} />
+          </div>
+        )}
       </div>
     </Modal>
   );

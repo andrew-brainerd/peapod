@@ -14,10 +14,9 @@ describe('InviteModal Component', () => {
       </QueryClientProvider>
     );
 
-    expect(screen.getByText('Share a link')).toBeInTheDocument();
-    expect(screen.getByText('Send via SMS')).toBeInTheDocument();
-    expect(screen.getByText('Send via Email')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Phone Number')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Email Address')).toBeInTheDocument();
+    expect(screen.getByText('Link')).toBeInTheDocument();
+    expect(screen.getByText('SMS')).toBeInTheDocument();
+    expect(screen.getByText('Email')).toBeInTheDocument();
+    expect(screen.getByText('Copy')).toBeInTheDocument();
   });
 });
