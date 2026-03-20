@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { getAccessToken } from '../../../slices/spotify';
+import { useSpotifyStore } from '../../../stores/spotifyStore';
 import { useSearch } from '../../../queries/spotify';
 import useDebounce from '../../../hooks/useDebounce';
 import type { SpotifyTrack } from '../../../types';
@@ -14,7 +13,7 @@ interface TrackListProps {
 }
 
 const TrackList = ({ searchText = '' }: TrackListProps) => {
-  const accessToken = useSelector(getAccessToken);
+  const accessToken = useSpotifyStore((state) => state.accessToken);
   const debouncedSearchText = useDebounce(searchText, 500);
   const { data: tracks = [], isLoading } = useSearch(accessToken, debouncedSearchText);
   const [selectedTrack, setSelectedTrack] = useState<SpotifyTrack | null>(null);

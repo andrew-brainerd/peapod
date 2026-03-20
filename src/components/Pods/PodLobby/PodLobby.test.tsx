@@ -1,21 +1,11 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
 import { RouterTestWrapper } from '../../../test/helpers';
+import { useSpotifyStore } from '../../../stores/spotifyStore';
 import PodLobby from './PodLobby';
 
-const mockStore = configureStore({
-  reducer: () => ({
-    pods: { isConnected: false, isConnecting: false, currentPod: null },
-    spotify: { accessToken: null, refreshToken: null, expireTime: null },
-    sync: { isSyncing: false },
-    notify: { hidden: true, message: '' }
-  }),
-  middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false })
-});
-
 beforeEach(() => {
+  useSpotifyStore.setState({ accessToken: null, refreshToken: null, expireTime: null });
   vi.spyOn(globalThis, 'fetch').mockResolvedValue({
     status: 200,
     json: () => Promise.resolve({})
@@ -29,9 +19,7 @@ afterEach(() => {
 describe('PodLobby Component', () => {
   it('should render', async () => {
     render(
-      <Provider store={mockStore}>
-        <RouterTestWrapper component={PodLobby} initialPath="/pods/12345" routePath="/pods/$podId" />
-      </Provider>
+      <RouterTestWrapper component={PodLobby} initialPath="/pods/12345" routePath="/pods/$podId" />
     );
 
     await waitFor(() => {

@@ -1,7 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { useParams } from '@tanstack/react-router';
-import { getAccessToken } from '../../../../slices/spotify';
+import { useSpotifyStore } from '../../../../stores/spotifyStore';
 import { useProfile } from '../../../../queries/spotify';
 import { usePod } from '../../../../queries/pods';
 import type { PodMember } from '../../../../types';
@@ -12,7 +11,7 @@ const getIsActiveMember = (member: PodMember, activeList: string[]) =>
 
 const PodMembers = () => {
   const { podId } = useParams({ strict: false }) as { podId: string };
-  const accessToken = useSelector(getAccessToken);
+  const accessToken = useSpotifyStore((state) => state.accessToken);
   const { data: profile } = useProfile(accessToken);
   const userId = profile?.id;
   const { data: pod } = usePod(podId);

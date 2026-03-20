@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { createRootRoute, createRoute, createRouter, Outlet, useLocation } from '@tanstack/react-router';
-import { useSelector, useDispatch } from 'react-redux';
-import type { AppDispatch } from './store/configureStore';
-import { getAccessToken, loadLocalAuth } from './slices/spotify';
+import { useSpotifyStore } from './stores/spotifyStore';
 import { getAuth } from './api/spotify';
 import { SEARCH, NOW_PLAYING, PLAY_QUEUE, PLAY_HISTORY } from './constants/pods';
 import Home from './components/Home/Home';
@@ -25,15 +23,15 @@ const RootLayout = () => (
 
 // Auth layout
 const AuthenticatedLayout = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const hasAuth = !!useSelector(getAccessToken);
+  const hasAuth = !!useSpotifyStore((state) => state.accessToken);
+  const loadLocalAuth = useSpotifyStore((state) => state.loadLocalAuth);
   const { pathname } = useLocation();
 
   useEffect(() => {
     if (!hasAuth) {
-      dispatch(loadLocalAuth());
+      loadLocalAuth();
     }
-  }, [hasAuth, dispatch]);
+  }, [hasAuth, loadLocalAuth]);
 
   if (!hasAuth && pathname !== '/') {
     return (

@@ -1,8 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import type { AppDispatch } from '../../../store/configureStore';
 import { useNavigate } from '@tanstack/react-router';
-import { getAccessToken, signOut } from '../../../slices/spotify';
+import { useSpotifyStore } from '../../../stores/spotifyStore';
 import { useProfile } from '../../../queries/spotify';
 import useOnClickOutside from '../../../hooks/useOnClickOutside';
 import Button from '../../common/Button/Button';
@@ -20,8 +18,8 @@ interface ProfileProps {
 
 const Profile = ({ isMinimal }: ProfileProps) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
-  const accessToken = useSelector(getAccessToken);
+  const accessToken = useSpotifyStore((state) => state.accessToken);
+  const signOut = useSpotifyStore((state) => state.signOut);
   const { data: profile } = useProfile(accessToken);
   const isSignedIn = !!profile;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -53,7 +51,7 @@ const Profile = ({ isMinimal }: ProfileProps) => {
             text={'Sign Out'}
             onClick={() => {
               setIsMenuOpen(false);
-              dispatch(signOut());
+              signOut();
               navigate({ to: '/' });
             }}
           />

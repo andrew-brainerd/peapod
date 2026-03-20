@@ -1,6 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { getAccessToken } from '../../../slices/spotify';
+import { useSpotifyStore } from '../../../stores/spotifyStore';
 import { useDevices, useTransferPlaybackMutation } from '../../../queries/spotify';
 import type { SpotifyDevice } from '../../../types';
 import Icon from '../../common/Icon/Icon';
@@ -17,7 +16,7 @@ const getDeviceIcon: Record<string, React.ReactNode> = {
 };
 
 const Devices = () => {
-  const accessToken = useSelector(getAccessToken);
+  const accessToken = useSpotifyStore((state) => state.accessToken);
   const { data: devices = [] } = useDevices(accessToken);
   const transferPlayback = useTransferPlaybackMutation();
 

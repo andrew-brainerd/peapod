@@ -1,6 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { getAccessToken } from '../../../../slices/spotify';
+import { useSpotifyStore } from '../../../../stores/spotifyStore';
 import { useProfile } from '../../../../queries/spotify';
 import { usePod } from '../../../../queries/pods';
 import { usePlayMutation } from '../../../../queries/spotify';
@@ -16,7 +15,7 @@ interface PlayQueueProps {
 }
 
 const PlayQueue = ({ height = 0, currentTrack, podId }: PlayQueueProps) => {
-  const accessToken = useSelector(getAccessToken);
+  const accessToken = useSpotifyStore((state) => state.accessToken);
   const { data: profile } = useProfile(accessToken);
   const userId = profile?.id;
   const { data: pod } = usePod(podId);

@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import type { AppDispatch } from '../../../store/configureStore';
 import { useNavigate, useSearch } from '@tanstack/react-router';
-import { setAuth } from '../../../slices/spotify';
+import { useSpotifyStore } from '../../../stores/spotifyStore';
 import { setLocalAuth, calculateExpireTime, getLocalReturnUri } from '../../../utils/spotify';
 import Loading from '../../common/Loading/Loading';
 import styles from './SpotifyAuth.module.scss';
 
 const SpotifyAuth = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const setAuth = useSpotifyStore((state) => state.setAuth);
   const search = useSearch({ strict: false }) as {
     access_token?: string;
     refresh_token?: string;
@@ -24,7 +22,7 @@ const SpotifyAuth = () => {
     };
 
     setLocalAuth(auth);
-    dispatch(setAuth(auth));
+    setAuth(auth);
 
     const returnUri = getLocalReturnUri() || '/pods';
     navigate({ to: returnUri });

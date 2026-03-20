@@ -1,18 +1,16 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { closeNotification } from '../../../slices/notify';
-import type { AppDispatch, RootState } from '../../../store/configureStore';
+import { useNotifyStore } from '../../../stores/notifyStore';
 import styles from './Notification.module.scss';
 
 const Notification = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const isHidden = useSelector((state: RootState) => state.notify.hidden);
-  const message = useSelector((state: RootState) => state.notify.message);
+  const isHidden = useNotifyStore((state) => state.hidden);
+  const message = useNotifyStore((state) => state.message);
+  const closeNotification = useNotifyStore((state) => state.closeNotification);
 
   return (
     <div
       className={[styles.notification, isHidden ? styles.hidden : ''].join(' ')}
-      onClick={() => dispatch(closeNotification())}
+      onClick={closeNotification}
     >
       {message}
     </div>

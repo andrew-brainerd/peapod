@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import type { AppDispatch } from '../../../store/configureStore';
-import { getAccessToken } from '../../../slices/spotify';
-import { updateClients } from '../../../slices/sync';
+import { useSpotifyStore } from '../../../stores/spotifyStore';
+import { useSyncStore } from '../../../stores/syncStore';
 import { useNowPlaying } from '../../../queries/spotify';
 import { useAddToHistoryMutation } from '../../../queries/pods';
 import { getIsPlaying, getNowPlayingItem, getTrackImages } from '../../../selectors/player';
@@ -19,8 +17,8 @@ interface PlayerProps {
 }
 
 const Player = ({ isVisible = false, height = 0, isPodOwner, podId }: PlayerProps) => {
-  const dispatch = useDispatch<AppDispatch>();
-  const accessToken = useSelector(getAccessToken);
+  const accessToken = useSpotifyStore((state) => state.accessToken);
+  const updateClients = useSyncStore((state) => state.updateClients);
   const { data: nowPlaying = {} as NowPlaying, isLoading } = useNowPlaying(accessToken, isPodOwner);
   const addToHistory = useAddToHistoryMutation(podId);
 
@@ -39,9 +37,9 @@ const Player = ({ isVisible = false, height = 0, isPodOwner, podId }: PlayerProp
 
   useEffect(() => {
     if (isPodOwner && nowPlaying && Object.keys(nowPlaying).length > 0) {
-      dispatch(updateClients(nowPlaying));
+      updateClients(nowPlaying);
     }
-  }, [nowPlaying, isPodOwner, dispatch]);
+  }, [nowPlaying, isPodOwner, updateClients]);
 
   const PLAYER_PADDING = 200;
   const playerHeight = height - PLAYER_PADDING;

@@ -1,27 +1,20 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
 import { RouterTestWrapper } from '../../../test/helpers';
+import { useSpotifyStore } from '../../../stores/spotifyStore';
+import { useNotifyStore } from '../../../stores/notifyStore';
 import Header from './Header';
-
-const mockStore = configureStore({
-  reducer: () => ({
-    spotify: { accessToken: null, refreshToken: null, expireTime: null },
-    notify: { hidden: true, message: '' }
-  }),
-  middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false })
-});
 
 const HeaderWrapper = () => <Header isMinimal={false} />;
 
 describe('Header Component', () => {
+  beforeEach(() => {
+    useSpotifyStore.setState({ accessToken: null, refreshToken: null, expireTime: null });
+    useNotifyStore.setState({ hidden: true, message: '' });
+  });
+
   it('should render', async () => {
-    render(
-      <Provider store={mockStore}>
-        <RouterTestWrapper component={HeaderWrapper} />
-      </Provider>
-    );
+    render(<RouterTestWrapper component={HeaderWrapper} />);
 
     await waitFor(() => {
       expect(screen.getByText('Peapod')).toBeInTheDocument();

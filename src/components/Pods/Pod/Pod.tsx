@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import type { AppDispatch } from '../../../store/configureStore';
 import { useParams } from '@tanstack/react-router';
 import useBeforeUnload from '../../../hooks/useBeforeUnload';
 import { SEARCH, NOW_PLAYING, PLAY_QUEUE, PLAY_HISTORY } from '../../../constants/pods';
-import { getIsConnectingToPod, getIsConnectedToPod, disconnectFromPod } from '../../../slices/pods';
-import { getAccessToken } from '../../../slices/spotify';
-import { getIsSyncing, connectClient } from '../../../slices/sync';
+import { usePodsStore } from '../../../stores/podsStore';
+import { useSpotifyStore } from '../../../stores/spotifyStore';
+import { useSyncStore } from '../../../stores/syncStore';
 import { useProfile, usePlaylists } from '../../../queries/spotify';
 import { usePod, useConnectToPodMutation } from '../../../queries/pods';
 import Header from '../../common/Header/Header';
@@ -22,15 +20,16 @@ interface PodProps {
 }
 
 const Pod = ({ view }: PodProps) => {
-  const dispatch = useDispatch<AppDispatch>();
   const { podId } = useParams({ strict: false }) as { podId: string };
-  const accessToken = useSelector(getAccessToken);
+  const accessToken = useSpotifyStore((state) => state.accessToken);
   const { data: profile } = useProfile(accessToken);
   const userId = profile?.id;
   const { data: pod } = usePod(podId);
-  const isConnecting = useSelector(getIsConnectingToPod);
-  const isConnected = useSelector(getIsConnectedToPod);
-  const isSyncing = useSelector(getIsSyncing);
+  const isConnecting = usePodsStore((state) => state.isConnecting);
+  const isConnected = usePodsStore((state) => state.isConnected);
+  const disconnectFromPod = usePodsStore((state) => state.disconnectFromPod);
+  const isSyncing = useSyncStore((state) => state.isSyncing);
+  const connectClient = useSyncStore((state) => state.connectClient);
   const connectToPod = useConnectToPodMutation();
   const height = window.innerHeight;
   const podHeight = height - 50;
@@ -42,12 +41,12 @@ const Pod = ({ view }: PodProps) => {
   useEffect(() => {
     if (!!pod && !!pod.createdBy && !!userId && !isPodOwner && !isSyncing) {
       console.log('%cConnecting to Pod as Client...', 'color: cyan');
-      dispatch(connectClient(podId!));
+      connectClient(podId!);
     } else if (isPodOwner && !isConnected && !isConnecting && userId && profile) {
       console.log('%cConnecting to Pod as Owner...', 'color: cyan');
       connectToPod.mutate({ podId: podId!, user: profile });
     }
-  }, [podId, pod, userId, isPodOwner, isConnected, isConnecting, isSyncing, dispatch]);
+  }, [podId, pod, userId, isPodOwner, isConnected, isConnecting, isSyncing, connectClient]);
 
   useBeforeUnload(() => {
     if (isSyncing) {
@@ -55,7 +54,7 @@ const Pod = ({ view }: PodProps) => {
     } else {
       console.log('%cPod owner leaving...', 'color: cyan');
     }
-    dispatch(disconnectFromPod(podId));
+    disconnectFromPod(podId);
   });
 
   return (

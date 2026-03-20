@@ -9,7 +9,8 @@
       "Bash(pnpm build:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(pnpm add:*)"
+      "Bash(pnpm add:*)",
+      "Bash(pnpm remove:*)"
     ]
   }
 }

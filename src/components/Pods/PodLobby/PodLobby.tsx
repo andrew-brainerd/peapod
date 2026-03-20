@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import type { AppDispatch } from '../../../store/configureStore';
 import { useParams, useNavigate } from '@tanstack/react-router';
 import { isDefined } from '../../../utils/validation';
 import type { SpotifyTrack, Artist } from '../../../types';
 import { MEMBER_ADDED, LAUNCH_GAME } from '../../../constants/sync';
-import { getAccessToken } from '../../../slices/spotify';
-import { connectToPusher, triggerUpdate } from '../../../slices/sync';
+import { useSpotifyStore } from '../../../stores/spotifyStore';
+import { useSyncStore } from '../../../stores/syncStore';
 import { useProfile } from '../../../queries/spotify';
 import { usePod, useAddMemberMutation, useLaunchPodMutation } from '../../../queries/pods';
 import Header from '../../common/Header/Header';
@@ -16,10 +14,10 @@ import InviteModal from '../Pod/InviteModal/InviteModal';
 import styles from './PodLobby.module.scss';
 
 const PodLobby = () => {
-  const dispatch = useDispatch<AppDispatch>();
   const { podId } = useParams({ strict: false }) as { podId: string };
   const navigate = useNavigate();
-  const accessToken = useSelector(getAccessToken);
+  const accessToken = useSpotifyStore((state) => state.accessToken);
+  const { connectToPusher, triggerUpdate } = useSyncStore();
   const { data: profile } = useProfile(accessToken);
   const userId = profile?.id;
   const { data: pod } = usePod(podId);
@@ -32,19 +30,17 @@ const PodLobby = () => {
 
   useEffect(() => {
     if (isDefined(podId) && !!userId) {
-      dispatch(connectToPusher(podId!, MEMBER_ADDED, triggerUpdate));
+      connectToPusher(podId!, MEMBER_ADDED, triggerUpdate);
     }
-  }, [podId, userId, dispatch]);
+  }, [podId, userId, connectToPusher, triggerUpdate]);
 
   useEffect(() => {
     if (isDefined(podId) && !!userId) {
-      dispatch(
-        connectToPusher(podId!, LAUNCH_GAME, () =>
-          navigate({ to: '/pods/$podId/search', params: { podId: podId! } })
-        )
+      connectToPusher(podId!, LAUNCH_GAME, () =>
+        navigate({ to: '/pods/$podId/search', params: { podId: podId! } })
       );
     }
-  }, [podId, userId, dispatch, navigate]);
+  }, [podId, userId, connectToPusher, navigate]);
 
   useEffect(() => {
     if (isDefined(podId) && !!userId && profile) {

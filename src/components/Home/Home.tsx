@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { useNavigate } from '@tanstack/react-router';
-import { getAccessToken } from '../../slices/spotify';
+import { useSpotifyStore } from '../../stores/spotifyStore';
 import { getAuth } from '../../api/spotify';
 import { PODS_ROUTE } from '../../constants/routes';
 import Button from '../common/Button/Button';
@@ -11,7 +10,7 @@ import styles from './Home.module.scss';
 
 const Home = () => {
   const navigate = useNavigate();
-  const accessToken = useSelector(getAccessToken);
+  const accessToken = useSpotifyStore((state) => state.accessToken);
 
   useEffect(() => {
     if (accessToken) {

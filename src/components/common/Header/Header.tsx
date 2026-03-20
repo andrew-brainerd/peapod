@@ -1,8 +1,6 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from '@tanstack/react-router';
-import type { AppDispatch } from '../../../store/configureStore';
-import { getAccessToken, signOut } from '../../../slices/spotify';
+import { useSpotifyStore } from '../../../stores/spotifyStore';
 import Notification from '../Notification/Notification';
 import Profile from '../../Spotify/Profile/Profile';
 import Button from '../Button/Button';
@@ -15,8 +13,8 @@ interface HeaderProps {
 
 const Header = ({ isMinimal }: HeaderProps) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
-  const accessToken = useSelector(getAccessToken);
+  const accessToken = useSpotifyStore((state) => state.accessToken);
+  const signOut = useSpotifyStore((state) => state.signOut);
 
   return (
     <div className={[styles.header, isMinimal ? styles.minimal : ''].join(' ')}>
@@ -32,7 +30,7 @@ const Header = ({ isMinimal }: HeaderProps) => {
               className={styles.logoutButton}
               text={'Log Out'}
               onClick={() => {
-                dispatch(signOut());
+                signOut();
                 navigate({ to: '/' });
               }}
             />
