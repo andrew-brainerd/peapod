@@ -7,9 +7,13 @@ import Button from '../../common/Button/Button';
 import type { SpotifyImage } from '../../../types';
 import styles from './Profile.module.scss';
 
-const getProfilePic = (images?: SpotifyImage[]) => {
+const ProfilePic = ({ images }: { images?: SpotifyImage[] }) => {
   const imageUrl = images?.[0]?.url;
-  return imageUrl && <img src={imageUrl} alt="My Profile" />;
+  return imageUrl ? (
+    <img src={imageUrl} alt="My Profile" className={styles.profilePic} />
+  ) : (
+    <div className={styles.profilePicPlaceholder} />
+  );
 };
 
 interface ProfileProps {
@@ -28,13 +32,13 @@ const Profile = ({ isMinimal }: ProfileProps) => {
 
   useOnClickOutside(menuRef, () => setIsMenuOpen(false));
 
-  return isSignedIn ? (
+  return (
     <div className={[styles.profile, isMinimal ? styles.minimal : ''].join(' ')}>
       <Button
         className={[styles.profileButton, isMenuOpen ? styles.menuOpen : ''].join(' ')}
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        onClick={() => isSignedIn && setIsMenuOpen(!isMenuOpen)}
       >
-        {getProfilePic(images) || name || 'My Profile'}
+        <ProfilePic images={images} />
       </Button>
       {isMenuOpen && (
         <div ref={menuRef} className={styles.menu}>
@@ -58,7 +62,7 @@ const Profile = ({ isMinimal }: ProfileProps) => {
         </div>
       )}
     </div>
-  ) : null;
+  );
 };
 
 export default Profile;

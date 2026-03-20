@@ -25,16 +25,14 @@ const Header = ({ isMinimal }: HeaderProps) => {
         </div>
         <div className={styles.nav}>
           <Profile isMinimal={isMinimal} />
-          {accessToken && (
-            <Button
-              className={styles.logoutButton}
-              text={'Log Out'}
-              onClick={() => {
-                signOut();
-                navigate({ to: '/' });
-              }}
-            />
-          )}
+          <Button
+            className={[styles.logoutButton, !accessToken ? styles.invisible : ''].join(' ')}
+            text={'Log Out'}
+            onClick={() => {
+              signOut();
+              navigate({ to: '/' });
+            }}
+          />
         </div>
       </div>
       <Notification />

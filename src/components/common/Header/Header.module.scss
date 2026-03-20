@@ -39,7 +39,12 @@
       align-items: center;
       display: flex;
       gap: 12px;
+      min-height: 32px;
       position: relative;
+    }
+
+    .invisible {
+      visibility: hidden;
     }
 
     .logoutButton {

@@ -5,24 +5,30 @@
   .profileButton {
     background: transparent;
     position: relative;
-    top: 5px;
-    width: 100px;
+    width: auto;
 
     &:hover {
       background: transparent;
     }
 
     &.menuOpen {
-      img {
+      .profilePic {
         border-radius: 0;
       }
     }
+  }
 
-    img {
-      border-radius: 50%;
-      transition: 0.3s all;
-      width: 75px;
-    }
+  .profilePic,
+  .profilePicPlaceholder {
+    border-radius: 50%;
+    display: block;
+    height: 32px;
+    transition: 0.3s all;
+    width: 32px;
+  }
+
+  .profilePicPlaceholder {
+    background: transparent;
   }
 
   .menu {
@@ -32,7 +38,7 @@
     padding: 0 10px;
     position: absolute;
     right: 12px;
-    top: 85px;
+    top: 55px;
 
     .menuItem {
       margin: 10px auto;
@@ -46,22 +52,22 @@
 
   &.minimal {
     .menu {
-      top: 50px;
+      top: 45px;
     }
   }
 }
 
 @media screen and (max-width: $mobileWidth) {
   .profile {
-    .profileButton {
-      img {
-        width: 50px;
-      }
+    .profilePic,
+    .profilePicPlaceholder {
+      height: 24px;
+      width: 24px;
     }
 
     .menu {
       right: 25px;
-      top: 65px;
+      top: 45px;
     }
   }
 }
