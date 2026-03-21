@@ -3,7 +3,6 @@ import { useSpotifyStore } from '../../../stores/spotifyStore';
 import { useDevices, useTransferPlaybackMutation } from '../../../queries/spotify';
 import type { SpotifyDevice } from '../../../types';
 import Icon from '../../common/Icon/Icon';
-import styles from './Devices.module.scss';
 import { queryClient } from '../../../queryClient';
 import { spotifyKeys } from '../../../queries/keys';
 
@@ -21,8 +20,8 @@ const Devices = () => {
   const transferPlayback = useTransferPlaybackMutation();
 
   return (
-    <div className={styles.devices}>
-      <div className={styles.title}>Available Devices</div>
+    <div className="flex flex-col m-[25px] max-w-[300px] w-[90%]">
+      <div className="text-[1.1em] left-5 pb-[3px] relative underline">Available Devices</div>
       {Object.values(devices as SpotifyDevice[]).map((device: SpotifyDevice) => {
         const { id, is_active: isActive, is_restricted: isRestricted, name, type } = device;
 
@@ -30,7 +29,7 @@ const Devices = () => {
           !isRestricted && (
             <div
               key={id}
-              className={[styles.device, isActive ? styles.active : ''].join(' ')}
+              className={`flex items-center border-b border-transparent p-2.5 transition-all duration-300 select-none ${isActive ? 'text-peapod [&_svg]:fill-peapod' : 'hover:bg-gray-75 hover:cursor-pointer'}`}
               onClick={() => {
                 if (!isActive) {
                   transferPlayback.mutate(
@@ -46,7 +45,7 @@ const Devices = () => {
                 }
               }}
             >
-              <div className={styles.deviceType}>{getDeviceIcon[type] || <Icon name={'headphones'} />}</div>
+              <div className="w-[50px] [&_svg]:fill-white [&_svg]:h-5 [&_svg]:w-5">{getDeviceIcon[type] || <Icon name={'headphones'} />}</div>
               {name}
             </div>
           )

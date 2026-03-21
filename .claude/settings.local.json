@@ -10,7 +10,9 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(pnpm add:*)",
-      "Bash(pnpm remove:*)"
+      "Bash(pnpm remove:*)",
+      "Bash(find /Users/andrew/projects/peapod/src -name \"*.module.scss\" -delete)",
+      "Bash(find /Users/andrew/projects/peapod/src -name \"*.scss\" -delete)"
     ]
   }
 }

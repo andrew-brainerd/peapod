@@ -14,8 +14,6 @@ import SongSelection from '../../Spotify/SongSelection/SongSelection';
 import Player from '../../Spotify/Player/Player';
 import PodSidebar from './PodSidebar/PodSidebar';
 import InviteModal from './InviteModal/InviteModal';
-import styles from './Pod.module.scss';
-
 const Pod = () => {
   const { podId } = useParams({ strict: false }) as { podId: string };
   const accessToken = useSpotifyStore((state) => state.accessToken);
@@ -73,10 +71,10 @@ const Pod = () => {
   return (
     <>
       <Header isMinimal />
-      <div className={styles.pod}>
+      <div className="flex flex-col h-[calc(100vh-80px)] -mt-5 mx-auto max-w-[1100px] min-w-[375px] px-5 w-full">
         <PodHeader onInviteClick={() => setIsInviteOpen(true)} />
         <SongSelection />
-        <div className={styles.main}>
+        <div className="flex flex-1 min-h-0 mt-2.5 max-mobile:flex-col">
           <Player isPodOwner={isPodOwner} podId={podId} />
           <PodSidebar podId={podId} />
         </div>

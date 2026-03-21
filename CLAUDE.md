@@ -8,12 +8,12 @@ This repo is the React frontend. It communicates with a backend API (default `lo
 
 - **Framework**: React 19, TypeScript
 - **Build**: Vite 6, pnpm
-- **Routing**: TanStack Router (file-based route tree in `src/router.tsx`)
-- **State**: Redux Toolkit (auth, connection, sync, notifications) + TanStack React Query (server data)
+- **Routing**: TanStack Router (route tree in `src/router.tsx`)
+- **State**: Zustand (auth, connection, sync, notifications) + TanStack React Query (server data)
 - **Real-time**: Pusher.js (channel per pod, cluster us2)
-- **Styling**: SCSS with CSS Modules (`.module.scss`), design tokens in `src/styles/`
+- **Styling**: Tailwind CSS v4 (theme in `src/app.css`)
 - **Testing**: Vitest + React Testing Library
-- **Linting**: ESLint 9 (flat config), Stylelint, Prettier
+- **Linting**: ESLint 9 (flat config), Prettier
 
 ## Project Structure
 
@@ -22,20 +22,19 @@ src/
 ├── api/            # Fetch-based API clients (pods, spotify, sync, tools)
 ├── components/     # React components organized by feature
 │   ├── Home/       # Landing page
-│   ├── Pods/       # Pod list, individual pod, lobby, members, queue, history
+│   ├── Pods/       # Pod list, individual pod, members, queue, history, invites
 │   ├── Spotify/    # Player, search, auth, devices, profile, tracks
 │   └── common/     # Reusable UI (Button, Modal, Header, Icon, etc.)
-├── constants/      # App constants (pod view names)
+├── constants/      # App constants
 ├── hooks/          # Custom hooks (useDebounce, useInterval, useLocalStorage, etc.)
 ├── queries/        # React Query hooks and query key factories
 ├── selectors/      # Pure selector functions for derived state
-├── slices/         # Redux Toolkit slices (spotify, pods, sync, notify)
-├── store/          # Redux store configuration
-├── styles/         # Global SCSS variables (colors, fonts, sizing, mixins)
+├── stores/         # Zustand stores (spotify, pods, sync, notify)
 ├── utils/          # Helpers (spotify token management, pusher, validation)
 ├── types.ts        # Shared TypeScript types
 ├── router.tsx      # TanStack Router route tree
 ├── queryClient.ts  # React Query client config
+├── app.css         # Tailwind CSS entry + theme + base styles
 └── index.tsx       # App entry point
 ```
 
@@ -46,12 +45,8 @@ src/
 /spotify/auth            # Spotify OAuth callback
 /authenticated/          # Auth-guarded layout
   /pods                  # Pod list
-  /pods/$podId           # Pod detail layout
-    /                    # Pod lobby
-    /search              # Song search
-    /player              # Now playing
-    /queue               # Play queue
-    /history             # Play history
+  /pods/$podId           # Pod (unified: player, queue, search, history)
+  /invite/$podId         # Invite link handler
 ```
 
 ## Commands
@@ -61,15 +56,15 @@ src/
 - `pnpm test` — Run tests once
 - `pnpm test:watch` — Run tests in watch mode
 - `pnpm typecheck` — TypeScript type checking
-- `pnpm lint` — Run ESLint + Stylelint
+- `pnpm lint` — Run ESLint
 - `pnpm format` — Format with Prettier
 - `pnpm verify` — Lint + typecheck + test (full validation)
 
 ## Key Patterns
 
-- **Components** are functional with hooks, using CSS Modules for scoped styles
+- **Components** are functional with hooks, styled with Tailwind utility classes
 - **API layer** uses native Fetch; base URL from `VITE_PEAPOD_API_URL` env var
-- **Auth flow**: Spotify OAuth → tokens stored in Redux + localStorage → auto-refresh before expiry
+- **Auth flow**: Spotify OAuth → tokens stored in Zustand + localStorage → auto-refresh before expiry
 - **Real-time sync**: Pod owner's playback state is broadcast via Pusher to all connected clients
 - **Data fetching**: React Query with 30s staleTime; `useNowPlaying` and `usePod` poll every 5s
 - **Pod roles**: Owner controls playback; clients see synced state via Pusher events

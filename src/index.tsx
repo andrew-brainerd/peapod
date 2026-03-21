@@ -5,7 +5,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { router } from './router';
 import { queryClient } from './queryClient';
 import ReactModal from 'react-modal';
-import './index.scss';
+import './app.css';
 
 console.log(`%cPeapod App v${APP_VERSION}`, 'color: rgba(139, 196, 72, 1); font-size: 20px;');
 

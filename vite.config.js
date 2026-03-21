@@ -1,18 +1,12 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 import { version } from './package.json';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
   define: {
     APP_VERSION: JSON.stringify(version)
-  },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        silenceDeprecations: ['legacy-js-api']
-      }
-    }
   },
   server: {
     port: 3000,
@@ -30,11 +24,6 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: './src/setupTests.ts',
-    css: {
-      modules: {
-        classNameStrategy: 'non-scoped'
-      }
-    }
+    setupFiles: './src/setupTests.ts'
   }
 });

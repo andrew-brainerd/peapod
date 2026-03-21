@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "@tailwindcss/vite": "^4.2.2",
     "@tanstack/react-query": "^5.90.21",
     "@tanstack/react-router": "^1.163.3",
     "pusher-js": "^5.1.1",
@@ -12,6 +13,7 @@
     "react-dom": "^19.2.4",
     "react-modal": "^3.16.3",
     "react-svg": "^17.2.2",
+    "tailwindcss": "^4.2.2",
     "zustand": "^5.0.12"
   },
   "devDependencies": {
@@ -29,9 +31,6 @@
     "globals": "^16.0.0",
     "jsdom": "^28.1.0",
     "prettier": "^3.8.1",
-    "sass": "^1.80.0",
-    "stylelint": "^16.0.0",
-    "stylelint-config-standard-scss": "^14.0.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.56.1",
     "vite": "^6.0.0",
@@ -47,9 +46,8 @@
     "typecheck": "tsc --noEmit",
     "coverage": "vitest run --coverage",
     "lint:js": "eslint src/",
-    "lint:css": "stylelint \"**/*.scss\"",
-    "format": "prettier --write \"src/**/*.{ts,tsx,scss}\"",
-    "lint": "pnpm lint:js && pnpm lint:css",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
+    "lint": "pnpm lint:js",
     "verify": "pnpm lint && pnpm typecheck && pnpm test",
     "prepare": "git config core.hooksPath .githooks"
   },

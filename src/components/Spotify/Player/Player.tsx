@@ -4,7 +4,6 @@ import { useSyncStore } from '../../../stores/syncStore';
 import { useNowPlaying } from '../../../queries/spotify';
 import { useAddToHistoryMutation } from '../../../queries/pods';
 import { getIsPlaying, getNowPlayingItem, getTrackImages } from '../../../selectors/player';
-import styles from './Player.module.scss';
 import OwnerPlayer from './OwnerPlayer/OwnerPlayer';
 import ClientPlayer from './ClientPlayer/ClientPlayer';
 import type { NowPlaying } from '../../../types';
@@ -40,9 +39,9 @@ const Player = ({ isPodOwner, podId }: PlayerProps) => {
   }, [nowPlaying, isPodOwner, updateClients]);
 
   return (
-    <div className={styles.player}>
+    <div className="flex-1 min-w-0">
       {(isLoading && !nowPlaying?.item) || !accessToken ? (
-        <div className={styles.loading}>Loading Player...</div>
+        <div className="text-2xl mt-[30px] text-center">Loading Player...</div>
       ) : isPodOwner ? (
         <OwnerPlayer
           isPlaying={isPlaying}

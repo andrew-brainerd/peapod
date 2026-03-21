@@ -6,7 +6,6 @@ import { PODS_ROUTE } from '../../constants/routes';
 import Button from '../common/Button/Button';
 import Icon from '../common/Icon/Icon';
 import logo from '../../img/logo.png';
-import styles from './Home.module.scss';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -19,14 +18,14 @@ const Home = () => {
   }, [accessToken, navigate]);
 
   return (
-    <div className={styles.home}>
-      <div className={styles.branding}>
-        <img className={styles.logo} src={logo} alt="Peapod Logo" />
-        <h1 className={styles.title}>Peapod</h1>
+    <div className="flex items-center flex-col justify-center min-h-screen p-5">
+      <div className="flex items-center gap-5 mb-12 max-mobile:gap-3.5 max-mobile:mb-9">
+        <img className="h-[120px] w-[120px] max-mobile:h-12 max-mobile:w-12" src={logo} alt="Peapod Logo" />
+        <h1 className="text-peapod font-display text-5xl m-0 max-mobile:text-[2.2em]">Peapod</h1>
       </div>
-      <Button className={styles.loginButton} onClick={() => getAuth(PODS_ROUTE)}>
+      <Button className="flex items-center bg-secondary border-secondary-light text-text-primary gap-2.5 py-3.5 px-7 w-auto hover:bg-secondary-light [&_svg]:h-6 [&_svg]:w-6" onClick={() => getAuth(PODS_ROUTE)}>
         <Icon name={'spotify'} title={'Spotify Logo'} />
-        <span className={styles.loginButtonText}>Login with Spotify</span>
+        <span className="text-[1.1em]">Login with Spotify</span>
       </Button>
     </div>
   );

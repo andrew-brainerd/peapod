@@ -1,6 +1,5 @@
 import React from 'react';
 import Icon from '../../common/Icon/Icon';
-import styles from './Loading.module.scss';
 
 interface LoadingProps {
   title?: string;
@@ -11,7 +10,7 @@ interface LoadingProps {
 const Loading = ({ isActive = true, title = 'Loading...' }: LoadingProps) => {
   return (
     isActive && (
-      <div className={styles.loading}>
+      <div className="w-[150px]">
         <Icon name={'ripple-purple'} title={title} />
       </div>
     )

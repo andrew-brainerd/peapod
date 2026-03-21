@@ -3,7 +3,6 @@ import { useNavigate, useSearch } from '@tanstack/react-router';
 import { useSpotifyStore } from '../../../stores/spotifyStore';
 import { setLocalAuth, calculateExpireTime, getLocalReturnUri } from '../../../utils/spotify';
 import Loading from '../../common/Loading/Loading';
-import styles from './SpotifyAuth.module.scss';
 
 const SpotifyAuth = () => {
   const setAuth = useSpotifyStore((state) => state.setAuth);
@@ -29,7 +28,7 @@ const SpotifyAuth = () => {
   });
 
   return (
-    <div className={styles.spotifyAuth}>
+    <div className="m-[5px]">
       Authenticating with Spotify...
       <Loading altText="Authenticating with Spotify..." />
     </div>

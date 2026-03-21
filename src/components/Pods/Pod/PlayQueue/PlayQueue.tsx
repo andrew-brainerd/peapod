@@ -6,7 +6,6 @@ import { usePlayMutation } from '../../../../queries/spotify';
 import type { SpotifyTrack } from '../../../../types';
 import Button from '../../../common/Button/Button';
 import Track from '../../../Spotify/Track/Track';
-import styles from './PlayQueue.module.scss';
 
 interface PlayQueueProps {
   podId?: string;
@@ -24,18 +23,18 @@ const PlayQueue = ({ podId }: PlayQueueProps) => {
   const playUris = queue.map(({ uri }: SpotifyTrack) => uri);
 
   return (
-    <div className={styles.playQueue}>
+    <div className="m-5 overflow-y-auto">
       {isPodOwner && (
         <Button
-          className={styles.startButton}
+          className="ml-2.5"
           text={'Start Playing Queue'}
           onClick={() => playMutation.mutate({ uris: playUris })}
           disabled={!queue.length}
         />
       )}
-      <div className={styles.trackList}>
+      <div>
         {[...queue].reverse().map((track: SpotifyTrack, t: number) => (
-          <Track key={t} className={styles.track} {...track} />
+          <Track key={t} className="bg-gray-85 rounded-[5px] mx-auto my-2.5 p-[15px]" {...track} />
         ))}
       </div>
     </div>

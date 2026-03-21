@@ -9,12 +9,9 @@ import Pod from './components/Pods/Pod/Pod';
 import Invite from './components/Pods/Invite/Invite';
 import Button from './components/common/Button/Button';
 import Icon from './components/common/Icon/Icon';
-import styles from './components/App/App.module.scss';
-import spotifyStyles from './components/Spotify/Spotify.module.scss';
-
 // Root layout
 const RootLayout = () => (
-  <div className={styles.peapod}>
+  <div className="m-px overflow-hidden z-1">
     <Outlet />
   </div>
 );
@@ -33,9 +30,9 @@ const AuthenticatedLayout = () => {
 
   if (!hasAuth && pathname !== '/') {
     return (
-      <Button className={spotifyStyles.authButton} onClick={() => getAuth(pathname)}>
+      <Button className="mx-auto mt-[50px] p-5 w-[200px] [&_svg]:mx-auto [&_svg]:my-5 [&_svg]:w-[100px]" onClick={() => getAuth(pathname)}>
         <Icon name={'spotify'} title={'Spotify Logo'} />
-        <div className={spotifyStyles.authButtonText}>Spotify Login</div>
+        <div className="text-2xl m-5">Spotify Login</div>
       </Button>
     );
   }

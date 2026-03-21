@@ -4,7 +4,6 @@ import { useSpotifyStore } from '../../../stores/spotifyStore';
 import { useProfile } from '../../../queries/spotify';
 import { useAddMemberMutation } from '../../../queries/pods';
 import Loading from '../../common/Loading/Loading';
-import styles from './Invite.module.scss';
 
 const Invite = () => {
   const navigate = useNavigate();
@@ -30,7 +29,7 @@ const Invite = () => {
   }, [podId, profile]);
 
   return (
-    <div className={styles.invite}>
+    <div className="flex items-center text-text-primary flex-col text-[1.2em] gap-5 justify-center min-h-[50vh]">
       <Loading altText="Joining pod..." />
       <p>Joining pod...</p>
     </div>

@@ -1,6 +1,5 @@
 import React from 'react';
 import PageTitle from '../PageTitle/PageTitle';
-import styles from './PageHeader.module.scss';
 
 interface PageHeaderProps {
   children?: React.ReactNode;
@@ -9,9 +8,9 @@ interface PageHeaderProps {
 }
 
 const PageHeader = ({ children, subtitle, title }: PageHeaderProps) => (
-  <div className={styles.pageHeader}>
+  <div className="flex items-center mx-[50px] my-[5px]">
     <PageTitle text={title} subText={subtitle} />
-    <div className={styles.aside}>{children}</div>
+    <div className="flex ml-auto mr-[15px]">{children}</div>
   </div>
 );
 

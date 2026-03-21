@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from './PageTitle.module.scss';
 
 interface PageTitleProps {
   text: string;
@@ -8,8 +7,8 @@ interface PageTitleProps {
 
 const PageTitle = ({ text, subText }: PageTitleProps) => (
   <>
-    <h2 className={styles.title}>{text}</h2>
-    {subText && <h3 className={styles.subtitle}>{subText}</h3>}
+    <h2 className="cursor-default inline-block mt-[25px] mb-[25px] ml-5 mr-[15px]">{text}</h2>
+    {subText && <h3 className="text-peapod-secondary cursor-default inline-block text-[0.7em] align-baseline mt-[38px] max-mobile:hidden">{subText}</h3>}
   </>
 );
 

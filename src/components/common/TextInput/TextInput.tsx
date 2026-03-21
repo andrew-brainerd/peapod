@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import noop from '../../../utils/noop';
-import styles from './TextInput.module.scss';
 
 interface TextInputProps {
   placeholder?: string;
@@ -54,10 +53,10 @@ const TextInput = ({
   };
 
   return (
-    <div className={styles.textInputContainer}>
+    <div className="relative text-center">
       <input
         type={'text'}
-        className={[styles.textInput, inputClassName || ''].join(' ')}
+        className={`appearance-none bg-primary border border-transparent rounded-[5px] text-text-primary outline-none py-2.5 px-[5px] transition-[border] duration-200 focus:border-accent text-[1.5em] text-center ${inputClassName || ''}`}
         placeholder={placeholder || ''}
         ref={inputRef}
         value={val}
@@ -67,7 +66,7 @@ const TextInput = ({
         onFocus={onFocus || noop}
         onBlur={onBlur || noop}
       />
-      {inputError && <div className={styles.inputError}>{inputError}</div>}
+      {inputError && <div className="text-error italic my-[7px] mx-0 absolute bottom-[-25px] left-[5px] transition-all duration-500 ease-in-out">{inputError}</div>}
     </div>
   );
 };

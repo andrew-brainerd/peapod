@@ -1,6 +1,5 @@
 import React from 'react';
 import noop from '../../../utils/noop';
-import styles from './Button.module.scss';
 
 interface ButtonProps {
   children?: React.ReactNode;
@@ -12,7 +11,7 @@ interface ButtonProps {
 
 const Button = ({ children, className, disabled, onClick, text }: ButtonProps) => (
   <div
-    className={[styles.button, disabled ? styles.disabled : '', className].join(' ')}
+    className={`bg-btn rounded-[7px] text-text-primary cursor-pointer text-[0.9em] p-2.5 text-center w-[150px] select-none transition-[background,opacity] duration-150 ease-in-out ${disabled ? 'cursor-default opacity-50' : 'hover:bg-btn-hover active:opacity-80'} ${className || ''}`}
     onClick={!disabled ? onClick : noop}
   >
     {children || text}

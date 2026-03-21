@@ -6,7 +6,6 @@ import type { SpotifyTrack } from '../../../types';
 import Modal from '../../common/Modal/Modal';
 import Controls from '../Player/Controls/Controls';
 import Track from '../Track/Track';
-import styles from './TrackList.module.scss';
 
 interface TrackListProps {
   searchText?: string;
@@ -23,19 +22,18 @@ const TrackList = ({ searchText = '' }: TrackListProps) => {
   !!selectedTrack && console.log(selectedTrack);
 
   return isLoading || !accessToken ? (
-    <div className={styles.loading}>Loading Tracks...</div>
+    <div className="text-[1.5em] mt-[30px] text-center">Loading Tracks...</div>
   ) : (
     <>
-      <div className={styles.trackList}>
+      <div className="h-[97%] mx-auto my-[15px] max-w-[700px] overflow-y-auto w-[95%]">
         {(tracks as SpotifyTrack[])?.length > 0 && (
           <>
-            <div className={styles.list}>
-              <div className={styles.tracks}>
+            <div>
+              <div className="h-[85%] m-2.5 overflow-y-auto">
                 {[...new Map((tracks as SpotifyTrack[]).map((t: SpotifyTrack) => [t.name, t])).values()].map(
                   (track, t) => (
                     <Track
                       key={t}
-                      className={styles.track}
                       onClick={() => {
                         setSelectedTrack(track);
                         setIsModalOpen(true);
@@ -50,23 +48,23 @@ const TrackList = ({ searchText = '' }: TrackListProps) => {
         )}
       </div>
       <Modal
-        className={styles.trackModal}
+        className="!h-[200px]"
         isOpen={isModalOpen}
         closeModal={() => {
           setIsPlayingPreview(false);
           setIsModalOpen(false);
         }}
-        contentClassName={styles.trackModalContent}
+        contentClassName="!flex !justify-center"
       >
-        <div className={styles.viewTrack}>
-          <div className={styles.songName}>{(selectedTrack || ({} as SpotifyTrack)).name}</div>
+        <div className="text-[2em] w-[95%]">
+          <div className="text-peapod mx-auto mb-5 overflow-hidden text-center text-ellipsis select-none whitespace-nowrap w-[95%]">{(selectedTrack || ({} as SpotifyTrack)).name}</div>
           {isPlayingPreview && (
-            <div className={styles.preview}>
+            <div>
               <audio autoPlay src={(selectedTrack || ({} as SpotifyTrack)).preview_url || undefined} />
             </div>
           )}
           <Controls
-            className={styles.previewControls}
+            className="!flex !justify-center"
             isPlaying={isPlayingPreview}
             onPlay={() => setIsPlayingPreview(true)}
             onPause={() => setIsPlayingPreview(false)}

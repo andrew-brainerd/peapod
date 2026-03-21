@@ -4,8 +4,6 @@ import useInterval from '../../../../hooks/useInterval';
 import { formatTimer } from '../../../../utils/spotify';
 import { getTrackProgress, getTrackLength } from '../../../../selectors/player';
 import type { NowPlaying } from '../../../../types';
-import styles from './TrackProgress.module.scss';
-
 interface TrackProgressProps {
   nowPlaying?: NowPlaying;
 }
@@ -30,9 +28,9 @@ const TrackProgress = ({ nowPlaying = {} }: TrackProgressProps) => {
   }, 1000);
 
   return (
-    <div className={styles.trackProgress}>
-      <div className={styles.time}>{formatTimer(timerMs)}</div>/
-      <div className={styles.time}>{formatTimer(durationMs)}</div>
+    <div className="flex flex-row my-2.5">
+      <div className="text-[0.8em] mx-[5px] my-[3px] text-center">{formatTimer(timerMs)}</div>/
+      <div className="text-[0.8em] mx-[5px] my-[3px] text-center">{formatTimer(durationMs)}</div>
     </div>
   );
 };

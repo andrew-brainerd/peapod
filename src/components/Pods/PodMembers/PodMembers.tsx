@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from './PodMembers.module.scss';
 
 interface PodMember {
   name: string;
@@ -12,8 +11,8 @@ interface PodMembersProps {
 const PodMembers = ({ members = [] }: PodMembersProps) => {
   return (
     <>
-      <div className={styles.header}>Members</div>
-      <div className={styles.podMembers}>
+      <div className="text-[18px]">Members</div>
+      <div className="text-[16px] h-[210px] mx-auto my-2.5">
         {members.map(({ name }, m) => (
           <div key={m}>{name}</div>
         ))}

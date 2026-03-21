@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from './Attribution.module.scss';
 
 /*
 
@@ -21,11 +20,11 @@ const iconCreators = [
 
 const Attribution = () => {
   return (
-    <div className={styles.attribution}>
+    <div>
       <h2>Icons Made By</h2>
       {iconCreators.map(({ authorLink, authorName }) => {
         return (
-          <div key={authorName} className={styles.author}>
+          <div key={authorName} className="m-0">
             <a href={authorLink} title={authorName}>
               {authorName}
             </a>{' '}

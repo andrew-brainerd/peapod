@@ -2,8 +2,6 @@ import React, { useState, useRef } from 'react';
 import useOnClickOutside from '../../../hooks/useOnClickOutside';
 import SearchBar from '../SearchBar/SearchBar';
 import TrackList from '../TrackList/TrackList';
-import styles from './SongSelection.module.scss';
-
 const SongSelection = () => {
   const [searchText, setSearchText] = useState('');
   const [isResultsOpen, setIsResultsOpen] = useState(false);
@@ -12,7 +10,7 @@ const SongSelection = () => {
   useOnClickOutside(containerRef, () => setIsResultsOpen(false));
 
   return (
-    <div ref={containerRef} className={styles.songSelection}>
+    <div ref={containerRef} className="relative">
       <SearchBar
         searchText={searchText}
         onSearchTextChange={(text) => {
@@ -21,7 +19,7 @@ const SongSelection = () => {
         }}
       />
       {isResultsOpen && searchText && (
-        <div className={styles.resultsOverlay}>
+        <div className="bg-primary border border-gray-75 rounded-[5px] left-0 max-h-[400px] overflow-y-auto absolute right-0 top-full z-10">
           <TrackList searchText={searchText} />
         </div>
       )}

@@ -2,7 +2,6 @@ import React from 'react';
 import { isMobile } from 'react-device-detect';
 import type { Artist } from '../../../types';
 import noop from '../../../utils/noop';
-import styles from './Track.module.scss';
 
 interface TrackProps {
   className?: string;
@@ -19,16 +18,11 @@ const Track = ({ className, name, artists, onClick }: TrackProps) => {
 
   return (
     <div
-      className={[
-        styles.track,
-        onClick ? styles.hasAction : '',
-        isMobile ? styles.isMobile : '',
-        className || ''
-      ].join(' ')}
+      className={`text-[2em] py-[13px] text-left transition-all duration-300 select-none ${onClick ? 'cursor-pointer' : ''} ${!isMobile ? 'hover:pl-[15px]' : ''} ${className || ''}`}
       onClick={onClick || noop}
     >
-      <span className={styles.name}>{name}</span>
-      <span className={styles.artist}>{artist}</span>
+      <span className="mr-2.5">{name}</span>
+      <span className="text-[0.5em] opacity-70">{artist}</span>
     </div>
   );
 };

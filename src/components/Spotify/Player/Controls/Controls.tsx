@@ -5,7 +5,6 @@ import { useAddToQueueMutation } from '../../../../queries/pods';
 import noop from '../../../../utils/noop';
 import Icon from '../../../common/Icon/Icon';
 import type { SpotifyTrack, ControlsOptions } from '../../../../types';
-import styles from './Controls.module.scss';
 
 interface ControlsProps {
   className?: string;
@@ -33,7 +32,7 @@ const Controls = ({
   const { canPlay = true, canPause = true, canQueue } = options || {};
 
   return (
-    <div className={[styles.controls, className].join(' ')}>
+    <div className={`flex bg-btn rounded-[15px] justify-center mx-auto w-[200px] [&_svg]:cursor-pointer [&_svg]:fill-text-primary [&_svg]:h-[50px] [&_svg]:m-2.5 [&_svg]:transition-[fill] [&_svg]:duration-300 [&_svg]:w-[30px] [&_svg:hover]:fill-peapod ${className || ''}`}>
       {isPlaying
         ? canPause && <Icon name={'pause'} onClick={onPause || (() => pauseMutation.mutate())} />
         : canPlay && <Icon name={'play'} onClick={onPlay || (() => playMutation.mutate(undefined))} />}
