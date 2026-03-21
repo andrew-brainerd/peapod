@@ -1,13 +1,25 @@
-@use '../../../styles/mixins.scss' as *;
 @use '../../../styles/sizing.scss' as *;
 
 .pod {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 80px);
   margin: -20px auto 0;
+  max-width: 1100px;
   min-width: 375px;
-  max-width: 850px;
-  width: 90%;
+  padding: 0 20px;
+  width: 100%;
+}
 
-  .content {
-    height: calc(90% - #{$headerHeight});
+.main {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  margin-top: 10px;
+}
+
+@media screen and (max-width: $mobileWidth) {
+  .main {
+    flex-direction: column;
   }
 }

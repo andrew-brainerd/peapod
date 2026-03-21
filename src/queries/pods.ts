@@ -60,11 +60,6 @@ export const useAddToHistoryMutation = (podId: string | undefined) =>
     }
   });
 
-export const useLaunchPodMutation = () =>
-  useMutation({
-    mutationFn: (podId: string) => podsApi.launchPod(podId)
-  });
-
 export const useConnectToPodMutation = () =>
   useMutation({
     mutationFn: ({ podId, user }: { podId: string; user: SpotifyProfile }) =>

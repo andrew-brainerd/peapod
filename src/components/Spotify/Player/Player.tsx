@@ -10,13 +10,11 @@ import ClientPlayer from './ClientPlayer/ClientPlayer';
 import type { NowPlaying } from '../../../types';
 
 interface PlayerProps {
-  isVisible?: boolean;
-  height?: number;
   isPodOwner: boolean;
   podId?: string;
 }
 
-const Player = ({ isVisible = false, height = 0, isPodOwner, podId }: PlayerProps) => {
+const Player = ({ isPodOwner, podId }: PlayerProps) => {
   const accessToken = useSpotifyStore((state) => state.accessToken);
   const updateClients = useSyncStore((state) => state.updateClients);
   const { data: nowPlaying = {} as NowPlaying, isLoading } = useNowPlaying(accessToken, isPodOwner);
@@ -41,16 +39,12 @@ const Player = ({ isVisible = false, height = 0, isPodOwner, podId }: PlayerProp
     }
   }, [nowPlaying, isPodOwner, updateClients]);
 
-  const PLAYER_PADDING = 200;
-  const playerHeight = height - PLAYER_PADDING;
-
   return (
-    <div className={[styles.player, !isVisible ? styles.hidden : ''].join(' ')}>
+    <div className={styles.player}>
       {(isLoading && !nowPlaying?.item) || !accessToken ? (
         <div className={styles.loading}>Loading Player...</div>
       ) : isPodOwner ? (
         <OwnerPlayer
-          height={playerHeight}
           isPlaying={isPlaying}
           trackName={name}
           nowPlaying={nowPlaying}

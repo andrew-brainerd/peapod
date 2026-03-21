@@ -2,11 +2,9 @@ import React, { useEffect } from 'react';
 import { createRootRoute, createRoute, createRouter, Outlet, useLocation } from '@tanstack/react-router';
 import { useSpotifyStore } from './stores/spotifyStore';
 import { getAuth } from './api/spotify';
-import { SEARCH, NOW_PLAYING, PLAY_QUEUE, PLAY_HISTORY } from './constants/pods';
 import Home from './components/Home/Home';
 import SpotifyAuth from './components/Spotify/SpotifyAuth/SpotifyAuth';
 import Pods from './components/Pods/Pods';
-import PodLobby from './components/Pods/PodLobby/PodLobby';
 import Pod from './components/Pods/Pod/Pod';
 import Invite from './components/Pods/Invite/Invite';
 import Button from './components/common/Button/Button';
@@ -85,40 +83,10 @@ const podsRoute = createRoute({
   component: Pods
 });
 
-const podLayoutRoute = createRoute({
+const podRoute = createRoute({
   getParentRoute: () => authenticatedRoute,
   path: '/pods/$podId',
-  component: () => <Outlet />
-});
-
-const podLobbyRoute = createRoute({
-  getParentRoute: () => podLayoutRoute,
-  path: '/',
-  component: PodLobby
-});
-
-const podSearchRoute = createRoute({
-  getParentRoute: () => podLayoutRoute,
-  path: '/search',
-  component: () => <Pod view={SEARCH} />
-});
-
-const podPlayerRoute = createRoute({
-  getParentRoute: () => podLayoutRoute,
-  path: '/player',
-  component: () => <Pod view={NOW_PLAYING} />
-});
-
-const podQueueRoute = createRoute({
-  getParentRoute: () => podLayoutRoute,
-  path: '/queue',
-  component: () => <Pod view={PLAY_QUEUE} />
-});
-
-const podHistoryRoute = createRoute({
-  getParentRoute: () => podLayoutRoute,
-  path: '/history',
-  component: () => <Pod view={PLAY_HISTORY} />
+  component: Pod
 });
 
 // Route tree
@@ -128,13 +96,7 @@ const routeTree = rootRoute.addChildren([
   authenticatedRoute.addChildren([
     inviteRoute,
     podsRoute,
-    podLayoutRoute.addChildren([
-      podLobbyRoute,
-      podSearchRoute,
-      podPlayerRoute,
-      podQueueRoute,
-      podHistoryRoute
-    ])
+    podRoute
   ])
 ]);
 

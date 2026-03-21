@@ -1,18 +1,19 @@
 import React from 'react';
-import PodViewSelector from '../PodViewSelector/PodViewSelector';
+import Button from '../../../common/Button/Button';
+import Icon from '../../../common/Icon/Icon';
 import styles from './PodHeader.module.scss';
 
 interface PodHeaderProps {
-  podId?: string;
-  podName?: string;
-  userId?: string;
-  view?: string;
+  onInviteClick: () => void;
 }
 
-const PodHeader = ({ podId, view }: PodHeaderProps) => {
+const PodHeader = ({ onInviteClick }: PodHeaderProps) => {
   return (
     <div className={styles.podHeader}>
-      <PodViewSelector className={styles.viewSelector} podId={podId} selectedView={view!} />
+      <Button className={styles.inviteButton} onClick={onInviteClick}>
+        <Icon name={'invite'} title={'Invite People'} />
+        <span className={styles.inviteLabel}>Invite</span>
+      </Button>
     </div>
   );
 };

@@ -7,16 +7,15 @@ import type { NowPlaying } from '../../../../types';
 import styles from './OwnerPlayer.module.scss';
 
 interface OwnerPlayerProps {
-  height?: number;
   isPlaying?: boolean;
   trackName?: string;
   nowPlaying?: NowPlaying;
   albumArt?: string;
 }
 
-const OwnerPlayer = ({ height, isPlaying, trackName, nowPlaying, albumArt }: OwnerPlayerProps) => {
+const OwnerPlayer = ({ isPlaying, trackName, nowPlaying, albumArt }: OwnerPlayerProps) => {
   return (
-    <div className={styles.ownerPlayer} style={{ height }}>
+    <div className={styles.ownerPlayer}>
       {isPlaying ? (
         <div className={styles.nowPlaying}>
           <div className={styles.trackInfo}>

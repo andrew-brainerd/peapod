@@ -9,25 +9,22 @@ import Track from '../../../Spotify/Track/Track';
 import styles from './PlayQueue.module.scss';
 
 interface PlayQueueProps {
-  height?: number;
-  currentTrack?: SpotifyTrack;
   podId?: string;
 }
 
-const PlayQueue = ({ height = 0, currentTrack, podId }: PlayQueueProps) => {
+const PlayQueue = ({ podId }: PlayQueueProps) => {
   const accessToken = useSpotifyStore((state) => state.accessToken);
   const { data: profile } = useProfile(accessToken);
   const userId = profile?.id;
   const { data: pod } = usePod(podId);
   const playMutation = usePlayMutation();
-  const PLAYLIST_PADDING = 200;
 
   const queue = pod?.queue ?? [];
   const isPodOwner = !!pod?.createdBy && !!userId && pod.createdBy.id === userId;
   const playUris = queue.map(({ uri }: SpotifyTrack) => uri);
 
   return (
-    <div className={styles.playQueue} style={{ height: height - PLAYLIST_PADDING }}>
+    <div className={styles.playQueue}>
       {isPodOwner && (
         <Button
           className={styles.startButton}
@@ -37,13 +34,9 @@ const PlayQueue = ({ height = 0, currentTrack, podId }: PlayQueueProps) => {
         />
       )}
       <div className={styles.trackList}>
-        {[...queue].reverse().map((track: SpotifyTrack, t: number) => {
-          return (
-            (currentTrack || ({} as SpotifyTrack)).name !== track.name && (
-              <Track key={t} className={styles.track} {...track} />
-            )
-          );
-        })}
+        {[...queue].reverse().map((track: SpotifyTrack, t: number) => (
+          <Track key={t} className={styles.track} {...track} />
+        ))}
       </div>
     </div>
   );

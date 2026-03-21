@@ -1,14 +1,36 @@
 @use '../../../../styles/colors.scss' as *;
-@use '../../../../styles/sizing.scss' as *;
 
 .podHeader {
   display: flex;
-  justify-content: space-between;
-  position: relative;
+  justify-content: flex-end;
+  padding: 5px 0;
 }
 
-@media screen and (max-width: $mobileWidth) {
-  .podHeader {
-    flex-direction: column;
+.inviteButton {
+  align-items: center;
+  background: transparent;
+  display: flex;
+  gap: 6px;
+  padding: 6px 12px;
+  width: auto;
+
+  &:hover {
+    background: transparent;
+    color: $peapod;
+
+    svg {
+      fill: $peapod;
+    }
   }
+
+  svg {
+    fill: $primaryTextColor;
+    height: 18px;
+    transition: 0.2s fill;
+    width: 18px;
+  }
+}
+
+.inviteLabel {
+  font-size: 0.85em;
 }
